@@ -14,7 +14,6 @@ CREATE TABLE Roles (
     Account_Status NVARCHAR(50)
 );
 
-
 -- Table Admin
 CREATE TABLE Admins (
     Admin_ID INT PRIMARY KEY IDENTITY(1,1),
@@ -57,6 +56,7 @@ CREATE TABLE Staffs (
     Updated_At DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (Role_ID) REFERENCES Roles(Role_ID)
 );
+
 -- Table Categories
 CREATE TABLE Categories (
     Category_ID INT PRIMARY KEY IDENTITY(1,1),
@@ -74,7 +74,6 @@ CREATE TABLE Products (
     Product_Quantity INT CHECK (Product_Quantity >= 0),
     Product_Price DECIMAL(18, 2),
     Product_Description NVARCHAR(255),
-    Product_Image NVARCHAR(255),
     Created_At DATETIME DEFAULT GETDATE(),
     Updated_At DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (Category_ID) REFERENCES Categories(Category_ID)
@@ -167,4 +166,12 @@ CREATE TABLE Shipping (
     Updated_At DATETIME DEFAULT GETDATE(),
     FOREIGN KEY (Staff_ID) REFERENCES Staffs(Staff_ID),
     FOREIGN KEY (OrderDetail_ID) REFERENCES Order_Details(OrderDetail_ID)
+);
+
+-- Table Image_Product
+CREATE TABLE Image_Product (
+    Image_ID INT PRIMARY KEY IDENTITY(1,1),
+    Product_ID INT,
+    Image_URL NVARCHAR(255),
+    FOREIGN KEY (Product_ID) REFERENCES Products(Product_ID)
 );
