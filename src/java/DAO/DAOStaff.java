@@ -197,10 +197,10 @@ public class DAOStaff extends DBContext {
 
         // Create a new Staff object
 //        Staff newStaff = new Staff();
-//        newStaff.setStaff_Email("xuankhanh036@gmail.com");
-//        newStaff.setStaff_Password("1234");
-//        newStaff.setStaff_Address("123 Main St, Cityville");
-//        newStaff.setStaff_PhoneNum("555-1234");
+//        newStaff.setStaff_Email("xuankhanh03642@gmail.com");
+//        newStaff.setStaff_Password("123456");
+//        newStaff.setStaff_Address("12345 Main St, Cityville");
+//        newStaff.setStaff_PhoneNum("555-1234567");
 //        newStaff.setStaff_Gender("Male");
 //        newStaff.setRole_ID(4); // Replace with the desired role ID
 //        newStaff.setCreated_At(LocalDateTime.now());

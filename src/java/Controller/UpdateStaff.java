@@ -34,7 +34,7 @@ public class UpdateStaff extends HttpServlet {
                     String phone = request.getParameter("phone");
                     String gender = request.getParameter("gender");
                     int roleID = Integer.parseInt(request.getParameter("Role"));
-                    LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdD"));
+                    LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdAt"));
                     LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
 
                     // Debugging information

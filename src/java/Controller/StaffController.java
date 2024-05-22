@@ -4,6 +4,7 @@
  */
 package Controller;
 
+import DAO.DAOCustomer;
 import DAO.DAOProducts;
 import DAO.DAOStaff;
 import java.io.IOException;
@@ -18,6 +19,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 import model.Product;
 import model.Staff;
+import model.User_Account;
 
 /**
  *
@@ -57,7 +59,7 @@ public class StaffController extends HttpServlet {
                     String phone = request.getParameter("phone");
                     String gender = request.getParameter("gender");
                     int roleID = Integer.parseInt(request.getParameter("Role"));
-                    LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdD"));
+                    LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdAt"));
                     LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
 
                     // Debugging information
@@ -90,6 +92,20 @@ public class StaffController extends HttpServlet {
                 dao.deleteAccount(id);
                 response.sendRedirect("StaffURL");
             }
+        }
+    }
+
+    public static void main(String[] args) {
+        // Create an instance of DAOCustomer
+        DAOStaff dao = new DAOStaff();
+
+        // Retrieve all user accounts from the database
+        List<Staff> accounts = dao.getAllAccount();
+
+        // Print the retrieved user accounts
+        System.out.println("Retrieved User Accounts:");
+        for (Staff s : accounts) {
+            System.out.println(s);
         }
     }
 

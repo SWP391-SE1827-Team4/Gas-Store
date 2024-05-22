@@ -191,7 +191,7 @@
                     </div>
                     <div class="form-group col-md-3">
                         <label class="control-label">Ngày tạo</label>
-                        <input class="form-control" type="datetime-local" name="createdD" required>
+                        <input class="form-control" type="datetime-local" name="createdAt" required>
                     </div>
                     <div class="form-group col-md-3">
                         <label class="control-label">Ngày cập nhật</label>
