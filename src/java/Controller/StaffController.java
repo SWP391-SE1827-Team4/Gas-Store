@@ -82,9 +82,27 @@ public class StaffController extends HttpServlet {
                     }
                 }
             }
+            if ("updateStaff".equals(service)) {
+                if (submit == null) {
+                    // Show form for updating staff
+                    String staffID = request.getParameter("sid");
+                    Staff staff = dao.getStaffById(Integer.parseInt(staffID));
+                    request.setAttribute("staff", staff);
+                    request.getRequestDispatcher("updateStaff.jsp").forward(request, response);
+                } else {
+                    // Process form submission to update staff
+                    int staffID = Integer.parseInt(request.getParameter("StaffID"));
+                    String staffEmail = request.getParameter("StaffEmail");
+                    String staffPassword = request.getParameter("StaffPassword");
+                    String staffAddress = request.getParameter("StaffAddress");
+                    String staffPhoneNum = request.getParameter("StaffPhoneNum");
+                    String gender = request.getParameter("gender");
+                    LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
 
-            if ("updateProduct".equals(service)) {
-                response.sendRedirect("UpdateAccount.jsp");
+                    Staff staff = new Staff(staffID, staffEmail, staffPassword, staffAddress, staffPhoneNum, gender, updatedAt);
+                    dao.updateAccountStaff1(staff);
+                    response.sendRedirect("StaffURL");
+                }
             }
 
             if ("deleteStaff".equals(service)) {

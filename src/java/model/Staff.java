@@ -51,6 +51,10 @@ public class Staff {
         this.updated_At = updated_At;
     }
 
+    public Staff(int staffID, String staffEmail, String staffPassword, String staffAddress, String staffPhoneNum, String gender, LocalDateTime updatedAt) {
+        throw new UnsupportedOperationException("Not supported yet."); // Generated from nbfs://nbhost/SystemFileSystem/Templates/Classes/Code/GeneratedMethodBody
+    }
+
     public int getStaffID() {
         return StaffID;
     }

@@ -8,11 +8,14 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Vector;
 import model.Staff;
 
-//@WebServlet(name = "UpdateStaff", urlPatterns = {"/updateS"})
+@WebServlet(name = "UpdateStaff", urlPatterns = {"/updateS"})
 public class UpdateStaff extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
@@ -37,16 +40,6 @@ public class UpdateStaff extends HttpServlet {
                     LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdAt"));
                     LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
 
-                    // Debugging information
-                    System.out.println("Email: " + email);
-                    System.out.println("Pass: " + pass);
-                    System.out.println("Address: " + address);
-                    System.out.println("Phone: " + phone);
-                    System.out.println("Gender: " + gender);
-                    System.out.println("RoleID: " + roleID);
-                    System.out.println("CreatedAt: " + createdAt);
-                    System.out.println("UpdatedAt: " + updatedAt);
-
                     Staff s = new Staff(0, email, pass, address, phone, gender, roleID, createdAt, updatedAt);
                     int success = dao.insertStaff(s);
 
@@ -58,8 +51,27 @@ public class UpdateStaff extends HttpServlet {
                 }
             }
 
-            if ("updateProduct".equals(service)) {
-                response.sendRedirect("UpdateAccount.jsp");
+            if ("updateStaff".equals(service)) {
+                if (submit == null) {
+                    // Show form for updating staff
+                    String staffID = request.getParameter("sid");
+                    Staff staff = dao.getStaffById(Integer.parseInt(staffID));
+                    request.setAttribute("staff", staff);
+                    request.getRequestDispatcher("updateStaff.jsp").forward(request, response);
+                } else {
+                    // Process form submission to update staff
+                    int staffID = Integer.parseInt(request.getParameter("StaffID"));
+                    String staffEmail = request.getParameter("StaffEmail");
+                    String staffPassword = request.getParameter("StaffPassword");
+                    String staffAddress = request.getParameter("StaffAddress");
+                    String staffPhoneNum = request.getParameter("StaffPhoneNum");
+                    String gender = request.getParameter("gender");
+                    LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
+
+                    Staff staff = new Staff(staffID, staffEmail, staffPassword, staffAddress, staffPhoneNum, gender, staffID, updatedAt, updatedAt);
+                    dao.updateAccountStaff1(staff);
+                    response.sendRedirect("StaffURL");
+                }
             }
 
             if ("deleteStaff".equals(service)) {
@@ -68,6 +80,7 @@ public class UpdateStaff extends HttpServlet {
                 response.sendRedirect("StaffURL");
             }
         }
+
     }
 
     @Override

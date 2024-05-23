@@ -75,7 +75,7 @@ public class UpdateCustomer extends HttpServlet {
             }
 
             if ("updateCustomer".equals(service)) {
-                response.sendRedirect("UpdateAccount.jsp");
+                response.sendRedirect("updateCustomer.jsp");
             }
 
             if ("deleteCustomer".equals(service)) {

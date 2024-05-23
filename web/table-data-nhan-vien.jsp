@@ -156,9 +156,9 @@
                                             <td>${s.staff_PhoneNum}</td>
                                             <td>${s.staff_Gender}</td>
                                             <td>${s.created_At}</td>
-                                            
+
                                             <td>
-                                                <a href="updateS?service=updateAccount&sid=${s.staffID}" class="btn btn-primary btn-sm">
+                                                <a href="updateS?service=updateStaff&sid=${s.staffID}" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Update
                                                 </a>
                                                 <a href="updateS?service=deleteStaff&sid=${s.staffID}" class="btn btn-danger btn-sm" 

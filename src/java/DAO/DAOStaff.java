@@ -8,6 +8,7 @@ import dal.DBContext;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -17,6 +18,8 @@ import java.util.logging.Logger;
 import model.Product;
 import model.Staff;
 import java.sql.Timestamp;
+import java.util.Vector;
+
 /**
  *
  * @author xuank
@@ -87,6 +90,38 @@ public class DAOStaff extends DBContext {
 //        }
 //        return null;
 //    }
+    public Vector<Staff> getStaffs(String sql) {
+        Vector<Staff> vector = new Vector<>();
+        try {
+
+            //statement : send sql command and get result 
+            Statement s = connection.createStatement(ResultSet.TYPE_SCROLL_SENSITIVE, ResultSet.CONCUR_UPDATABLE);
+            ResultSet rs = s.executeQuery(sql);
+            while (rs.next()) {
+                int StaffID = rs.getInt(1);
+//            int ProductID = rs.getInt(
+//            "ProductID);
+                String StaffEmail = rs.getString(2);
+//            String ProductName = rs.getString("ProductName");
+                String StaffPass = rs.getString(3);
+                String StaffAddress = rs.getString(4);
+                String StaffPhone = rs.getString(5);
+                String StaffGender = rs.getString(6);
+                int RoleID = rs.getInt(7);
+                LocalDateTime CreatedAt = (LocalDateTime) rs.getObject(8);
+                LocalDateTime UpdatedAt = (LocalDateTime) rs.getObject(9);
+
+                Staff st = new Staff(StaffID, StaffEmail, StaffPass, StaffAddress, StaffPhone, StaffGender, RoleID, CreatedAt, UpdatedAt);
+                vector.add(st);
+
+            }
+
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+        return vector;
+    }
+
     public Staff checkAccountExist(String user) {
         try {
             String sql = "SELECT * FROM Staffs where [Name] = ?";
@@ -114,7 +149,7 @@ public class DAOStaff extends DBContext {
 
     public int insertStaff(Staff s) {
         String sql = "INSERT INTO [dbo].[Staffs] ([Staff_Email], [Staff_Password], [Staff_Address], [Staff_PhoneNum], [Staff_Gender], [Role_ID], [Created_At], [Updated_At]) VALUES (?, CONVERT(VARBINARY(MAX), ?), ?, ?, ?, ?, ?, ?)";
-        
+
         try (PreparedStatement stm = connection.prepareStatement(sql)) {
             stm.setString(1, s.getStaff_Email());
             stm.setString(2, s.getStaff_Password());
@@ -131,55 +166,95 @@ public class DAOStaff extends DBContext {
         return 0;
     }
 
-//    public Staff getAccountById(int accountId) {
-//        try {
-//            String sql = "select *  from Staff where StaffID = ?";
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//            stm.setInt(1, accountId);
-//            ResultSet rs = stm.executeQuery();
-//            while (rs.next()) {
-//                Staff s = new Staff();
-//                s.setStaffID(rs.getInt(1));
-//                s.setAccountID(2);
-//                s.setName(rs.getString(3));
-//                s.setEmail(rs.getString(4));
-//                s.setGender(rs.getString(5));
-//                s.setAddress(rs.getString(6));
-//                s.setPhone(rs.getString(7));
-//                s.setPosition(rs.getString(8));
-//                return s;
-//            }
-//        } catch (Exception ex) {
-//            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return null;
-//    }
-//    public void updateAccountStaff(Staff s) {
-//
-//        try {
-//            String sql = "UPDATE [dbo].[Staff]\n"
-//                    + "   SET [AccountID] = ?\n"
-//                    + "      ,[Name] = ?\n"
-//                    + "      ,[Email] = ?\n"
-//                    + "      ,[Gender] = ?\n"
-//                    + "      ,[Address] = ?\n"
-//                    + "      ,[Phone] = ?\n"
-//                    + "      ,[Position] = ?\n"
-//                    + " WHERE StaffID = ?";
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//            stm.setInt(1, s.getAccountID());
-//            stm.setString(2, s.getName());
-//            stm.setString(3, s.getEmail());
-//            stm.setString(4, s.getGender());
-//            stm.setString(5, s.getAddress());
-//            stm.setString(6, s.getPhone());
-//            stm.setString(7, s.getPosition());
-//            stm.executeUpdate();
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//
-//    }
+    public Staff getStaffById(int staffID) {
+        try {
+            String sql = "SELECT * FROM Staffs WHERE Staff_ID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, staffID);
+            ResultSet rs = stm.executeQuery();
+
+            // Check if the ResultSet has any records
+            if (rs.next()) {
+                // Create a new Staff object
+                Staff staff = new Staff();
+
+                // Set properties of the Staff object from ResultSet
+                staff.setStaffID(rs.getInt(1));
+                staff.setStaff_Email(rs.getString(2));
+                staff.setStaff_Password(rs.getString(3));
+                staff.setStaff_Address(rs.getString(4));
+                staff.setStaff_PhoneNum(rs.getString(5));
+                staff.setStaff_Gender(rs.getString(6));
+                staff.setRole_ID(rs.getInt(7));
+                staff.setCreated_At(rs.getTimestamp(8).toLocalDateTime());
+                staff.setUpdated_At(rs.getTimestamp(9).toLocalDateTime());
+
+                // Return the Staff object
+                return staff;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // Return null if no record found or error occurred
+        return null;
+    }
+
+    public void updateAccountStaff(Staff s) {
+
+        try {
+            String sql = "UPDATE [dbo].[Staffs]\n"
+                    + "   SET [Staff_Email] = ?\n"
+                    + "      ,[Staff_Password] = CONVERT(varbinary(64), ?)\n"
+                    + "      ,[Staff_Address] = ?\n"
+                    + "      ,[Staff_PhoneNum] = ?\n"
+                    + "      ,[Staff_Gender] = ?\n"
+                    + "      ,[Role_ID] = ?\n"
+                    + "      ,[Created_At] = ?\n"
+                    + "      ,[Updated_At] = ?\n"
+                    + " WHERE Staff_ID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, s.getStaff_Email());
+            stm.setString(2, s.getStaff_Password());
+            stm.setString(3, s.getStaff_Address());
+            stm.setString(4, s.getStaff_PhoneNum());
+            stm.setString(5, s.getStaff_Gender());
+            stm.setInt(6, s.getRole_ID());
+            stm.setObject(7, s.getCreated_At());
+            stm.setObject(8, s.getUpdated_At());
+            stm.setInt(9, s.getStaffID());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void updateAccountStaff1(Staff s) {
+
+        try {
+            String sql = "UPDATE [dbo].[Staffs]\n"
+                    + "   SET [Staff_Email] = ?\n"
+                    + "      ,[Staff_Password] = CONVERT(varbinary(64), ?)\n"
+                    + "      ,[Staff_Address] = ?\n"
+                    + "      ,[Staff_PhoneNum] = ?\n"
+                    + "      ,[Staff_Gender] = ?\n"
+                    + "      ,[Updated_At] = ?\n"
+                    + " WHERE Staff_ID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, s.getStaff_Email());
+            stm.setString(2, s.getStaff_Password());
+            stm.setString(3, s.getStaff_Address());
+            stm.setString(4, s.getStaff_PhoneNum());
+            stm.setString(5, s.getStaff_Gender());
+            stm.setObject(6, s.getUpdated_At());
+            stm.setInt(7, s.getStaffID());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public void deleteAccount(int sid) {
         try {
             String sql = "DELETE FROM [Staffs]\n"
