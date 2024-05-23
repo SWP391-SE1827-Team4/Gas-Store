@@ -136,26 +136,22 @@
                                         <th>ID Đơn Hàng</th>
                                         <th>ID Sản Phẩm</th>
                                         <th>Số Lượng</th>
-                                        <th>Phương thức thanh toán</th>
-                                        <th>Ngày Order</th>
-                                        <th>Tình trạng</th>
-                                        <th>Tổng tiền</th>
-                                        <th>Áp Dũng Mã ?</th>
+                                        <th>Tổng thanh toán</th>
+                                        <th>Tình trạng</th> 
+                                        <th>Ngày Tạo</th>
                                         <th>Tính năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     <c:forEach  items="${cd}" var="cd">
                                         <tr>
-                                            <td>${cd.getDetailID()}</td>
-                                            <td>${cd.getCartID()}</td>
+                                            <td>${cd.getOrderDetail_ID()}</td>
+                                            <td>${cd.getOrderID()}</td>
                                             <td>${cd.getProductID()}</td>
-                                            <td>${cd.getQuantity()}</td>
-                                            <td>${cd.getPaymentMethod()}</td>
-                                            <td>${cd.getPurchaseDate()}</td>
-                                            <td>${cd.getStatus()}</td>
-                                            <td>${cd.getTotalAmount()}</td>
-                                            <td>${cd.isIsPromotionApplied()}</td>
+                                            <td>${cd.getOrder_Quantity()}</td>
+                                            <td>${cd.getTotal_Amount_Paid()}</td>
+                                            <td>${cd.getOrderDetail_Status()}</td>
+                                            <td>${cd.getCreated_At()}</td>
                                             <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
                                                         onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
                                                 </button>
