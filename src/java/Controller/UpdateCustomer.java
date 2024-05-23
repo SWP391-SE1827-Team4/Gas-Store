@@ -12,6 +12,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDateTime;
+import java.util.List;
 import model.User_Account;
 
 /**
@@ -75,7 +76,32 @@ public class UpdateCustomer extends HttpServlet {
             }
 
             if ("updateCustomer".equals(service)) {
-                response.sendRedirect("updateCustomer.jsp");
+                if (submit == null) {
+                    // Show form for updating staff
+                    String cid = request.getParameter("cid");
+                    User_Account customer = dao.getCustomersById(Integer.parseInt(cid));
+//                    List<Role> roles = daoRole.getAllRoles(); // Fetch all roles
+
+                    request.setAttribute("customer", customer);
+//                    request.setAttribute("roles", roles);
+
+                    request.getRequestDispatcher("updateCustomer.jsp").forward(request, response);
+                } else {
+                    // Process form submission to update staff
+                    int ID = Integer.parseInt(request.getParameter("UserID"));
+                    String email = request.getParameter("UserEmail");
+                    String name = request.getParameter("UserName");
+                    String pass = request.getParameter("UserPassword");
+                    String address = request.getParameter("UserAddress");
+                    String phone = request.getParameter("UserEmail");
+                    String gender = request.getParameter("UserGender");
+//                    int roleID = Integer.parseInt(request.getParameter("Role"));
+                    LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
+
+                    User_Account c = new User_Account(ID, name, pass, email, phone, address, gender, updatedAt);
+                    dao.updateAccountCustomer(c);
+                    response.sendRedirect("CustomerURL");
+                }
             }
 
             if ("deleteCustomer".equals(service)) {

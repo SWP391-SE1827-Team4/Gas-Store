@@ -39,6 +39,31 @@ public class User_Account {
         this.updated_At = updated_At;
     }
 
+    public User_Account(int User_ID, String User_Name, String User_Password, String User_Email, String User_PhoneNum, String User_Address, String User_Gender, LocalDateTime updated_At) {
+        this.User_ID = User_ID;
+        this.User_Name = User_Name;
+        this.User_Password = User_Password;
+        this.User_Email = User_Email;
+        this.User_PhoneNum = User_PhoneNum;
+        this.User_Address = User_Address;
+        this.User_Gender = User_Gender;
+        this.updated_At = updated_At;
+    }
+
+    public User_Account(int User_ID, String User_Name, String User_Password, String User_Email, String User_PhoneNum, String User_Address, String User_Gender, int Role_ID, LocalDateTime updated_At) {
+        this.User_ID = User_ID;
+        this.User_Name = User_Name;
+        this.User_Password = User_Password;
+        this.User_Email = User_Email;
+        this.User_PhoneNum = User_PhoneNum;
+        this.User_Address = User_Address;
+        this.User_Gender = User_Gender;
+        this.Role_ID = Role_ID;
+        this.updated_At = updated_At;
+    }
+
+    
+
     public int getUser_ID() {
         return User_ID;
     }

@@ -55,44 +55,39 @@
     <body>
         <div class="container form-container">
             <h2>Update Customers</h2>
-            <c:set var="vector" value="${requestScope.vector}" />
-            <c:set var="pro" value="${vector[0]}" />
+            <c:set var="c" value="${requestScope.customer}" />
             <form action="updateC" method="post">
                 <div class="form-group">
                     <label for="UserID">UserID</label>
-                    <input type="text" class="form-control" id="UserID" name="UserID" readonly value="${pro.staffID}">
+                    <input type="text" class="form-control" id="UserID" name="UserID" readonly value="${c.getUser_ID()}">
                 </div>
                 <div class="form-group">
                     <label for="UserName">UserName</label>
-                    <input type="text" class="form-control" id="UserName" name="UserName" value="${pro.staffEmail}">
+                    <input type="text" class="form-control" id="UserName" name="UserName" value="${c.getUser_Name()}">
                 </div>
                 <div class="form-group">
                     <label for="UserPassword">UserPassword</label>
-                    <input type="password" class="form-control" id="UserPassword" name="UserPassword" value="${pro.staffPassword}">
+                    <input type="password" class="form-control" id="UserPassword" name="UserPassword" value="${c.getUser_Password()}">
                 </div>
                 <div class="form-group">
                     <label for="UserEmail">UserEmail</label>
-                    <input type="email" class="form-control" id="UserEmail" name="UserEmail" value="${pro.staffPassword}">
+                    <input type="email" class="form-control" id="UserEmail" name="UserEmail" value="${c.getUser_Email()}">
                 </div>
                 <div class="form-group">
                     <label for="UserPhoneNum">UserPhoneNum</label>
-                    <input type="text" class="form-control" id="UserPhoneNum" name="UserPhoneNum" value="${pro.staffPhoneNum}">
-                </div>
-                <div class="form-group">
-                    <label for="UserPhoneNum">UserPhoneNum</label>
-                    <input type="text" class="form-control" id="UserPhoneNum" name="UserPhoneNum" value="${pro.staffPhoneNum}">
+                    <input type="text" class="form-control" id="UserPhoneNum" name="UserPhoneNum" value="${c.getUser_PhoneNum()}">
                 </div>
                 <div class="form-group">
                     <label for="UserAddress">UserAddress</label>
-                    <input type="text" class="form-control" id="UserAddress" name="UserAddress" value="${pro.staffPhoneNum}">
+                    <input type="text" class="form-control" id="UserAddress" name="UserAddress" value="${c.getUser_Address()}">
                 </div>
                 <div class="form-group">
                     <label for="UserGender">UserGender</label>
-                    <input type="text" class="form-control" id="UserGender" name="UserGender" value="${pro.staffGender}">
+                    <input type="text" class="form-control" id="UserGender" name="UserGender" value="${c.getUser_Gender()}">
                 </div>
                 <div class="form-group">
                     <label for="UpdatedAt">Updated At</label>
-                    <input type="datetime-local" class="form-control" id="UpdatedAt" name="UpdatedAt" value="${pro.updatedAt}">
+                    <input type="datetime-local" class="form-control" id="UpdatedAt" name="UpdatedAt" value="${c.getUpdated_At()}">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" name="Submit">Update Customer</button>
                 <button type="reset" class="btn btn-secondary btn-block">Reset</button>

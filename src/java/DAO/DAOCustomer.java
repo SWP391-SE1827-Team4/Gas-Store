@@ -164,29 +164,40 @@ public class DAOCustomer extends DBContext {
         return 0;
     }
 
-//    public Staff getAccountById(int accountId) {
-//        try {
-//            String sql = "select *  from Staff where StaffID = ?";
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//            stm.setInt(1, accountId);
-//            ResultSet rs = stm.executeQuery();
-//            while (rs.next()) {
-//                Staff s = new Staff();
-//                s.setStaffID(rs.getInt(1));
-//                s.setAccountID(2);
-//                s.setName(rs.getString(3));
-//                s.setEmail(rs.getString(4));
-//                s.setGender(rs.getString(5));
-//                s.setAddress(rs.getString(6));
-//                s.setPhone(rs.getString(7));
-//                s.setPosition(rs.getString(8));
-//                return s;
-//            }
-//        } catch (Exception ex) {
-//            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return null;
-//    }
+    public User_Account getCustomersById(int customerID) {
+        try {
+            String sql = "SELECT * FROM Customers WHERE User_ID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setInt(1, customerID);
+            ResultSet rs = stm.executeQuery();
+
+            // Check if the ResultSet has any records
+            if (rs.next()) {
+                // Create a new Staff object
+                User_Account c = new User_Account();
+
+                // Set properties of the Staff object from ResultSet
+                c.setUser_ID(rs.getInt(1));
+                c.setUser_Name(rs.getString(2));
+                c.setUser_Password(rs.getString(3));
+                c.setUser_Email(rs.getString(4));
+                c.setUser_PhoneNum(rs.getString(5));
+                c.setUser_Address(rs.getString(6));
+                c.setUser_Gender(rs.getString(7));
+                c.setRole_ID(rs.getInt(8));
+                c.setCreated_At(rs.getTimestamp(9).toLocalDateTime());
+                c.setUpdated_At(rs.getTimestamp(10).toLocalDateTime());
+
+                // Return the Staff object
+                return c;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        // Return null if no record found or error occurred
+        return null;
+    }
+
 //    public void updateAccountStaff(Staff s) {
 //
 //        try {
@@ -213,6 +224,64 @@ public class DAOCustomer extends DBContext {
 //        }
 //
 //    }
+    public void updateAccountCustomer(User_Account c) {
+
+        try {
+            String sql = "UPDATE [dbo].[Customers]\n"
+                    + "   SET [User_Name] = ?\n"
+                    + "      ,[User_Password] = = CONVERT(varbinary(64), ?)\n"
+                    + "      ,[User_Email] = ?\n"
+                    + "      ,[User_PhoneNum] = ?\n"
+                    + "      ,[User_Address] = ?\n"
+                    + "      ,[User_Gender] = ?\n"
+                    + "      ,[Updated_At] = ?\n"
+                    + " WHERE User_ID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, c.getUser_Name());
+            stm.setString(2, c.getUser_Password());
+            stm.setString(3, c.getUser_Email());
+            stm.setString(4, c.getUser_PhoneNum());
+            stm.setString(5, c.getUser_Address());
+            stm.setString(6, c.getUser_Gender());
+            stm.setObject(7, c.getUpdated_At());
+            stm.setInt(8, c.getUser_ID());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
+    public void updateAccountCustomer1(User_Account c) {
+
+        try {
+            String sql = "UPDATE [dbo].[Customers]\n"
+                    + "   SET [User_Name] = ?\n"
+                    + "      ,[User_Password] = = CONVERT(varbinary(64), ?)\n"
+                    + "      ,[User_Email] = ?\n"
+                    + "      ,[User_PhoneNum] = ?\n"
+                    + "      ,[User_Address] = ?\n"
+                    + "      ,[User_Gender] = ?\n"
+                    + "      ,[Role_ID] = ?\n"
+                    + "      ,[Updated_At] = ?\n"
+                    + " WHERE User_ID = ?";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            stm.setString(1, c.getUser_Name());
+            stm.setString(2, c.getUser_Password());
+            stm.setString(3, c.getUser_Email());
+            stm.setString(4, c.getUser_PhoneNum());
+            stm.setString(5, c.getUser_Address());
+            stm.setString(6, c.getUser_Gender());
+            stm.setInt(7, c.getRole_ID());
+            stm.setObject(8, c.getUpdated_At());
+            stm.setInt(9, c.getUser_ID());
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public void deleteAccount(int cid) {
         try {
             String sql = "DELETE FROM [Customers]\n"
