@@ -235,8 +235,8 @@
                                     <div class="form-group col-md-3">
                                         <label class="control-label">Chọn vai trò</label>
                                         <select class="form-control" name="Role" required>
-                                            <option value="2">Customer</option>
-                                            <option value="3">Guest</option>
+                                            <option value="3">Customer</option>
+                                            <option value="4">Guest</option>
                                         </select>
                                     </div>
                                     <div class="form-group col-md-3">

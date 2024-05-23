@@ -37,11 +37,24 @@ public class ProductController extends HttpServlet {
         try (PrintWriter out = response.getWriter()) {
             DAOProducts dao = new DAOProducts();
             List<Product> products = dao.getAllProducts();
-            request.setAttribute("p", products);
+            request.setAttribute("products", products);
             request.getRequestDispatcher("table-data-product.jsp").forward(request, response);
         }
     }
 
+     public static void main(String[] args) {
+        // Create an instance of DAOCustomer
+        DAOProducts dao = new DAOProducts();
+
+        // Retrieve all user accounts from the database
+        List<Product> accounts = dao.getAllProducts();
+
+        // Print the retrieved user accounts
+        System.out.println("Retrieved User Accounts:");
+        for (Product p : accounts) {
+            System.out.println(p);
+        }
+    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

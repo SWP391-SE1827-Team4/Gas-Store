@@ -14,6 +14,7 @@ import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.sql.Statement;
+import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Vector;
 import model.Product;
@@ -62,8 +63,13 @@ public class DAOProducts extends DBContext {
                 product.setProduct_Price(rs.getDouble(6));
                 product.setProduct_Description(rs.getString(7));
                 product.setImage(rs.getString(8));
-                product.setCreated_At((LocalDateTime) rs.getObject(9));
-                product.setUpdated_At((LocalDateTime)rs.getObject(10));
+                Timestamp createdAtTimestamp = rs.getTimestamp(9);
+                LocalDateTime createdAt = createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null;
+                product.setCreated_At(createdAt);
+
+                Timestamp updatedAtTimestamp = rs.getTimestamp(10);
+                LocalDateTime updatedAt = updatedAtTimestamp != null ? updatedAtTimestamp.toLocalDateTime() : null;
+                product.setUpdated_At(updatedAt);
                 list.add(product);
             }
         } catch (Exception ex) {
@@ -90,8 +96,13 @@ public class DAOProducts extends DBContext {
                 product.setProduct_Price(rs.getDouble(6));
                 product.setProduct_Description(rs.getString(7));
                 product.setImage(rs.getString(8));
-                product.setCreated_At((LocalDateTime) rs.getObject(9));
-                product.setUpdated_At((LocalDateTime)rs.getObject(10));
+                Timestamp createdAtTimestamp = rs.getTimestamp(9);
+                LocalDateTime createdAt = createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null;
+                product.setCreated_At(createdAt);
+
+                Timestamp updatedAtTimestamp = rs.getTimestamp(10);
+                LocalDateTime updatedAt = updatedAtTimestamp != null ? updatedAtTimestamp.toLocalDateTime() : null;
+                product.setUpdated_At(updatedAt);
                 list.add(product);
             }
         } catch (Exception ex) {
@@ -122,7 +133,7 @@ public class DAOProducts extends DBContext {
                 product.setProduct_Description(rs.getString(7));
                 product.setImage(rs.getString(8));
                 product.setCreated_At((LocalDateTime) rs.getObject(9));
-                product.setUpdated_At((LocalDateTime)rs.getObject(10));
+                product.setUpdated_At((LocalDateTime) rs.getObject(10));
                 list.add(product);
             }
         } catch (Exception ex) {
@@ -165,7 +176,7 @@ public class DAOProducts extends DBContext {
                 product.setProduct_Description(rs.getString(7));
                 product.setImage(rs.getString(8));
                 product.setCreated_At((LocalDateTime) rs.getObject(9));
-                product.setUpdated_At((LocalDateTime)rs.getObject(10));
+                product.setUpdated_At((LocalDateTime) rs.getObject(10));
                 list.add(product);
 
             }
@@ -192,7 +203,7 @@ public class DAOProducts extends DBContext {
                 product.setProduct_Description(rs.getString(7));
                 product.setImage(rs.getString(8));
                 product.setCreated_At((LocalDateTime) rs.getObject(9));
-                product.setUpdated_At((LocalDateTime)rs.getObject(10));
+                product.setUpdated_At((LocalDateTime) rs.getObject(10));
                 return product;
             }
         } catch (Exception ex) {
@@ -220,7 +231,7 @@ public class DAOProducts extends DBContext {
                 product.setProduct_Description(rs.getString(7));
                 product.setImage(rs.getString(8));
                 product.setCreated_At((LocalDateTime) rs.getObject(9));
-                product.setUpdated_At((LocalDateTime)rs.getObject(10));
+                product.setUpdated_At((LocalDateTime) rs.getObject(10));
                 list.add(product);
             }
         } catch (Exception ex) {
@@ -269,12 +280,12 @@ public class DAOProducts extends DBContext {
         return 0;
     }
 
-    public void deleteProduct(int id) {
+    public void deleteProduct(int pid) {
         try {
             String sql = "DELETE FROM [Products]\n"
                     + "WHERE Product_ID = ? ";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, id);
+            stm.setInt(1, pid);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);
