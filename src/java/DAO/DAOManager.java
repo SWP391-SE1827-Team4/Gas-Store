@@ -189,11 +189,11 @@ public class DAOManager extends DBContext {
         return 0;
     }
 
-    public Managers getManagerById(int ManagerID) {
+    public Managers getManagerById(int sid) {
         try {
             String sql = "SELECT * FROM Managers WHERE Manager_ID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, ManagerID);
+            stm.setInt(1, sid);
             ResultSet rs = stm.executeQuery();
 
             // Check if the ResultSet has any records
@@ -232,7 +232,7 @@ public class DAOManager extends DBContext {
         try {
             String sql = "UPDATE [dbo].[Managers]\n"
                     + "   SET [Manager_Email] = ?\n"
-                    + "      ,[Manager_Password] = ?\n"
+                    + "      ,[Manager_Password] = CONVERT(varbinary(64), ?)\n"
                     + "      ,[Manager_Address] = ?\n"
                     + "      ,[Manager_PhoneNum] = ?\n"
                     + "      ,[Manager_Gender] = ?\n"
@@ -264,7 +264,7 @@ public class DAOManager extends DBContext {
         try {
             String sql = "UPDATE [dbo].[Managers]\n"
                     + "   SET [Manager_Email] = ?\n"
-                    + "      ,[Manager_Password] = ?\n"
+                    + "      ,[Manager_Password] = CONVERT(varbinary(64), ?)\n"
                     + "      ,[Manager_Address] = ?\n"
                     + "      ,[Manager_PhoneNum] = ?\n"
                     + "      ,[Manager_Gender] = ?\n"

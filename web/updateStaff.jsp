@@ -5,7 +5,7 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.sql.ResultSet,java.util.Vector,model.Staff,java.util.List"%>
+<%@page import="java.sql.ResultSet,java.util.Vector,model.Managers,java.util.List"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -55,54 +55,54 @@
     <body>
         <div class="container form-container">
             <h2>Update Employees</h2>
-            <c:set var="staff" value="${requestScope.staff}" />
+            <c:set var="s" value="${requestScope.staffList}" />
             <form action="updateS" method="post">
 
                 <div class="form-group">
-                    <label for="updateS">Staff ID</label>
-                    <input type="text" class="form-control" id="StaffID" name="StaffID" readonly value="${staff.getManager_ID()}">
+                    <label for="StaffID">Staff ID</label>
+                    <input type="text" class="form-control" id="StaffID" name="StaffID" readonly value="${s.getManager_ID()}">
                 </div>
                 <div class="form-group">
                     <label for="StaffEmail">Staff Email</label>
-                    <input type="email" class="form-control" id="StaffEmail" name="StaffEmail" value="${staff.getManager_Email()}">
+                    <input type="email" class="form-control" id="StaffEmail" name="StaffEmail" value="${s.getManager_Email()}">
                 </div>
                 <div class="form-group">
                     <label for="StaffPassword">Staff Password</label>
-                    <input type="password" class="form-control" id="StaffPassword" name="StaffPassword" value="${staff.getManager_Password()}">
+                    <input type="password" class="form-control" id="StaffPassword" name="StaffPassword" value="${s.getManager_Password()}">
                 </div>
                 <div class="form-group">
                     <label for="StaffAddress">Staff Address</label>
-                    <input type="text" class="form-control" id="StaffAddress" name="StaffAddress" value="${staff.getManager_Address()}">
+                    <input type="text" class="form-control" id="StaffAddress" name="StaffAddress" value="${s.getManager_Address()}">
                 </div>
                 <div class="form-group">
                     <label for="StaffPhoneNum">Staff Phone Number</label>
-                    <input type="tel" class="form-control" id="StaffPhoneNum" name="StaffPhoneNum" value="${staff.getManager_PhoneNum()}">
+                    <input type="tel" class="form-control" id="StaffPhoneNum" name="StaffPhoneNum" value="${s.getManager_PhoneNum()}">
                 </div>
                 <div class="form-group">
                     <label for="gender">Staff Gender</label>
-                    <input type="text" class="form-control" id="gender" name="gender" value="${staff.getManager_Gender()}">
+                    <input type="text" class="form-control" id="gender" name="gender" value="${s.getManager_Gender()}">
                 </div>
                 <div class="form-group">
-                    <label for="isAdmin">Is Admin</label>
+                    <label for="isAdmin">IsAdmin</label>
                     <select class="form-control" id="isAdmin" name="isAdmin">
-                        <option value="1" ${staff.isIsAdmin() ? 'selected' : ''}>Yes</option>
-                        <option value="0" ${!staff.isIsAdmin() ? 'selected' : ''}>No</option>
+                        <option value="1" ${s.isIsAdmin() ? 'selected' : ''}>Yes</option>
+                        <option value="0" ${!s.isIsAdmin() ? 'selected' : ''}>No</option>
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="isStaff">Is Staff</label>
+                    <label for="isStaff">IsStaff</label>
                     <select class="form-control" id="isStaff" name="isStaff">
-                        <option value="1" ${staff.isIsStaff() ? 'selected' : ''}>Yes</option>
-                        <option value="0" ${!staff.isIsStaff() ? 'selected' : ''}>No</option>
+                        <option value="1" ${s.isIsStaff() ? 'selected' : ''}>Yes</option>
+                        <option value="0" ${!s.isIsStaff() ? 'selected' : ''}>No</option>
                     </select>
                 </div>
                 <div class="form-group">
                     <label for="UpdatedAt">Updated At</label>
-                    <input type="datetime-local" class="form-control" id="UpdatedAt" name="UpdatedAt" value="${staff.getUpdated_At()}">
+                    <input type="datetime-local" class="form-control" id="UpdatedAt" name="UpdatedAt" value="${s.getUpdated_At()}">
                 </div>
                 <button type="submit" class="btn btn-primary btn-block" name="Submit">Update Employees</button>
                 <button type="reset" class="btn btn-secondary btn-block">Reset</button>
-                <input type="hidden" name="service" value="updateStaff">
+                <input type="hidden" name="service" value="updateManager">
             </form>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

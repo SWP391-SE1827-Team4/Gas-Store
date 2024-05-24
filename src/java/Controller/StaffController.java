@@ -41,7 +41,7 @@ public class StaffController extends HttpServlet {
             String service = request.getParameter("service");
             String submit = request.getParameter("Submit");
             List<Managers> staffList = dao.getAllAccount();
-            request.setAttribute("staffList", staffList); // Update the attribute name if needed
+            request.setAttribute("staff", staffList); // Update the attribute name if needed
             request.getRequestDispatcher("table-data-nhan-vien.jsp").forward(request, response);
 
             if ("insertStaff".equals(service)) {

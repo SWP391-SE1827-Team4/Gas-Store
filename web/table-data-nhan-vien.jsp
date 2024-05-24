@@ -147,7 +147,7 @@
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach var="s" items="${staffList}">
+                                    <c:forEach var="s" items="${staff}">
                                         <tr>
                                             <td>${s.getManager_ID()}</td>
                                             <td>${s.getManager_Email()}</td>
@@ -158,10 +158,10 @@
                                             <td>${s.isIsStaff()}</td>
                                             <td>${s.getCreated_At()}</td>
                                             <td>
-                                                <a href="updateS?service=updateStaff&ManagerID=${s.getManager_ID()}" class="btn btn-primary btn-sm">
+                                                <a href="updateS?service=updateManager&sid=${s.getManager_ID()}" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Update
                                                 </a>
-                                                <a href="updateS?service=deleteStaff&ManagerID=${s.getManager_ID()}" class="btn btn-danger btn-sm" 
+                                                <a href="updateS?service=deleteStaff&sid=${s.getManager_ID()}" class="btn btn-danger btn-sm" 
                                                    onclick="return confirm('Are you sure you want to delete this item?');">
                                                     <i class="fas fa-trash-alt"></i> Delete
                                                 </a>
