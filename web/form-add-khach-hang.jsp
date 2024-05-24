@@ -202,103 +202,111 @@
             </div>
             <div class="row">
                 <div class="col-md-12">
-                            <form action="updateC" method="post">
-                                <div class="row">
-                                    <div class="form-group col-md-3">
-                                        <label class="control-label">Email</label>
-                                        <input class="form-control" type="text" name="email" required>
+                    <form action="updateC" method="post">
+                        <div class="row">
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Email</label>
+                                <input class="form-control" type="text" name="email" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Name</label>
+                                <input class="form-control" type="text" name="name" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Mật khẩu</label>
+                                <input class="form-control" type="password" name="pass" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Địa chỉ</label>
+                                <input class="form-control" type="text" name="address" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Số điện thoại</label>
+                                <input class="form-control" type="text" name="phone" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Giới tính</label>
+                                <select class="form-control" name="gender" required>
+                                    <option value="Nam">Nam</option>
+                                    <option value="Nữ">Nữ</option>
+                                    <option value="Khác">Khác</option>
+                                </select>
+                            </div>
+
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Ngày tạo</label>
+                                <input class="form-control" type="datetime-local" name="createdAt" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">Ngày cập nhật</label>
+                                <input class="form-control" type="datetime-local" name="UpdatedAt" required>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">IsCustomer</label>
+                                <select class="form-control" name="IsCustomer" required>
+                                    <option value="1" selected>Yes</option>
+                                    <option value="0">No</option>
+                                </select>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <label class="control-label">IsGuest</label>
+                                <select class="form-control" name="IsGuest" required>
+                                    <option value="1">Yes</option>
+                                    <option value="0" selected>No</option>
+                                </select>
+                            </div>
+                        </div>
+                        <button type="submit" name="Submit" class="btn btn-save">Lưu lại</button>
+                        <a class="btn btn-cancel" href="CustomerURL">Hủy bỏ</a>
+                        <input type="hidden" name="service" value="insertCustomer">
+                    </form>
+
+                    </main>
+
+
+                    <!--
+                    MODAL
+                    -->
+                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+                         data-backdrop="static" data-keyboard="false">
+                        <div class="modal-dialog modal-dialog-centered" role="document">
+                            <div class="modal-content">
+
+                                <div class="modal-body">
+                                    <div class="row">
+                                        <div class="form-group  col-md-12">
+                                            <span class="thong-tin-thanh-toan">
+                                                <h5>Tạo chức vụ mới</h5>
+                                            </span>
+                                        </div>
+                                        <div class="form-group col-md-12">
+                                            <label class="control-label">Nhập tên chức vụ mới</label>
+                                            <input class="form-control" type="text" required>
+                                        </div>
                                     </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="control-label">Name</label>
-                                        <input class="form-control" type="text" name="name" required>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="control-label">Mật khẩu</label>
-                                        <input class="form-control" type="password" name="pass" required>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="control-label">Địa chỉ</label>
-                                        <input class="form-control" type="text" name="address" required>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="control-label">Số điện thoại</label>
-                                        <input class="form-control" type="text" name="phone" required>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="control-label">Giới tính</label>
-                                        <select class="form-control" name="gender" required>
-                                            <option value="Nam">Nam</option>
-                                            <option value="Nữ">Nữ</option>
-                                            <option value="Khác">Khác</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="control-label">Chọn vai trò</label>
-                                        <select class="form-control" name="Role" required>
-                                            <option value="3">Customer</option>
-                                            <option value="4">Guest</option>
-                                        </select>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="control-label">Ngày tạo</label>
-                                        <input class="form-control" type="datetime-local" name="createdAt" required>
-                                    </div>
-                                    <div class="form-group col-md-3">
-                                        <label class="control-label">Ngày cập nhật</label>
-                                        <input class="form-control" type="datetime-local" name="UpdatedAt" required>
-                                    </div>
+                                    <BR>
+                                    <button class="btn btn-save" type="button">Lưu lại</button>
+                                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                                    <BR>
                                 </div>
-                                <button type="submit" name="Submit" class="btn btn-save">Lưu lại</button>
-                                <a class="btn btn-cancel" href="CustomerURL">Hủy bỏ</a>
-                                <input type="hidden" name="service" value="insertCustomer">
-                            </form>
-
-                            </main>
-
-
-                            <!--
-                            MODAL
-                            -->
-                            <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                                 data-backdrop="static" data-keyboard="false">
-                                <div class="modal-dialog modal-dialog-centered" role="document">
-                                    <div class="modal-content">
-
-                                        <div class="modal-body">
-                                            <div class="row">
-                                                <div class="form-group  col-md-12">
-                                                    <span class="thong-tin-thanh-toan">
-                                                        <h5>Tạo chức vụ mới</h5>
-                                                    </span>
-                                                </div>
-                                                <div class="form-group col-md-12">
-                                                    <label class="control-label">Nhập tên chức vụ mới</label>
-                                                    <input class="form-control" type="text" required>
-                                                </div>
-                                            </div>
-                                            <BR>
-                                            <button class="btn btn-save" type="button">Lưu lại</button>
-                                            <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                                            <BR>
-                                        </div>
-                                        <div class="modal-footer">
-                                        </div>
-                                    </div>
+                                <div class="modal-footer">
                                 </div>
                             </div>
-                            <!--
-                            MODAL
-                            -->
+                        </div>
+                    </div>
+                    <!--
+                    MODAL
+                    -->
 
 
-                            <!-- Essential javascripts for application to work-->
-                            <script src="js/jquery-3.2.1.min.js"></script>
-                            <script src="js/popper.min.js"></script>
-                            <script src="js/bootstrap.min.js"></script>
-                            <script src="js/main.js"></script>
-                            <!-- The javascript plugin to display page loading on top-->
-                            <script src="js/plugins/pace.min.js"></script>
+                    <!-- Essential javascripts for application to work-->
+                    <script src="js/jquery-3.2.1.min.js"></script>
+                    <script src="js/popper.min.js"></script>
+                    <script src="js/bootstrap.min.js"></script>
+                    <script src="js/main.js"></script>
+                    <!-- The javascript plugin to display page loading on top-->
+                    <script src="js/plugins/pace.min.js"></script>
 
-                            </body>
+                    </body>
 
-                            </html>
+                    </html>

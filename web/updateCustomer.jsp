@@ -5,7 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
-<%@page import="java.sql.ResultSet,java.util.Vector,model.User_Account,java.util.List"%>
+<%@ page import="java.util.List" %>
+<%@ page import="model.User_Account" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 
 <!DOCTYPE html>
@@ -75,7 +76,7 @@
                 </div>
                 <div class="form-group">
                     <label for="UserPhoneNum">UserPhoneNum</label>
-                    <input type="text" class="form-control" id="UserPhoneNum" name="UserPhoneNum" value="${c.getUser_PhoneNum()}">
+                    <input type="tel" class="form-control" id="UserPhoneNum" name="UserPhoneNum" value="${c.getUser_PhoneNum()}">
                 </div>
                 <div class="form-group">
                     <label for="UserAddress">UserAddress</label>
@@ -85,27 +86,29 @@
                     <label for="UserGender">UserGender</label>
                     <input type="text" class="form-control" id="UserGender" name="UserGender" value="${c.getUser_Gender()}">
                 </div>
-                <div class="form-group">
-                    <label for="isCustomer">isCustomer</label>
-                    <select class="form-control" id="isCustomer" name="isCustomer">
-                        <option value="1" ${c.isIsAdmin() ? 'selected' : ''}>Yes</option>
-                        <option value="0" ${!c.isIsAdmin() ? 'selected' : ''}>No</option>
-                    </select>
-                </div>
-                <div class="form-group">
-                    <label for="isGuest">isGuest</label>
-                    <select class="form-control" id="isGuest" name="isGuest">
-                        <option value="1" ${c.isIsStaff() ? 'selected' : ''}>Yes</option>
-                        <option value="0" ${!c.isIsStaff() ? 'selected' : ''}>No</option>
-                    </select>
-                </div>
+
                 <div class="form-group">
                     <label for="UpdatedAt">Updated At</label>
                     <input type="datetime-local" class="form-control" id="UpdatedAt" name="UpdatedAt" value="${c.getUpdated_At()}">
                 </div>
+                <div class="form-group">
+                    <label for="IsCustomer">IsCustomer</label>
+                    <select class="form-control" id="IsCustomer" name="IsCustomer">
+                        <option value="1" ${c.isIsCustomer() ? 'selected' : ''}>Yes</option>
+                        <option value="0" ${!c.isIsCustomer() ? 'selected' : ''}>No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="IsCustomer">IsCustomer</label>
+                    <select class="form-control" id="isGuest" name="IsGuest">
+                        <option value="1" ${c.isIsGuest() ? 'selected' : ''}>Yes</option>
+                        <option value="0" ${!c.isIsGuest() ? 'selected' : ''}>No</option>
+                    </select>
+                </div>
                 <button type="submit" class="btn btn-primary btn-block" name="Submit">Update Customer</button>
                 <button type="reset" class="btn btn-secondary btn-block">Reset</button>
-                <input type="hidden" name="service" value="updateCustomer">
+                <input type="hidden" name="service" value="updateUser">
+
             </form>
         </div>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>

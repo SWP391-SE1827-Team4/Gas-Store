@@ -46,6 +46,66 @@ public class CustomerController extends HttpServlet {
             request.setAttribute("account", account);
             request.getRequestDispatcher("table-data-khach-hang.jsp").forward(request, response);
 
+            if ("insertCustomer".equals(service)) {
+                if (submit == null) {
+                    request.getRequestDispatcher("form-add-Khach-hang.jsp").forward(request, response);
+                } else {
+                    // Retrieve parameters from the request
+                    String email = request.getParameter("email");
+                    String name = request.getParameter("name");
+                    String pass = request.getParameter("pass");
+                    String address = request.getParameter("address");
+                    String phone = request.getParameter("phone");
+                    String gender = request.getParameter("gender");
+                    String isCustomerParam = request.getParameter("isCustomer");
+                    String isGuestParam = request.getParameter("isGuest");
+                    boolean isCustomer = "1".equals(isCustomerParam);
+                    boolean isGuest = "1".equals(isGuestParam);
+                    LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdAt"));
+                    LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
+
+                    User_Account s = new User_Account(0, name, pass, email, phone, address, gender, createdAt, updatedAt, isCustomer, isGuest);
+                    int success = dao.insertUser(s);
+
+                    if (success > 0) {
+                        response.sendRedirect("CustomerURL");
+                    } else {
+                        response.sendRedirect("form-add-khach-hang.jsp");
+                    }
+                }
+            }
+
+            if ("updateCustomer".equals(service)) {
+                if (submit == null) {
+                    
+                    request.getRequestDispatcher("updateCustomer.jsp").forward(request, response);
+                } else {
+                    // Process form submission to update staff
+                    int ID = Integer.parseInt(request.getParameter("UserID"));
+                    String email = request.getParameter("UserEmail");
+                    String name = request.getParameter("UserName");
+                    String pass = request.getParameter("UserPassword");
+                    String address = request.getParameter("UserAddress");
+                    String phone = request.getParameter("UserEmail");
+                    String gender = request.getParameter("UserGender");
+                    String isAdminParam = request.getParameter("isCustomer");
+                    String isStaffParam = request.getParameter("isGuest");
+                    boolean isCustomer = "1".equals(isAdminParam);
+                    boolean isGuest = "1".equals(isStaffParam);
+//                    int roleID = Integer.parseInt(request.getParameter("Role"));
+                    LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
+
+                    User_Account c = new User_Account(ID, name, pass, email, phone, address, gender, updatedAt, isCustomer, isGuest);
+                    dao.updateAccountCustomer(c);
+                    response.sendRedirect("CustomerURL");
+                }
+            }
+
+            if ("deleteCustomer".equals(service)) {
+                int cid = Integer.parseInt(request.getParameter("cid"));
+                dao.deleteAccount(cid);
+                response.sendRedirect("CustomerURL");
+            }
         }
     }
 

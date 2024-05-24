@@ -141,9 +141,9 @@
                                         <th>SĐT</th>
                                         <th width="300">Địa Chỉ</th>
                                         <th>Giới tính</th>
-                                        <th>Ngày Tạo</th>
                                         <th>IsCustomer</th>
                                         <th>IsGuest</th>
+                                        <th>Ngày Tạo</th>
                                         <th width="100">Tính năng</th>
                                     </tr>
                                 </thead>
@@ -161,7 +161,7 @@
                                             <td>${a.isIsGuest()}</td>
                                             <td>${a.getCreated_At()}</td>
                                             <td>
-                                                <a href="updateC?service=updateCustomer&cid=${a.getUser_ID()}" class="btn btn-primary btn-sm">
+                                                <a href="updateC?service=updateUser&cid=${a.getUser_ID()}" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Update
                                                 </a>
                                                 <a href="updateC?service=deleteCustomer&cid=${a.getUser_ID()}" class="btn btn-danger btn-sm" 

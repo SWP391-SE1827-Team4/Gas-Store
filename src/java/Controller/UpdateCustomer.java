@@ -8,6 +8,7 @@ import DAO.DAOCustomer;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -19,6 +20,7 @@ import model.User_Account;
  *
  * @author xuank
  */
+@WebServlet(name = "UpdateCustomer", urlPatterns = {"/updateC"})
 public class UpdateCustomer extends HttpServlet {
 
     /**
@@ -33,79 +35,76 @@ public class UpdateCustomer extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            String service = request.getParameter("service");
-            String submit = request.getParameter("Submit");
-            DAOCustomer dao = new DAOCustomer();
 
-            if ("insertCustomer".equals(service)) {
-                if (submit == null) {
-                    request.getRequestDispatcher("form-add-Khach-hang.jsp").forward(request, response);
-                } else {
-                    // Retrieve parameters from the request
-                    String email = request.getParameter("email");
-                    String name = request.getParameter("name");
-                    String pass = request.getParameter("pass");
-                    String address = request.getParameter("address");
-                    String phone = request.getParameter("phone");
-                    String gender = request.getParameter("gender");
-                    String isAdminParam = request.getParameter("isCustomer");
-                    String isStaffParam = request.getParameter("isGuest");
-                    boolean isCustomer = "1".equals(isAdminParam);
-                    boolean isGuest = "1".equals(isStaffParam);
-                    LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdAt"));
-                    LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
+        String service = request.getParameter("service");
+        String submit = request.getParameter("Submit");
+        DAOCustomer dao = new DAOCustomer();
 
-                    User_Account s = new User_Account(0, name, pass, email, phone, address, gender, createdAt, updatedAt, isCustomer, isGuest);
-                    int success = dao.insertUser(s);
+        if ("insertCustomer".equals(service)) {
+            if (submit == null) {
+                request.getRequestDispatcher("form-add-Khach-hang.jsp").forward(request, response);
+                return;
+            } else {
+                // Retrieve parameters from the request
+                String email = request.getParameter("email");
+                String name = request.getParameter("name");
+                String pass = request.getParameter("pass");
+                String address = request.getParameter("address");
+                String phone = request.getParameter("phone");
+                String gender = request.getParameter("gender");
 
-                    if (success > 0) {
-                        response.sendRedirect("CustomerURL");
-                    } else {
-                        response.sendRedirect("form-add-khach-hang.jsp");
-                    }
-                }
-            }
+                LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdAt"));
+                LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
 
-            if ("updateCustomer".equals(service)) {
-                if (submit == null) {
-                    // Show form for updating staff
-                    String cid = request.getParameter("cid");
-                    User_Account customer = dao.getCustomersById(Integer.parseInt(cid));
-//                    List<Role> roles = daoRole.getAllRoles(); // Fetch all roles
+                // Set isGuest to true by default
+                boolean isCustomer = false;
+                boolean isGuest = true;
 
-                    request.setAttribute("customer", customer);
-//                    request.setAttribute("roles", roles);
+                User_Account s = new User_Account(0, name, pass, email, phone, address, gender, createdAt, updatedAt, isCustomer, isGuest);
+                int success = dao.insertUser(s);
 
-                    request.getRequestDispatcher("updateCustomer.jsp").forward(request, response);
-                } else {
-                    // Process form submission to update staff
-                    int ID = Integer.parseInt(request.getParameter("UserID"));
-                    String email = request.getParameter("UserEmail");
-                    String name = request.getParameter("UserName");
-                    String pass = request.getParameter("UserPassword");
-                    String address = request.getParameter("UserAddress");
-                    String phone = request.getParameter("UserEmail");
-                    String gender = request.getParameter("UserGender");
-                    String isAdminParam = request.getParameter("isCustomer");
-                    String isStaffParam = request.getParameter("isGuest");
-                    boolean isCustomer = "1".equals(isAdminParam);
-                    boolean isGuest = "1".equals(isStaffParam);
-//                    int roleID = Integer.parseInt(request.getParameter("Role"));
-                    LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
-
-                    User_Account c = new User_Account(ID, name, pass, email, phone, address, gender, updatedAt, isCustomer, isGuest);
-                    dao.updateAccountCustomer(c);
+                if (success > 0) {
                     response.sendRedirect("CustomerURL");
+                } else {
+                    response.sendRedirect("form-add-khach-hang.jsp");
                 }
+                return;
             }
+        }
 
-            if ("deleteCustomer".equals(service)) {
-                int cid = Integer.parseInt(request.getParameter("cid"));
-                dao.deleteAccount(cid);
+        if ("updateUser".equals(service)) {
+            if (submit == null) {
+                // Show form for updating customer
+                String cid = request.getParameter("cid");
+                User_Account customer = dao.getCustomersById(Integer.parseInt(cid));
+                request.setAttribute("customer", customer);
+                request.getRequestDispatcher("updateCustomer.jsp").forward(request, response);
+            } else {
+                // Process form submission to update customer
+                int ID = Integer.parseInt(request.getParameter("UserID"));
+                String email = request.getParameter("UserEmail");
+                String name = request.getParameter("UserName");
+                String pass = request.getParameter("UserPassword");
+                String address = request.getParameter("UserAddress");
+                String phone = request.getParameter("UserEmail");
+                String gender = request.getParameter("UserGender");
+                LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
+                boolean isCustomer = request.getParameter("IsCustomer").equals("1"); // Check if isAdmin value is "1"
+                boolean isGuest = request.getParameter("IsGuest").equals("1"); // Check if isStaff value is "1"
+
+                User_Account c = new User_Account(ID, name, pass, email, phone, address, gender, updatedAt, isCustomer, isGuest);
+                dao.updateAccountCustomer1(c);
                 response.sendRedirect("CustomerURL");
             }
         }
+
+        if ("deleteCustomer".equals(service)) {
+            int cid = Integer.parseInt(request.getParameter("cid"));
+            dao.deleteAccount(cid);
+            response.sendRedirect("CustomerURL");
+            return;
+        }
+
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">

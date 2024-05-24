@@ -93,7 +93,7 @@ public class DAOCustomer extends DBContext {
 //    }
     public User_Account checkAccountExist(String user) {
         try {
-            String sql = "SELECT * FROM Customers where [User_Name] = ?";
+            String sql = "SELECT * FROM Users where [User_Name] = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setString(1, user);
             ResultSet rs = stm.executeQuery();
@@ -168,11 +168,11 @@ public class DAOCustomer extends DBContext {
         return 0;
     }
 
-    public User_Account getCustomersById(int customerID) {
+    public User_Account getCustomersById(int cid) {
         try {
-            String sql = "SELECT * FROM Customers WHERE User_ID = ?";
+            String sql = "SELECT * FROM Users WHERE User_ID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, customerID);
+            stm.setInt(1, cid);
             ResultSet rs = stm.executeQuery();
 
             // Check if the ResultSet has any records
@@ -305,7 +305,7 @@ public class DAOCustomer extends DBContext {
     public void deleteAccount(int cid) {
         try {
             String sql = "DELETE FROM [dbo].[Users]\n"
-                    + "      WHERE User_ID = ? ";
+                    + "      WHERE [User_ID] = ? ";
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, cid);
             stm.executeUpdate();
