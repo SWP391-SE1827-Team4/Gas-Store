@@ -19,50 +19,18 @@ public class User_Account {
     String User_PhoneNum;
     String User_Address;
     String User_Gender;
-    int Role_ID;
     private LocalDateTime created_At;
     private LocalDateTime updated_At;
+    boolean isCustomer;
+    boolean isGuest;
 
     public User_Account() {
     }
 
-    public User_Account(int User_ID, String User_Name, String User_Password, String User_Email, String User_PhoneNum, String User_Address, String User_Gender, int Role_ID, LocalDateTime created_At, LocalDateTime updated_At) {
-        this.User_ID = User_ID;
-        this.User_Name = User_Name;
-        this.User_Password = User_Password;
-        this.User_Email = User_Email;
-        this.User_PhoneNum = User_PhoneNum;
-        this.User_Address = User_Address;
-        this.User_Gender = User_Gender;
-        this.Role_ID = Role_ID;
-        this.created_At = created_At;
-        this.updated_At = updated_At;
+    @Override
+    public String toString() {
+        return "User_Account{" + "User_ID=" + User_ID + ", User_Name=" + User_Name + ", User_Password=" + User_Password + ", User_Email=" + User_Email + ", User_PhoneNum=" + User_PhoneNum + ", User_Address=" + User_Address + ", User_Gender=" + User_Gender + ", created_At=" + created_At + ", updated_At=" + updated_At + ", isCustomer=" + isCustomer + ", isGuest=" + isGuest + '}';
     }
-
-    public User_Account(int User_ID, String User_Name, String User_Password, String User_Email, String User_PhoneNum, String User_Address, String User_Gender, LocalDateTime updated_At) {
-        this.User_ID = User_ID;
-        this.User_Name = User_Name;
-        this.User_Password = User_Password;
-        this.User_Email = User_Email;
-        this.User_PhoneNum = User_PhoneNum;
-        this.User_Address = User_Address;
-        this.User_Gender = User_Gender;
-        this.updated_At = updated_At;
-    }
-
-    public User_Account(int User_ID, String User_Name, String User_Password, String User_Email, String User_PhoneNum, String User_Address, String User_Gender, int Role_ID, LocalDateTime updated_At) {
-        this.User_ID = User_ID;
-        this.User_Name = User_Name;
-        this.User_Password = User_Password;
-        this.User_Email = User_Email;
-        this.User_PhoneNum = User_PhoneNum;
-        this.User_Address = User_Address;
-        this.User_Gender = User_Gender;
-        this.Role_ID = Role_ID;
-        this.updated_At = updated_At;
-    }
-
-    
 
     public int getUser_ID() {
         return User_ID;
@@ -120,14 +88,6 @@ public class User_Account {
         this.User_Gender = User_Gender;
     }
 
-    public int getRole_ID() {
-        return Role_ID;
-    }
-
-    public void setRole_ID(int Role_ID) {
-        this.Role_ID = Role_ID;
-    }
-
     public LocalDateTime getCreated_At() {
         return created_At;
     }
@@ -144,9 +104,47 @@ public class User_Account {
         this.updated_At = updated_At;
     }
 
-    @Override
-    public String toString() {
-        return "User_Account{" + "User_ID=" + User_ID + ", User_Name=" + User_Name + ", User_Password=" + User_Password + ", User_Email=" + User_Email + ", User_PhoneNum=" + User_PhoneNum + ", User_Address=" + User_Address + ", User_Gender=" + User_Gender + ", Role_ID=" + Role_ID + ", created_At=" + created_At + ", updated_At=" + updated_At + '}';
+    public boolean isIsCustomer() {
+        return isCustomer;
+    }
+
+    public void setIsCustomer(boolean isCustomer) {
+        this.isCustomer = isCustomer;
+    }
+
+    public boolean isIsGuest() {
+        return isGuest;
+    }
+
+    public void setIsGuest(boolean isGuest) {
+        this.isGuest = isGuest;
+    }
+
+    public User_Account(int User_ID, String User_Name, String User_Password, String User_Email, String User_PhoneNum, String User_Address, String User_Gender, LocalDateTime created_At, LocalDateTime updated_At, boolean isCustomer, boolean isGuest) {
+        this.User_ID = User_ID;
+        this.User_Name = User_Name;
+        this.User_Password = User_Password;
+        this.User_Email = User_Email;
+        this.User_PhoneNum = User_PhoneNum;
+        this.User_Address = User_Address;
+        this.User_Gender = User_Gender;
+        this.created_At = created_At;
+        this.updated_At = updated_At;
+        this.isCustomer = isCustomer;
+        this.isGuest = isGuest;
+    }
+
+    public User_Account(int User_ID, String User_Name, String User_Password, String User_Email, String User_PhoneNum, String User_Address, String User_Gender, LocalDateTime updated_At, boolean isCustomer, boolean isGuest) {
+        this.User_ID = User_ID;
+        this.User_Name = User_Name;
+        this.User_Password = User_Password;
+        this.User_Email = User_Email;
+        this.User_PhoneNum = User_PhoneNum;
+        this.User_Address = User_Address;
+        this.User_Gender = User_Gender;
+        this.updated_At = updated_At;
+        this.isCustomer = isCustomer;
+        this.isGuest = isGuest;
     }
 
 }

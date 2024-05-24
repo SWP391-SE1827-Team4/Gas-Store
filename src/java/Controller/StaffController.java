@@ -4,9 +4,7 @@
  */
 package Controller;
 
-import DAO.DAOCustomer;
-import DAO.DAOProducts;
-import DAO.DAOStaff;
+import DAO.DAOManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -17,9 +15,7 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
-import model.Product;
-import model.Staff;
-import model.User_Account;
+import model.Managers;
 
 /**
  *
@@ -41,10 +37,10 @@ public class StaffController extends HttpServlet {
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
         try (PrintWriter out = response.getWriter()) {
-            DAOStaff dao = new DAOStaff();
+            DAOManager dao = new DAOManager();
             String service = request.getParameter("service");
             String submit = request.getParameter("Submit");
-            List<Staff> staffList = dao.getAllAccount();
+            List<Managers> staffList = dao.getAllAccount();
             request.setAttribute("staffList", staffList); // Update the attribute name if needed
             request.getRequestDispatcher("table-data-nhan-vien.jsp").forward(request, response);
 
@@ -72,21 +68,21 @@ public class StaffController extends HttpServlet {
                     System.out.println("CreatedAt: " + createdAt);
                     System.out.println("UpdatedAt: " + updatedAt);
 
-                    Staff s = new Staff(0, email, pass, address, phone, gender, roleID, createdAt, updatedAt);
-                    int success = dao.insertStaff(s);
-
-                    if (success > 0) {
-                        response.sendRedirect("StaffURL");
-                    } else {
-                        response.sendRedirect("form-add-nhan-vien.jsp");
-                    }
+//                    Managers s = new Managers(0, email, pass, address, phone, gender, roleID, createdAt, updatedAt);
+//                    int success = dao.insertStaff(s);
+//
+//                    if (success > 0) {
+//                        response.sendRedirect("StaffURL");
+//                    } else {
+//                        response.sendRedirect("form-add-nhan-vien.jsp");
+//                    }
                 }
             }
             if ("updateStaff".equals(service)) {
                 if (submit == null) {
                     // Show form for updating staff
                     String staffID = request.getParameter("sid");
-                    Staff staff = dao.getStaffById(Integer.parseInt(staffID));
+                    Managers staff = dao.getManagerById(Integer.parseInt(staffID));
                     request.setAttribute("staff", staff);
                     request.getRequestDispatcher("updateStaff.jsp").forward(request, response);
                 } else {
@@ -99,8 +95,8 @@ public class StaffController extends HttpServlet {
                     String gender = request.getParameter("gender");
                     LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
 
-                    Staff staff = new Staff(staffID, staffEmail, staffPassword, staffAddress, staffPhoneNum, gender, updatedAt);
-                    dao.updateAccountStaff1(staff);
+                    Managers staff = new Managers();
+                    dao.updateAccountManagers1(staff);
                     response.sendRedirect("StaffURL");
                 }
             }
@@ -115,15 +111,15 @@ public class StaffController extends HttpServlet {
 
     public static void main(String[] args) {
         // Create an instance of DAOCustomer
-        DAOStaff dao = new DAOStaff();
+        DAOManager dao = new DAOManager();
 
         // Retrieve all user accounts from the database
-        List<Staff> accounts = dao.getAllAccount();
+        List<Managers> accounts = dao.getAllAccount();
 
         // Print the retrieved user accounts
         System.out.println("Retrieved User Accounts:");
-        for (Staff s : accounts) {
-            System.out.println(s);
+        for (Managers m : accounts) {
+            System.out.println(m);
         }
     }
 

@@ -136,13 +136,14 @@
                                 <thead>
                                     <tr>
                                         <th>UserID</th>
-                                        <th>ID Account</th>
                                         <th>Họ và tên</th>
-                                        <th>Giới tính</th>
                                         <th>Email</th>
                                         <th>SĐT</th>
                                         <th width="300">Địa Chỉ</th>
+                                        <th>Giới tính</th>
                                         <th>Ngày Tạo</th>
+                                        <th>IsCustomer</th>
+                                        <th>IsGuest</th>
                                         <th width="100">Tính năng</th>
                                     </tr>
                                 </thead>
@@ -150,13 +151,14 @@
                                     <c:forEach var="a" items="${account}">
                                         <tr>
                                             <td>${a.getUser_ID()}</td>
-                                            <td>${a.getRole_ID()}</td>
                                             <td>${a.getUser_Name()}</td>
-                                            <td>${a.getUser_Gender()}</td>
-
                                             <td>${a.getUser_Email()}</td>
                                             <td>${a.getUser_PhoneNum()}</td>
                                             <td>${a.getUser_Address()}</td>
+
+                                            <td>${a.getUser_Gender()}</td>
+                                            <td>${a.isIsCustomer()}</td>
+                                            <td>${a.isIsGuest()}</td>
                                             <td>${a.getCreated_At()}</td>
                                             <td>
                                                 <a href="updateC?service=updateCustomer&cid=${a.getUser_ID()}" class="btn btn-primary btn-sm">

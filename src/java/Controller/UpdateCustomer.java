@@ -49,22 +49,14 @@ public class UpdateCustomer extends HttpServlet {
                     String address = request.getParameter("address");
                     String phone = request.getParameter("phone");
                     String gender = request.getParameter("gender");
-                    int roleID = Integer.parseInt(request.getParameter("Role"));
+                    String isAdminParam = request.getParameter("isCustomer");
+                    String isStaffParam = request.getParameter("isGuest");
+                    boolean isCustomer = "1".equals(isAdminParam);
+                    boolean isGuest = "1".equals(isStaffParam);
                     LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdAt"));
                     LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
 
-                    // Debugging information
-                    System.out.println("Email: " + email);
-                    System.out.println("name: " + name);
-                    System.out.println("Pass: " + pass);
-                    System.out.println("Address: " + address);
-                    System.out.println("Phone: " + phone);
-                    System.out.println("Gender: " + gender);
-                    System.out.println("RoleID: " + roleID);
-                    System.out.println("CreatedAt: " + createdAt);
-                    System.out.println("UpdatedAt: " + updatedAt);
-
-                    User_Account s = new User_Account(0, name, pass, email, phone, address, gender, roleID, createdAt, updatedAt);
+                    User_Account s = new User_Account(0, name, pass, email, phone, address, gender, createdAt, updatedAt, isCustomer, isGuest);
                     int success = dao.insertUser(s);
 
                     if (success > 0) {
@@ -95,10 +87,14 @@ public class UpdateCustomer extends HttpServlet {
                     String address = request.getParameter("UserAddress");
                     String phone = request.getParameter("UserEmail");
                     String gender = request.getParameter("UserGender");
+                    String isAdminParam = request.getParameter("isCustomer");
+                    String isStaffParam = request.getParameter("isGuest");
+                    boolean isCustomer = "1".equals(isAdminParam);
+                    boolean isGuest = "1".equals(isStaffParam);
 //                    int roleID = Integer.parseInt(request.getParameter("Role"));
                     LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
 
-                    User_Account c = new User_Account(ID, name, pass, email, phone, address, gender, updatedAt);
+                    User_Account c = new User_Account(ID, name, pass, email, phone, address, gender, updatedAt, isCustomer, isGuest);
                     dao.updateAccountCustomer(c);
                     response.sendRedirect("CustomerURL");
                 }

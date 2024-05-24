@@ -4,7 +4,7 @@
     Author     : xuank
 --%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ page import="java.util.List, model.Staff" %>
+<%@ page import="java.util.List, model.Managers" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 <html>
@@ -136,12 +136,12 @@
                                     <tr>
 
                                         <th>ID nhân viên</th>
-                                        <th>ID Tài Khoản</th>
                                         <th width="20">Email</th>
-
                                         <th>Địa Chỉ</th>
                                         <th width="30">SĐT</th>
                                         <th>Giới Tính</th>
+                                        <th>IsAdmin</th>
+                                        <th>IsStaff</th>
                                         <th>Ngày Tạo</th>
                                         <th width="100">Tính năng</th>
                                     </tr>
@@ -149,19 +149,19 @@
                                 <tbody>
                                     <c:forEach var="s" items="${staffList}">
                                         <tr>
-                                            <td>${s.staffID}</td>
-                                            <td>${s.role_ID}</td>
-                                            <td>${s.staff_Email}</td>
-                                            <td>${s.staff_Address}</td>
-                                            <td>${s.staff_PhoneNum}</td>
-                                            <td>${s.staff_Gender}</td>
-                                            <td>${s.created_At}</td>
-
+                                            <td>${s.getManager_ID()}</td>
+                                            <td>${s.getManager_Email()}</td>
+                                            <td>${s.getManager_Address()}</td>
+                                            <td>${s.getManager_PhoneNum()}</td>
+                                            <td>${s.getManager_Gender()}</td>
+                                            <td>${s.isIsAdmin()}</td>
+                                            <td>${s.isIsStaff()}</td>
+                                            <td>${s.getCreated_At()}</td>
                                             <td>
-                                                <a href="updateS?service=updateStaff&sid=${s.staffID}" class="btn btn-primary btn-sm">
+                                                <a href="updateS?service=updateStaff&ManagerID=${s.getManager_ID()}" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Update
                                                 </a>
-                                                <a href="updateS?service=deleteStaff&sid=${s.staffID}" class="btn btn-danger btn-sm" 
+                                                <a href="updateS?service=deleteStaff&ManagerID=${s.getManager_ID()}" class="btn btn-danger btn-sm" 
                                                    onclick="return confirm('Are you sure you want to delete this item?');">
                                                     <i class="fas fa-trash-alt"></i> Delete
                                                 </a>

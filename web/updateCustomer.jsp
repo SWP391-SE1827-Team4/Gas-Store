@@ -86,6 +86,20 @@
                     <input type="text" class="form-control" id="UserGender" name="UserGender" value="${c.getUser_Gender()}">
                 </div>
                 <div class="form-group">
+                    <label for="isCustomer">isCustomer</label>
+                    <select class="form-control" id="isCustomer" name="isCustomer">
+                        <option value="1" ${c.isIsAdmin() ? 'selected' : ''}>Yes</option>
+                        <option value="0" ${!c.isIsAdmin() ? 'selected' : ''}>No</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="isGuest">isGuest</label>
+                    <select class="form-control" id="isGuest" name="isGuest">
+                        <option value="1" ${c.isIsStaff() ? 'selected' : ''}>Yes</option>
+                        <option value="0" ${!c.isIsStaff() ? 'selected' : ''}>No</option>
+                    </select>
+                </div>
+                <div class="form-group">
                     <label for="UpdatedAt">Updated At</label>
                     <input type="datetime-local" class="form-control" id="UpdatedAt" name="UpdatedAt" value="${c.getUpdated_At()}">
                 </div>

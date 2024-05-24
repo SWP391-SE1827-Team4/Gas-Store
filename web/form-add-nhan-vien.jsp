@@ -183,10 +183,17 @@
                         </select>
                     </div>
                     <div class="form-group col-md-3">
-                        <label class="control-label">Chọn vai trò</label>
-                        <select class="form-control" name="Role" required>
-                            <option value="1">Admin</option>
-                            <option value="2">Staff</option>
+                        <label class="control-label">IsAdmin</label>
+                        <select class="form-control" name="isAdmin" required>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
+                        </select>
+                    </div>
+                    <div class="form-group col-md-3">
+                        <label class="control-label">IsStaff</label>
+                        <select class="form-control" name="isStaff" required>
+                            <option value="1">Yes</option>
+                            <option value="0">No</option>
                         </select>
                     </div>
                     <div class="form-group col-md-3">
