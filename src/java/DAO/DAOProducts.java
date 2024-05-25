@@ -62,12 +62,11 @@ public class DAOProducts extends DBContext {
                 product.setProduct_Quantity(rs.getInt(5));
                 product.setProduct_Price(rs.getDouble(6));
                 product.setProduct_Description(rs.getString(7));
-                product.setImage(rs.getString(8));
-                Timestamp createdAtTimestamp = rs.getTimestamp(9);
+                Timestamp createdAtTimestamp = rs.getTimestamp(8);
                 LocalDateTime createdAt = createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null;
                 product.setCreated_At(createdAt);
 
-                Timestamp updatedAtTimestamp = rs.getTimestamp(10);
+                Timestamp updatedAtTimestamp = rs.getTimestamp(9);
                 LocalDateTime updatedAt = updatedAtTimestamp != null ? updatedAtTimestamp.toLocalDateTime() : null;
                 product.setUpdated_At(updatedAt);
                 list.add(product);
