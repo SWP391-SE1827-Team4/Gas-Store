@@ -17,6 +17,7 @@ import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Managers;
+import model.Shipping;
 
 /**
  *
@@ -24,38 +25,36 @@ import model.Managers;
  */
 public class DAOShipping extends DBContext {
 
-    public List<Managers> getAllAccount() {
-        List<Managers> list = new ArrayList<>();
+    public List<Shipping> getAllShipping() {
+        List<Shipping> list = new ArrayList<>();
         try {
-            String sql = "SELECT TOP (1000) [Manager_ID]\n"
-                    + "      ,[Manager_Email]\n"
-                    + "      ,[Manager_Password]\n"
-                    + "      ,[Manager_Address]\n"
-                    + "      ,[Manager_PhoneNum]\n"
-                    + "      ,[Manager_Gender]\n"
-                    + "      ,[IsAdmin]\n"
-                    + "      ,[IsStaff]\n"
+            String sql = "SELECT TOP (1000) [Shipping_ID]\n"
+                    + "      ,[Manager_ID]\n"
+                    + "      ,[OrderDetail_ID]\n"
+                    + "      ,[Shipping_Status]\n"
+                    + "      ,[Shipping_Cost]\n"
+                    + "      ,[Shipping_Date]\n"
                     + "      ,[Created_At]\n"
                     + "      ,[Updated_At]\n"
-                    + "  FROM [GasStore].[dbo].[Managers]";
+                    + "  FROM [GasStore].[dbo].[Shipping]";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
-                Managers s = new Managers();
-                s.setManager_ID(rs.getInt(1));
-                s.setManager_Email(rs.getString(2));
-                s.setManager_Password(rs.getString(3));
-                s.setManager_Address(rs.getString(4));
-                s.setManager_PhoneNum(rs.getString(5));
-                s.setManager_Gender(rs.getString(6));
-                s.setIsAdmin(rs.getBoolean(7));
-                s.setIsStaff(rs.getBoolean(8));
+                Shipping s = new Shipping();
+                s.setShipping_ID(rs.getInt(1));
+                s.setStaff_ID(rs.getInt(2));
+                s.setOrderDetail_ID(rs.getInt(3));
+                s.setShipping_Status(rs.getString(4));
+                s.setShipping_Cost(rs.getFloat(5));
+                Timestamp ShippingDateTimestamp = rs.getTimestamp(6);
+                LocalDateTime ShippingDate = ShippingDateTimestamp != null ? ShippingDateTimestamp.toLocalDateTime() : null;
+                s.setShipping_Date(ShippingDate);
                 // Convert Timestamp to LocalDateTime
-                Timestamp createdAtTimestamp = rs.getTimestamp(9);
+                Timestamp createdAtTimestamp = rs.getTimestamp(7);
                 LocalDateTime createdAt = createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null;
                 s.setCreated_At(createdAt);
 
-                Timestamp updatedAtTimestamp = rs.getTimestamp(10);
+                Timestamp updatedAtTimestamp = rs.getTimestamp(8);
                 LocalDateTime updatedAt = updatedAtTimestamp != null ? updatedAtTimestamp.toLocalDateTime() : null;
                 s.setUpdated_At(updatedAt);
 

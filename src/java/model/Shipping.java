@@ -3,7 +3,9 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Classes/Class.java to edit this template
  */
 package model;
+
 import java.time.LocalDateTime;
+
 /**
  *
  * @author xuank
@@ -15,19 +17,14 @@ public class Shipping {
     int OrderDetail_ID;
     String Shipping_Status;
     float Shipping_Cost;
-    String Shipping_Date;
+    private LocalDateTime Shipping_Date;
     private LocalDateTime created_At;
     private LocalDateTime updated_At;
 
     public Shipping() {
     }
 
-    @Override
-    public String toString() {
-        return "Shipping{" + "Shipping_ID=" + Shipping_ID + ", Staff_ID=" + Staff_ID + ", OrderDetail_ID=" + OrderDetail_ID + ", Shipping_Status=" + Shipping_Status + ", Shipping_Cost=" + Shipping_Cost + ", Shipping_Date=" + Shipping_Date + ", created_At=" + created_At + ", updated_At=" + updated_At + '}';
-    }
-
-    public Shipping(int Shipping_ID, int Staff_ID, int OrderDetail_ID, String Shipping_Status, float Shipping_Cost, String Shipping_Date, LocalDateTime created_At, LocalDateTime updated_At) {
+    public Shipping(int Shipping_ID, int Staff_ID, int OrderDetail_ID, String Shipping_Status, float Shipping_Cost, LocalDateTime Shipping_Date, LocalDateTime created_At, LocalDateTime updated_At) {
         this.Shipping_ID = Shipping_ID;
         this.Staff_ID = Staff_ID;
         this.OrderDetail_ID = OrderDetail_ID;
@@ -78,11 +75,11 @@ public class Shipping {
         this.Shipping_Cost = Shipping_Cost;
     }
 
-    public String getShipping_Date() {
+    public LocalDateTime getShipping_Date() {
         return Shipping_Date;
     }
 
-    public void setShipping_Date(String Shipping_Date) {
+    public void setShipping_Date(LocalDateTime Shipping_Date) {
         this.Shipping_Date = Shipping_Date;
     }
 
@@ -102,6 +99,9 @@ public class Shipping {
         this.updated_At = updated_At;
     }
 
-    
+    @Override
+    public String toString() {
+        return "Shipping{" + "Shipping_ID=" + Shipping_ID + ", Staff_ID=" + Staff_ID + ", OrderDetail_ID=" + OrderDetail_ID + ", Shipping_Status=" + Shipping_Status + ", Shipping_Cost=" + Shipping_Cost + ", Shipping_Date=" + Shipping_Date + ", created_At=" + created_At + ", updated_At=" + updated_At + '}';
+    }
 
 }

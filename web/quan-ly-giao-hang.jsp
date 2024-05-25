@@ -140,27 +140,28 @@
                                         <th>Ngày Ship</th>
                                         <th>Ngày Tạo</th>
                                         <th>Được Cập nhật Vào Ngày</th>
-                                        
                                         <th>Tính năng</th>
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    <c:forEach  items="${cd}" var="cd">
+                                    <c:forEach  items="${Ship}" var="s">
                                         <tr>
-                                            <td>${cd.getDetailID()}</td>
-                                            <td>${cd.getCartID()}</td>
-                                            <td>${cd.getProductID()}</td>
-                                            <td>${cd.getQuantity()}</td>
-                                            <td>${cd.getPaymentMethod()}</td>
-                                            <td>${cd.getPurchaseDate()}</td>
-                                            <td>${cd.getStatus()}</td>
-                                            <td>${cd.getTotalAmount()}</td>
-                                            <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                        onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                                        data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
-                                                </button>
+                                            <td>${s.getShipping_ID()}</td>
+                                            <td>${s.getStaff_ID()}</td>
+                                            <td>${s.getOrderDetail_ID()}</td>
+                                            <td>${s.getShipping_Status()}</td>
+                                            <td>${s.getShipping_Cost()}</td>
+                                            <td>${s.getShipping_Date()}</td>
+                                            <td>${s.getCreated_At()}</td>
+                                            <td>${s.getUpdated_At()}</td>
+                                            <td>
+                                                <a href="updateShip?service=updateShippin&sid=${s.getShipping_ID()}" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-edit"></i> Update
+                                                </a>
+                                                <a href="updateShip?service=deleteShippin&sid=${s.getShipping_ID()}" class="btn btn-danger btn-sm" 
+                                                   onclick="return confirm('Are you sure you want to delete this item?');">
+                                                    <i class="fas fa-trash-alt"></i> Delete
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>

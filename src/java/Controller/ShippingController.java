@@ -4,7 +4,8 @@
  */
 package Controller;
 
-import DAO.DAOCartDetail;
+import DAO.DAOManager;
+import DAO.DAOShipping;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -13,15 +14,14 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
-import model.CartDetail;
 import model.Shipping;
 
 /**
  *
  * @author xuank
  */
-@WebServlet(name = "OrderDetailController", urlPatterns = {"/ShippingURL"})
-public class OrderDetailController extends HttpServlet {
+@WebServlet(name = "ShippingController", urlPatterns = {"/Shipping"})
+public class ShippingController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,13 +35,12 @@ public class OrderDetailController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            DAOCartDetail dao = new DAOCartDetail();
-            List<CartDetail> cd = dao.getAllOrder();
-            request.setAttribute("cd", cd);
-            request.getRequestDispatcher("table-data-oder.jsp").forward(request, response);
-        }
+        DAOShipping dao = new DAOShipping();
+        String service = request.getParameter("service");
+        String submit = request.getParameter("Submit");
+        List<Shipping> Ship = dao.getAllShipping();
+        request.setAttribute("Ship", Ship); // Update the attribute name if needed
+        request.getRequestDispatcher("quan-ly-giao-hang.jsp").forward(request, response);
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
