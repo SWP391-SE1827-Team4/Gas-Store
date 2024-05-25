@@ -86,7 +86,7 @@ public class UpdateCustomer extends HttpServlet {
                 String name = request.getParameter("UserName");
                 String pass = request.getParameter("UserPassword");
                 String address = request.getParameter("UserAddress");
-                String phone = request.getParameter("UserEmail");
+                String phone = request.getParameter("UserPhoneNum");
                 String gender = request.getParameter("UserGender");
                 LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
                 boolean isCustomer = request.getParameter("IsCustomer").equals("1"); // Check if isAdmin value is "1"

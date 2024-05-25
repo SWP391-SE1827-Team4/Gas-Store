@@ -155,7 +155,6 @@
                                             <td>${a.getUser_Email()}</td>
                                             <td>${a.getUser_PhoneNum()}</td>
                                             <td>${a.getUser_Address()}</td>
-
                                             <td>${a.getUser_Gender()}</td>
                                             <td>${a.isIsCustomer()}</td>
                                             <td>${a.isIsGuest()}</td>
