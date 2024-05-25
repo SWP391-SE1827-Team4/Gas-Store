@@ -67,7 +67,7 @@
                 </li>
                 <li><a class="app-menu__item active haha" href="ShippingURL"><i class='app-menu__icon bx bx-task'></i><span
                             class="app-menu__label">Quản lý đơn hàng</span></a></li>
-                <li><a class="app-menu__item" href="bao-hanh-nguoi-dung.jsp"><i class='app-menu__icon bx bx-check-shield'></i>
+                <li><a class="app-menu__item" href="UserWarrantyURL"><i class='app-menu__icon bx bx-check-shield'></i>
                         <span class="app-menu__label">Bảo Hành User</span></a></li>
                 <li><a class="app-menu__item" href="quan-ly-giao-hang.jsp"><i class='app-menu__icon bx bx-package' ></i>
                         <span class="app-menu__label">Quản Lí Giao Hàng</span></a></li>
@@ -152,12 +152,15 @@
                                             <td>${cd.getTotal_Amount_Paid()}</td>
                                             <td>${cd.getOrderDetail_Status()}</td>
                                             <td>${cd.getCreated_At()}</td>
-                                            <td><button class="btn btn-primary btn-sm trash" type="button" title="Xóa"
-                                                        onclick="myFunction(this)"><i class="fas fa-trash-alt"></i>
-                                                </button>
-                                                <button class="btn btn-primary btn-sm edit" type="button" title="Sửa" id="show-emp"
-                                                        data-toggle="modal" data-target="#ModalUP"><i class="fas fa-edit"></i>
-                                                </button>
+                                            <td>
+                                                <a href="updateO?service=updateOrder&oid=${cd.getOrderDetail_ID()}" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-edit"></i> Update
+                                                </a>
+                                                <br/>
+                                                <a href="updateO?service=deleteOrders&oid=${cd.getOrderDetail_ID()}" class="btn btn-danger btn-sm" 
+                                                   onclick="return confirm('Are you sure you want to delete this item?');">
+                                                    <i class="fas fa-trash-alt"></i> Delete
+                                                </a>
                                             </td>
                                         </tr>
                                     </c:forEach>

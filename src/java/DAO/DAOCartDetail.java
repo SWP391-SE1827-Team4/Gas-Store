@@ -154,12 +154,12 @@ public class DAOCartDetail extends DBContext {
 
     }
 
-    public void deleteAccount(int uid) {
+    public void deleteOrder(int oid) {
         try {
-            String sql = "DELETE FROM [Account]\n"
-                    + "WHERE AccountID = ? ";
+            String sql = "DELETE FROM [dbo].[Order_Details]\n"
+                    + "      WHERE OrderDetail_ID = ?";
             PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, uid);
+            stm.setInt(1, oid);
             stm.executeUpdate();
         } catch (SQLException ex) {
             Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);

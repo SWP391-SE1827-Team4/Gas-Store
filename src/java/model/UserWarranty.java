@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.time.LocalDateTime;
 import java.util.Date;
 
 /**
@@ -18,17 +19,16 @@ public class UserWarranty {
     String Image;
     String Description;
     String UserWarranty_Status;
-    Date UserWarranty_Start_Date;
-    Date UserWarranty_End_Date;
-    Date Created_At;
-    Date Updated_At;
+    private LocalDateTime UserWarranty_Start_Date;
+    private LocalDateTime UserWarranty_End_Date;
+    private LocalDateTime Created_At;
+    private LocalDateTime Updated_At;
     int Staff_ID;
 
     public UserWarranty() {
     }
 
-    
-    public UserWarranty(int UserWarranty_ID, int Order_ID, int Product_ID, String Image, String Description, String UserWarranty_Status, Date UserWarranty_Start_Date, Date UserWarranty_End_Date, Date Created_At, Date Updated_At, int Staff_ID) {
+    public UserWarranty(int UserWarranty_ID, int Order_ID, int Product_ID, String Image, String Description, String UserWarranty_Status, LocalDateTime UserWarranty_Start_Date, LocalDateTime UserWarranty_End_Date, LocalDateTime Created_At, LocalDateTime Updated_At, int Staff_ID) {
         this.UserWarranty_ID = UserWarranty_ID;
         this.Order_ID = Order_ID;
         this.Product_ID = Product_ID;
@@ -90,35 +90,35 @@ public class UserWarranty {
         this.UserWarranty_Status = UserWarranty_Status;
     }
 
-    public Date getUserWarranty_Start_Date() {
+    public LocalDateTime getUserWarranty_Start_Date() {
         return UserWarranty_Start_Date;
     }
 
-    public void setUserWarranty_Start_Date(Date UserWarranty_Start_Date) {
+    public void setUserWarranty_Start_Date(LocalDateTime UserWarranty_Start_Date) {
         this.UserWarranty_Start_Date = UserWarranty_Start_Date;
     }
 
-    public Date getUserWarranty_End_Date() {
+    public LocalDateTime getUserWarranty_End_Date() {
         return UserWarranty_End_Date;
     }
 
-    public void setUserWarranty_End_Date(Date UserWarranty_End_Date) {
+    public void setUserWarranty_End_Date(LocalDateTime UserWarranty_End_Date) {
         this.UserWarranty_End_Date = UserWarranty_End_Date;
     }
 
-    public Date getCreated_At() {
+    public LocalDateTime getCreated_At() {
         return Created_At;
     }
 
-    public void setCreated_At(Date Created_At) {
+    public void setCreated_At(LocalDateTime Created_At) {
         this.Created_At = Created_At;
     }
 
-    public Date getUpdated_At() {
+    public LocalDateTime getUpdated_At() {
         return Updated_At;
     }
 
-    public void setUpdated_At(Date Updated_At) {
+    public void setUpdated_At(LocalDateTime Updated_At) {
         this.Updated_At = Updated_At;
     }
 

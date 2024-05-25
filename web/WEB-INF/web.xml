@@ -12,6 +12,14 @@
         <servlet-name>updateProduct</servlet-name>
         <servlet-class>Controller.updateProduct</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>updateOrderDetail</servlet-name>
+        <servlet-class>Controller.updateOrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UserWarrantyController</servlet-name>
+        <servlet-class>Controller.UserWarrantyController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>UpdateCustomer</servlet-name>
         <url-pattern>/updateC</url-pattern>
@@ -23,5 +31,13 @@
     <servlet-mapping>
         <servlet-name>updateProduct</servlet-name>
         <url-pattern>/updateP</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>updateOrderDetail</servlet-name>
+        <url-pattern>/updateO</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UserWarrantyController</servlet-name>
+        <url-pattern>/UserWarrantyURL</url-pattern>
     </servlet-mapping>
 </web-app>

@@ -67,7 +67,7 @@
                 </li>
                 <li><a class="app-menu__item" href="ShippingURL"><i class='app-menu__icon bx bx-task'></i><span
                             class="app-menu__label">Quản lý đơn hàng</span></a></li>
-                <li><a class="app-menu__item" href="bao-hanh-nguoi-dung.jsp"><i class='app-menu__icon bx bx-check-shield'></i>
+                <li><a class="app-menu__item" href="UserWarrantyURL"><i class='app-menu__icon bx bx-check-shield'></i>
                         <span class="app-menu__label">Bảo Hành User</span></a></li>
                 <li><a class="app-menu__item" href="quan-ly-giao-hang.jsp"><i class='app-menu__icon bx bx-package' ></i>
                         <span class="app-menu__label">Quản Lí Giao Hàng</span></a></li>
@@ -96,6 +96,7 @@
                 <div class="col-md-12">
                     <div class="tile">
                         <div class="tile-body">
+
                             <div class="row element-button">
                                 <div class="col-sm-2">
 
@@ -127,54 +128,52 @@
                                     <a class="btn btn-delete btn-sm" type="button" title="Xóa" onclick="myFunction(this)"><i
                                             class="fas fa-trash-alt"></i> Xóa tất cả </a>
                                 </div>
-                            </div>  
-                            <div>
-                                <table class="table table-hover table-bordered" id="sampleTable">
-                                    <thead>
-                                        <tr>
-                                            <th>ID sản phẩm</th>
-                                            <th>Danh mục ID loại sản Phẩm</th>
-                                            <th>Tên sản phẩm</th>
-                                            <th>Ảnh</th>
-                                            <th>Số lượng</th>
-                                            <th>Description</th>
-                                            <th>Giá tiền</th>
-                                            <th>Mã Sản Phẩm(Serial_Number)</th>
-                                            <th>CreatedAt</th>
-                                            <th>Chức năng</th>
-                                        </tr>
-                                    </thead>
-                                    <tbody>
-                                        <c:forEach var="p" items="${products}">
-                                            <tr>
-
-                                                <td>${p.getProductID()}</td>
-                                                <td>${p.getCategoryID()}</td>
-                                                <td>${p.getProduct_Name()}</td>
-                                                <td>${p.getImage()}</td>
-                                                <td>${p.getProduct_Quantity()}</td>
-                                                <td>${p.getProduct_Description()}</td>
-                                                <td>${p.getProduct_Price()}</td>
-
-                                                <td>${p.getSerialProduct_Number()}</td>
-                                                <td>${p.getCreated_At()}</td>
-                                                <<td>
-                                                    <a href="updateP?service=updateProduct&pid=${s.getProductID()}" class="btn btn-primary btn-sm">
-                                                        <i class="fas fa-edit"></i> Update
-                                                    </a>
-                                                    <a href="updateP?service=deleteProduct&pid=${s.getProductID()}" class="btn btn-danger btn-sm" 
-                                                       onclick="return confirm('Are you sure you want to delete this item?');">
-                                                        <i class="fas fa-trash-alt"></i> Delete
-                                                    </a>
-                                                </td>
-                                            </tr>
-                                        </c:forEach>
-                                    </tbody>
-                                </table>
                             </div>
+                            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
+                                   id="sampleTable">
+                                <thead>
+                                    <tr>
+                                        <th>ID sản phẩm</th>
+                                        <th>Danh mục ID loại sản Phẩm</th>
+                                        <th>Tên sản phẩm</th>
+                                        <th>Ảnh</th>
+                                        <th>Số lượng</th>
+                                        <th>Description</th>
+                                        <th>Giá tiền</th>
+                                        <th>Mã Sản Phẩm(Serial_Number)</th>
+                                        <th>CreatedAt</th>
+                                        <th>Chức năng</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach var="p" items="${products}">
+                                        <tr>
+                                            <td>${p.getProductID()}</td>
+                                            <td>${p.getCategoryID()}</td>
+                                            <td>${p.getProduct_Name()}</td>
+                                            <td>${p.getImage()}</td>
+                                            <td>${p.getProduct_Quantity()}</td>
+                                            <td>${p.getProduct_Description()}</td>
+                                            <td>${p.getProduct_Price()}</td>
+                                            <td>${p.getSerialProduct_Number()}</td>
+                                            <td>${p.getCreated_At()}</td>
+                                            <td>
+                                                <a href="updateP?service=updateProduct&pid=${s.getProductID()}" class="btn btn-primary btn-sm">
+                                                    <i class="fas fa-edit"></i> Update
+                                                </a>
+                                                <a href="updateP?service=deleteProduct&pid=${s.getProductID()}" class="btn btn-danger btn-sm" 
+                                                   onclick="return confirm('Are you sure you want to delete this item?');">
+                                                    <i class="fas fa-trash-alt"></i> Delete
+                                                </a>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
+            </div>
         </main>
 
         <!--
@@ -267,47 +266,47 @@
         <script type="text/javascript" src="js/plugins/jquery.dataTables.min.js"></script>
         <script type="text/javascript" src="js/plugins/dataTables.bootstrap.min.js"></script>
         <script type="text/javascript">
-                                                           $('#sampleTable').DataTable();
-                                                           //Thời Gian
-                                                           function time() {
-                                                               var today = new Date();
-                                                               var weekday = new Array(7);
-                                                               weekday[0] = "Chủ Nhật";
-                                                               weekday[1] = "Thứ Hai";
-                                                               weekday[2] = "Thứ Ba";
-                                                               weekday[3] = "Thứ Tư";
-                                                               weekday[4] = "Thứ Năm";
-                                                               weekday[5] = "Thứ Sáu";
-                                                               weekday[6] = "Thứ Bảy";
-                                                               var day = weekday[today.getDay()];
-                                                               var dd = today.getDate();
-                                                               var mm = today.getMonth() + 1;
-                                                               var yyyy = today.getFullYear();
-                                                               var h = today.getHours();
-                                                               var m = today.getMinutes();
-                                                               var s = today.getSeconds();
-                                                               m = checkTime(m);
-                                                               s = checkTime(s);
-                                                               nowTime = h + " giờ " + m + " phút " + s + " giây";
-                                                               if (dd < 10) {
-                                                                   dd = '0' + dd
-                                                               }
-                                                               if (mm < 10) {
-                                                                   mm = '0' + mm
-                                                               }
-                                                               today = day + ', ' + dd + '/' + mm + '/' + yyyy;
-                                                               tmp = '<span class="date"> ' + today + ' - ' + nowTime +
-                                                                       '</span>';
-                                                               document.getElementById("clock").innerHTML = tmp;
-                                                               clocktime = setTimeout("time()", "1000", "Javascript");
-
-                                                               function checkTime(i) {
-                                                                   if (i < 10) {
-                                                                       i = "0" + i;
-                                                                   }
-                                                                   return i;
-                                                               }
+                                                       $('#sampleTable').DataTable();
+                                                       //Thời Gian
+                                                       function time() {
+                                                           var today = new Date();
+                                                           var weekday = new Array(7);
+                                                           weekday[0] = "Chủ Nhật";
+                                                           weekday[1] = "Thứ Hai";
+                                                           weekday[2] = "Thứ Ba";
+                                                           weekday[3] = "Thứ Tư";
+                                                           weekday[4] = "Thứ Năm";
+                                                           weekday[5] = "Thứ Sáu";
+                                                           weekday[6] = "Thứ Bảy";
+                                                           var day = weekday[today.getDay()];
+                                                           var dd = today.getDate();
+                                                           var mm = today.getMonth() + 1;
+                                                           var yyyy = today.getFullYear();
+                                                           var h = today.getHours();
+                                                           var m = today.getMinutes();
+                                                           var s = today.getSeconds();
+                                                           m = checkTime(m);
+                                                           s = checkTime(s);
+                                                           nowTime = h + " giờ " + m + " phút " + s + " giây";
+                                                           if (dd < 10) {
+                                                               dd = '0' + dd
                                                            }
+                                                           if (mm < 10) {
+                                                               mm = '0' + mm
+                                                           }
+                                                           today = day + ', ' + dd + '/' + mm + '/' + yyyy;
+                                                           tmp = '<span class="date"> ' + today + ' - ' + nowTime +
+                                                                   '</span>';
+                                                           document.getElementById("clock").innerHTML = tmp;
+                                                           clocktime = setTimeout("time()", "1000", "Javascript");
+
+                                                           function checkTime(i) {
+                                                               if (i < 10) {
+                                                                   i = "0" + i;
+                                                               }
+                                                               return i;
+                                                           }
+                                                       }
         </script>
         <script>
             function deleteRow(r) {

@@ -138,7 +138,7 @@
                 <li><a class="app-menu__item" href="CustomerURL"><i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Quản lý khách hàng</span></a></li>
                 <li><a class="app-menu__item" href="ProductURL"><i class='app-menu__icon bx bx-purchase-tag-alt'></i><span class="app-menu__label">Quản lý sản phẩm</span></a></li>
                 <li><a class="app-menu__item" href="ShippingURL"><i class='app-menu__icon bx bx-task'></i><span class="app-menu__label">Quản lý đơn hàng</span></a></li>
-                <li><a class="app-menu__item" href="bao-hanh-nguoi-dung.jsp"><i class='app-menu__icon bx bx-check-shield'></i>
+                <li><a class="app-menu__item" href="UserWarrantyURL"><i class='app-menu__icon bx bx-check-shield'></i>
                         <span class="app-menu__label">Bảo Hành User</span></a></li>
                 <li><a class="app-menu__item" href="quan-ly-giao-hang.jsp"><i class='app-menu__icon bx bx-package'></i>
                         <span class="app-menu__label">Quản Lí Giao Hàng</span></a></li>

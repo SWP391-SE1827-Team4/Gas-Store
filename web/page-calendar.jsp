@@ -69,7 +69,7 @@
                         </span></a></li>
                 <li><a class="app-menu__item" href="table-data-money.jsp"><i class='app-menu__icon bx bx-dollar'></i><span
                             class="app-menu__label">Bảng kê lương</span></a></li>
-                <li><a class="app-menu__item" href="bao-hanh-nguoi-dung.jsp"><i class='app-menu__icon bx bx-check-shield'></i>
+                <li><a class="app-menu__item" href="UserWarrantyURL"><i class='app-menu__icon bx bx-check-shield'></i>
                         <span class="app-menu__label">Bảo Hành User</span></a></li>
                 <li><a class="app-menu__item" href="quan-ly-giao-hang.jsp"><i class='app-menu__icon bx bx-package' ></i>
                         <span class="app-menu__label">Quản Lí Giao Hàng</span></a></li>

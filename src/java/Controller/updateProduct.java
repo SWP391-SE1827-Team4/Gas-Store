@@ -79,9 +79,9 @@ public class updateProduct extends HttpServlet {
                     String gender = request.getParameter("gender");
                     LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
 
-                    Product staff = new Product();
-                    dao.updateProduct(staff);
-                    response.sendRedirect("StaffURL");
+                    Product p = new Product();
+                    dao.updateProduct(p);
+                    response.sendRedirect("ProductURL");
                 }
             }
 
