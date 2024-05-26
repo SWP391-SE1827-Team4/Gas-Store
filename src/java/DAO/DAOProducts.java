@@ -146,7 +146,7 @@ public class DAOProducts extends DBContext {
 
     public int getTotalProducts() {
         try {
-            String sql = "select count(id)  from Product ";
+            String sql = "select count(id)  from Products ";
 
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();

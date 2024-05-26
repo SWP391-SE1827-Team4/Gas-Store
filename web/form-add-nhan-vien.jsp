@@ -116,7 +116,7 @@
             <!-- Navbar Right Menu-->
             <ul class="app-nav">
                 <!-- User Menu-->
-                <li><a class="app-nav__item" href="/home"><i class='bx bx-log-out bx-rotate-180'></i></a></li>
+                <li><a class="app-nav__item" href="/Manager"><i class='bx bx-log-out bx-rotate-180'></i></a></li>
             </ul>
         </header>
         <!-- Sidebar menu-->
@@ -132,7 +132,7 @@
             <ul class="app-menu">
                 <li><a class="app-menu__item" href="phan-mem-ban-hang.jsp"><i class='app-menu__icon bx bx-cart-alt'></i>
                         <span class="app-menu__label">POS Bán Hàng</span></a></li>
-                <li><a class="app-menu__item" href="home"><i class='app-menu__icon bx bx-tachometer'></i><span class="app-menu__label">Bảng Thống Kê</span></a></li>
+                <li><a class="app-menu__item" href="Manager"><i class='app-menu__icon bx bx-tachometer'></i><span class="app-menu__label">Bảng Thống Kê</span></a></li>
                 <li><a class="app-menu__item active haha" href="StaffURL"><i class='app-menu__icon bx bx-id-card'></i>
                         <span class="app-menu__label">Quản lý nhân viên</span></a></li>
                 <li><a class="app-menu__item" href="CustomerURL"><i class='app-menu__icon bx bx-user-voice'></i><span class="app-menu__label">Quản lý khách hàng</span></a></li>
