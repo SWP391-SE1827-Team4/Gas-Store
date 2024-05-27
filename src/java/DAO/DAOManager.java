@@ -70,28 +70,6 @@ public class DAOManager extends DBContext {
         return list;
     }
 
-//    public Staff login(String user, String pass) {
-//        try {
-//            String sql = "SELECT * FROM Users where [users] = ? and pass = ?";
-//            PreparedStatement stm = connection.prepareStatement(sql);
-//            stm.setString(1, user);
-//            stm.setString(2, pass);
-//            ResultSet rs = stm.executeQuery();
-//            while (rs.next()) {
-//                Account account = new Account();
-//                account.setUid(rs.getInt(1));
-//                account.setUsers(rs.getString(2));
-//                account.setPass(rs.getString(3));
-//                account.setIsSell(rs.getBoolean(4));
-//                account.setIsAdmin(rs.getBoolean(5));
-//                account.setActive(rs.getBoolean(6));
-//                return account;
-//            }
-//        } catch (SQLException ex) {
-//            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
-//        }
-//        return null;
-//    }
     public Vector<Managers> getStaffs(String sql) {
         Vector<Managers> vector = new Vector<>();
         try {
@@ -301,27 +279,115 @@ public class DAOManager extends DBContext {
         }
     }
 
-    public static void main(String[] args) {
-        DAOManager daoStaff = new DAOManager();
-
-        // Create a new Staff object
-//        Staff newStaff = new Staff();
-//        newStaff.setStaff_Email("xuankhanh03642@gmail.com");
-//        newStaff.setStaff_Password("123456");
-//        newStaff.setStaff_Address("12345 Main St, Cityville");
-//        newStaff.setStaff_PhoneNum("555-1234567");
-//        newStaff.setStaff_Gender("Male");
-//        newStaff.setRole_ID(4); // Replace with the desired role ID
-//        newStaff.setCreated_At(LocalDateTime.now());
-//        newStaff.setUpdated_At(LocalDateTime.now());
+//    public static void main(String[] args) {
+//        DAOManager daoStaff = new DAOManager();
 //
-//        // Insert the new staff record
-//        int rowsAffected = daoStaff.insertStaff(newStaff);
-//        System.out.println("Rows affected: " + rowsAffected);
-        DAOManager a = new DAOManager();
-        List<Managers> list = a.getAllAccount();
-        for (Managers s : list) {
-            System.out.println(s);
+//        // Create a new Staff object
+////        Staff newStaff = new Staff();
+////        newStaff.setStaff_Email("xuankhanh03642@gmail.com");
+////        newStaff.setStaff_Password("123456");
+////        newStaff.setStaff_Address("12345 Main St, Cityville");
+////        newStaff.setStaff_PhoneNum("555-1234567");
+////        newStaff.setStaff_Gender("Male");
+////        newStaff.setRole_ID(4); // Replace with the desired role ID
+////        newStaff.setCreated_At(LocalDateTime.now());
+////        newStaff.setUpdated_At(LocalDateTime.now());
+////
+////        // Insert the new staff record
+////        int rowsAffected = daoStaff.insertStaff(newStaff);
+////        System.out.println("Rows affected: " + rowsAffected);
+//        DAOManager a = new DAOManager();
+//        List<Managers> list = a.getAllAccount();
+//        for (Managers s : list) {
+//            System.out.println(s);
+//        }
+//    }
+    //    public Staff login(String user, String pass) {
+//        try {
+//            String sql = "SELECT * FROM Users where [users] = ? and pass = ?";
+//            PreparedStatement stm = connection.prepareStatement(sql);
+//            stm.setString(1, user);
+//            stm.setString(2, pass);
+//            ResultSet rs = stm.executeQuery();
+//            while (rs.next()) {
+//                Account account = new Account();
+//                account.setUid(rs.getInt(1));
+//                account.setUsers(rs.getString(2));
+//                account.setPass(rs.getString(3));
+//                account.setIsSell(rs.getBoolean(4));
+//                account.setIsAdmin(rs.getBoolean(5));
+//                account.setActive(rs.getBoolean(6));
+//                return account;
+//            }
+//        } catch (SQLException ex) {
+//            Logger.getLogger(DAOStaff.class.getName()).log(Level.SEVERE, null, ex);
+//        }
+//        return null;
+//    }
+    
+    public Managers getManagerByEmailAndPassword(String email, String password) {
+        try {
+            String sql = "SELECT * \n"
+                    + "FROM Managers \n"
+                    + "WHERE Manager_Email = ? \n"
+                    + "AND Manager_Password = HASHBYTES('SHA2_256', ?)";
+            PreparedStatement statement = connection.prepareStatement(sql);
+            statement.setString(1, email);
+            statement.setString(2, password);
+            ResultSet rs = statement.executeQuery();
+            if (rs.next()) {
+                Managers s = new Managers();
+                s.setManager_ID(rs.getInt(1));
+                s.setManager_Email(rs.getString(2));
+                s.setManager_Password(rs.getString(3));
+                s.setManager_Address(rs.getString(4));
+                s.setManager_PhoneNum(rs.getString(5));
+                s.setManager_Gender(rs.getString(6));
+                s.setIsAdmin(rs.getBoolean(7));
+                s.setIsStaff(rs.getBoolean(8));
+                // Convert Timestamp to LocalDateTime
+                Timestamp createdAtTimestamp = rs.getTimestamp(9);
+                LocalDateTime createdAt = createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null;
+                s.setCreated_At(createdAt);
+
+                Timestamp updatedAtTimestamp = rs.getTimestamp(10);
+                LocalDateTime updatedAt = updatedAtTimestamp != null ? updatedAtTimestamp.toLocalDateTime() : null;
+                s.setUpdated_At(updatedAt);
+                return s;
+            }
+        } catch (SQLException ex) {
+            Logger.getLogger(DAOManager.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        DAOManager daoManager = new DAOManager();
+
+        // Replace with actual email and password
+        String email = "admin1@gasstore.com";
+        String password = "password1";
+
+        Managers manager = daoManager.getManagerByEmailAndPassword(email, password);
+        if (manager != null) {
+            System.out.println("Manager ID: " + manager.getManager_ID());
+            System.out.println("Email: " + manager.getManager_Email());
+            System.out.println("Address: " + manager.getManager_Address());
+            System.out.println("Phone Number: " + manager.getManager_PhoneNum());
+            System.out.println("Gender: " + manager.getManager_Gender());
+            System.out.println("Is Admin: " + manager.isIsAdmin());
+            System.out.println("Is Staff: " + manager.isIsStaff());
+            System.out.println("Created At: " + manager.getCreated_At());
+            System.out.println("Updated At: " + manager.getUpdated_At());
+        } else {
+            System.out.println("Manager not found or invalid credentials.");
+        }
+        // Close resources
+        try {
+            daoManager.connection.close();
+        } catch (SQLException ex) {
+            System.err.println("An error occurred while closing connection: " + ex.getMessage());
+            ex.printStackTrace();
         }
     }
 }

@@ -50,7 +50,10 @@ public class DAOProducts extends DBContext {
     public List<Product> getAllProducts() {
         List<Product> list = new ArrayList<>();
         try {
-            String sql = "Select * from Products";
+            String sql = "SELECT p.Product_ID, p.Category_ID, p.SerialProduct_Number, p.Product_Name,img.Image_URL,\n"
+                    + "p.Product_Quantity, p.Product_Price, p.Product_Description, p.Created_At, p.Updated_At\n"
+                    + "FROM Products p \n"
+                    + "LEFT JOIN Image_Product img ON p.Product_ID = img.Product_ID";
             PreparedStatement stm = connection.prepareStatement(sql);
             ResultSet rs = stm.executeQuery();
             while (rs.next()) {
@@ -59,14 +62,15 @@ public class DAOProducts extends DBContext {
                 product.setCategoryID(rs.getInt(2));
                 product.setSerialProduct_Number(rs.getString(3));
                 product.setProduct_Name(rs.getString(4));
-                product.setProduct_Quantity(rs.getInt(5));
-                product.setProduct_Price(rs.getDouble(6));
-                product.setProduct_Description(rs.getString(7));
-                Timestamp createdAtTimestamp = rs.getTimestamp(8);
+                product.setImage(rs.getString(5));
+                product.setProduct_Quantity(rs.getInt(6));
+                product.setProduct_Price(rs.getDouble(7));
+                product.setProduct_Description(rs.getString(8));
+                Timestamp createdAtTimestamp = rs.getTimestamp(9);
                 LocalDateTime createdAt = createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null;
                 product.setCreated_At(createdAt);
 
-                Timestamp updatedAtTimestamp = rs.getTimestamp(9);
+                Timestamp updatedAtTimestamp = rs.getTimestamp(10);
                 LocalDateTime updatedAt = updatedAtTimestamp != null ? updatedAtTimestamp.toLocalDateTime() : null;
                 product.setUpdated_At(updatedAt);
                 list.add(product);
@@ -250,50 +254,99 @@ public class DAOProducts extends DBContext {
     }
 
     public int InsertProduct(Product product) {
+        int productId = 0;
         try {
-            String sql = "INSERT INTO [dbo].[Products]\n"
-                    + "           ([Category_ID]\n"
-                    + "           ,[SerialProduct_Number]\n"
-                    + "           ,[Product_Name]\n"
-                    + "           ,[Product_Quantity]\n"
-                    + "           ,[Product_Price]\n"
-                    + "           ,[Product_Description]\n"
-                    + "           ,[Created_At]\n"
-                    + "           ,[Updated_At])\n"
-                    + "     VALUES(?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?\n"
-                    + "           ,?)";
+            connection.setAutoCommit(false); // Start a transaction
 
-            PreparedStatement stm = connection.prepareStatement(sql);
+            // Insert into Products table
+            String sql = "INSERT INTO [dbo].[Products]\n"
+                    + " ([Category_ID]\n"
+                    + " ,[SerialProduct_Number]\n"
+                    + " ,[Product_Name]\n"
+                    + " ,[Product_Quantity]\n"
+                    + " ,[Product_Price]\n"
+                    + " ,[Product_Description]\n"
+                    + " ,[Created_At]\n"
+                    + " ,[Updated_At])\n"
+                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+
+            PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stm.setInt(1, product.getCategoryID());
             stm.setString(2, product.getSerialProduct_Number());
             stm.setString(3, product.getProduct_Name());
             stm.setInt(4, product.getProduct_Quantity());
             stm.setDouble(5, product.getProduct_Price());
             stm.setString(6, product.getProduct_Description());
-            stm.setObject(7, product.getCreated_At());
-            stm.setObject(8, product.getUpdated_At());
+            stm.setTimestamp(7, Timestamp.valueOf(product.getCreated_At()));
+            stm.setTimestamp(8, Timestamp.valueOf(product.getUpdated_At()));
             stm.executeUpdate();
+
+            // Get the newly created Product_ID
+            ResultSet rs = stm.getGeneratedKeys();
+            if (rs.next()) {
+                productId = rs.getInt(1);
+            }
+
+            // Insert into Image_Product table
+            sql = "INSERT INTO [dbo].[Image_Product]\n"
+                    + " ([Product_ID]\n"
+                    + " ,[Image_URL])\n"
+                    + " VALUES(?, ?)";
+
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, productId);
+            stm.setString(2, product.getImage());
+            stm.executeUpdate();
+
+            connection.commit(); // Commit the transaction
         } catch (SQLException ex) {
-            Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback(); // Rollback the transaction on error
+            } catch (SQLException e) {
+                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, e);
+            }
+            Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true); // Restore the auto-commit mode
+            } catch (SQLException e) {
+                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
-        return 0;
+
+        return productId;
     }
 
     public void deleteProduct(int pid) {
         try {
-            String sql = "DELETE FROM [dbo].[Products]\n"
-                    + "      WHERE Product_ID = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, pid);
-            stm.executeUpdate();
+            connection.setAutoCommit(false); // Start a transaction
+
+            // Delete from Image_Product table
+            String deleteImageSql = "DELETE FROM [dbo].[Image_Product] WHERE Product_ID = ?";
+            PreparedStatement deleteImageStm = connection.prepareStatement(deleteImageSql);
+            deleteImageStm.setInt(1, pid);
+            deleteImageStm.executeUpdate();
+
+            // Delete from Products table
+            String deleteProductSql = "DELETE FROM [dbo].[Products] WHERE Product_ID = ?";
+            PreparedStatement deleteProductStm = connection.prepareStatement(deleteProductSql);
+            deleteProductStm.setInt(1, pid);
+            deleteProductStm.executeUpdate();
+
+            connection.commit(); // Commit the transaction
         } catch (SQLException ex) {
-            Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);
+            try {
+                connection.rollback(); // Rollback the transaction on error
+            } catch (SQLException e) {
+                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, e);
+            }
+            Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                connection.setAutoCommit(true); // Restore the auto-commit mode
+            } catch (SQLException e) {
+                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, e);
+            }
         }
     }
 
@@ -352,10 +405,24 @@ public class DAOProducts extends DBContext {
 //        return list;
 //    }
     public static void main(String[] args) {
-        DAOProducts a = new DAOProducts();
-        List<Product> list = a.getAllProducts();
-        for (Product product : list) {
-            System.out.println(product);
-        }
+//        DAOProducts a = new DAOProducts();
+//        List<Product> list = a.getAllProducts();
+//        for (Product product : list) {
+//            System.out.println(product);
+//        }
+        Product newProduct = new Product();
+        newProduct.setCategoryID(1);
+        newProduct.setSerialProduct_Number("SN123456");
+        newProduct.setProduct_Name("Example Product");
+        newProduct.setProduct_Quantity(100);
+        newProduct.setProduct_Price(29.99);
+        newProduct.setProduct_Description("This is an example product.");
+        newProduct.setCreated_At(LocalDateTime.now());
+        newProduct.setUpdated_At(LocalDateTime.now());
+        newProduct.setImage("http://example.com/image.jpg");
+
+        DAOProducts dao = new DAOProducts();
+        int productId = dao.InsertProduct(newProduct);
+        System.out.println("Inserted product with ID: " + productId);
     }
 }

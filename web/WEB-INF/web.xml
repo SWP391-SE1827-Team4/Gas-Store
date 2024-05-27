@@ -9,10 +9,6 @@
         <servlet-class>Controller.UpdateStaff</servlet-class>
     </servlet>
     <servlet>
-        <servlet-name>updateProduct</servlet-name>
-        <servlet-class>Controller.updateProduct</servlet-class>
-    </servlet>
-    <servlet>
         <servlet-name>updateOrderDetail</servlet-name>
         <servlet-class>Controller.updateOrderDetail</servlet-class>
     </servlet>
@@ -27,10 +23,6 @@
     <servlet-mapping>
         <servlet-name>UpdateStaff</servlet-name>
         <url-pattern>/updateS</url-pattern>
-    </servlet-mapping>
-    <servlet-mapping>
-        <servlet-name>updateProduct</servlet-name>
-        <url-pattern>/updateP</url-pattern>
     </servlet-mapping>
     <servlet-mapping>
         <servlet-name>updateOrderDetail</servlet-name>

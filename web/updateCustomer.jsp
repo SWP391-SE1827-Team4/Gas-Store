@@ -99,7 +99,7 @@
                     </select>
                 </div>
                 <div class="form-group">
-                    <label for="IsCustomer">IsCustomer</label>
+                    <label for="IsCustomer">IsGuest</label>
                     <select class="form-control" id="isGuest" name="IsGuest">
                         <option value="1" ${c.isIsGuest() ? 'selected' : ''}>Yes</option>
                         <option value="0" ${!c.isIsGuest() ? 'selected' : ''}>No</option>

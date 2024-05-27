@@ -24,7 +24,13 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/2.1.2/sweetalert.min.js"></script>
         <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.2/css/all.css">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jquery-confirm/3.3.2/jquery-confirm.min.css">
-
+        <style>
+            .product-image img {
+                max-width: 100px;
+                max-height: 100px;
+                object-fit: contain;
+            }
+        </style>
     </head>
 
     <body onload="time()" class="app sidebar-mini rtl">
@@ -129,14 +135,14 @@
                                             class="fas fa-trash-alt"></i> Xóa tất cả </a>
                                 </div>
                             </div>
-                            <table class="table table-hover table-bordered js-copytextarea" cellpadding="0" cellspacing="0" border="0"
-                                   id="sampleTable">
+                            <table class="table table-hover table-bordered js-copytextarea product-image" cellpadding="0" cellspacing="0" border="0"
+                                   id="sampleTable" >
                                 <thead>
                                     <tr>
                                         <th>ID sản phẩm</th>
                                         <th>Danh mục ID loại sản Phẩm</th>
                                         <th>Tên sản phẩm</th>
-                                        <th>Ảnh</th>
+                                        <th class="product-image">Ảnh</th>
                                         <th>Số lượng</th>
                                         <th>Description</th>
                                         <th>Giá tiền</th>
@@ -151,17 +157,26 @@
                                             <td>${p.getProductID()}</td>
                                             <td>${p.getCategoryID()}</td>
                                             <td>${p.getProduct_Name()}</td>
-                                            <td>${p.getImage()}</td>
+                                            <td class="product-image">
+                                                <c:choose>
+                                                    <c:when test="${not empty p.getImage()}">
+                                                        <img src="${p.getImage()}" alt="${p.getProduct_Name()}">
+                                                    </c:when>
+                                                    <c:otherwise>
+                                                        No image available
+                                                    </c:otherwise>
+                                                </c:choose>
+                                            </td>
                                             <td>${p.getProduct_Quantity()}</td>
                                             <td>${p.getProduct_Description()}</td>
                                             <td>${p.getProduct_Price()}</td>
                                             <td>${p.getSerialProduct_Number()}</td>
                                             <td>${p.getCreated_At()}</td>
                                             <td>
-                                                <a href="updateP?service=updateProduct&pid=${s.getProductID()}" class="btn btn-primary btn-sm">
+                                                <a href="updateP?service=updateProduct&pid=${p.getProductID()}" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Update
                                                 </a>
-                                                <a href="updateP?service=deleteProduct&pid=${s.getProductID()}" class="btn btn-danger btn-sm" 
+                                                <a href="updateP?service=deleteProduct&pid=${p.getProductID()}" class="btn btn-danger btn-sm" 
                                                    onclick="return confirm('Are you sure you want to delete this item?');">
                                                     <i class="fas fa-trash-alt"></i> Delete
                                                 </a>

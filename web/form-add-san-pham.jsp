@@ -205,75 +205,80 @@
                     <div class="tile">
                         <h3 class="tile-title">Tạo mới sản phẩm</h3>
                         <div class="tile-body">
-                            <div class="row element-button">
-                                <div class="col-sm-2">
-                                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#exampleModalCenter"><i
-                                            class="fas fa-folder-plus"></i> Thêm nhà cung cấp</a>
+                            <form class="row" method="post" action="updateP">
+
+                                <!--                                <div class="form-group col-md-3 ">
+                                                                    <label for="exampleSelect1" class="control-label">Tình trạng</label>
+                                                                    <select class="form-control" id="exampleSelect1">
+                                                                        <option>-- Chọn tình trạng --</option>
+                                                                        <option>Còn hàng</option>
+                                                                        <option>Hết hàng</option>
+                                                                    </select>
+                                                                </div>-->
+                                <!--                                <div class="form-group col-md-3">
+                                                                    <label for="exampleSelect1" class="control-label">Danh mục</label>
+                                                                    <select class="form-control" id="exampleSelect1">
+                                                                        <option>-- Chọn danh mục --</option>
+                                                                        <option>Bàn ăn</option>
+                                                                        <option>Bàn thông minh</option>
+                                                                        <option>Tủ</option>
+                                                                        <option>Ghế gỗ</option>
+                                                                        <option>Ghế sắt</option>
+                                                                        <option>Giường người lớn</option>
+                                                                        <option>Giường trẻ em</option>
+                                                                        <option>Bàn trang điểm</option>
+                                                                        <option>Giá đỡ</option>
+                                                                    </select>
+                                                                </div>
+                                                                <div class="form-group col-md-3 ">
+                                                                    <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
+                                                                    <select class="form-control" id="exampleSelect1">
+                                                                        <option>-- Chọn nhà cung cấp --</option>
+                                                                        <option>Phong vũ</option>
+                                                                        <option>Thế giới di động</option>
+                                                                        <option>FPT</option>
+                                                                        <option>Võ Trường</option>
+                                                                    </select>
+                                                                </div>-->
+
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">Loại Sản Phẩm</label>
+                                    <select class="form-control" name="category" required>
+                                        <option value="1">Bếp Gas</option>
+                                        <option value="2">Bình Gas</option>
+                                        <option value="3">Phụ Kiện</option>
+                                        <option value="4">Bếp Điện</option>
+                                        <option value="5">Bếp Từ</option>
+                                        <option value="6">Bếp Hồng Ngoại</option>
+                                        <option value="7">Dụng cụ nấu nướng</option>
+                                        <option value="8">Thiết Bị An Toàn</option>
+                                        <option value="9">Sửa Chữa</option>
+                                        <option value="10">Khuyến Mãi Đặc Biệt</option>
+                                    </select>
                                 </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#adddanhmuc"><i
-                                            class="fas fa-folder-plus"></i> Thêm danh mục</a>
-                                </div>
-                                <div class="col-sm-2">
-                                    <a class="btn btn-add btn-sm" data-toggle="modal" data-target="#addtinhtrang"><i
-                                            class="fas fa-folder-plus"></i> Thêm tình trạng</a>
-                                </div>
-                            </div>
-                            <form class="row">
                                 <div class="form-group col-md-3">
                                     <label class="control-label">Mã sản phẩm </label>
-                                    <input class="form-control" type="number" placeholder="">
+                                    <input class="form-control" type="text" name="serial" placeholder="">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="control-label">Tên sản phẩm</label>
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" name="name">
                                 </div>
-
-
                                 <div class="form-group  col-md-3">
                                     <label class="control-label">Số lượng</label>
-                                    <input class="form-control" type="number">
-                                </div>
-                                <div class="form-group col-md-3 ">
-                                    <label for="exampleSelect1" class="control-label">Tình trạng</label>
-                                    <select class="form-control" id="exampleSelect1">
-                                        <option>-- Chọn tình trạng --</option>
-                                        <option>Còn hàng</option>
-                                        <option>Hết hàng</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3">
-                                    <label for="exampleSelect1" class="control-label">Danh mục</label>
-                                    <select class="form-control" id="exampleSelect1">
-                                        <option>-- Chọn danh mục --</option>
-                                        <option>Bàn ăn</option>
-                                        <option>Bàn thông minh</option>
-                                        <option>Tủ</option>
-                                        <option>Ghế gỗ</option>
-                                        <option>Ghế sắt</option>
-                                        <option>Giường người lớn</option>
-                                        <option>Giường trẻ em</option>
-                                        <option>Bàn trang điểm</option>
-                                        <option>Giá đỡ</option>
-                                    </select>
-                                </div>
-                                <div class="form-group col-md-3 ">
-                                    <label for="exampleSelect1" class="control-label">Nhà cung cấp</label>
-                                    <select class="form-control" id="exampleSelect1">
-                                        <option>-- Chọn nhà cung cấp --</option>
-                                        <option>Phong vũ</option>
-                                        <option>Thế giới di động</option>
-                                        <option>FPT</option>
-                                        <option>Võ Trường</option>
-                                    </select>
+                                    <input class="form-control" type="number" name="quantity">
                                 </div>
                                 <div class="form-group col-md-3">
                                     <label class="control-label">Giá bán</label>
-                                    <input class="form-control" type="text">
+                                    <input class="form-control" type="text" name="price">
                                 </div>
                                 <div class="form-group col-md-3">
-                                    <label class="control-label">Giá vốn</label>
-                                    <input class="form-control" type="text">
+                                    <label class="control-label">Ngày tạo</label>
+                                    <input class="form-control" type="datetime-local" name="createdAt" required>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <label class="control-label">Ngày cập nhật</label>
+                                    <input class="form-control" type="datetime-local" name="UpdatedAt" required>
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label class="control-label">Ảnh sản phẩm</label>
@@ -292,146 +297,149 @@
                                 </div>
                                 <div class="form-group col-md-12">
                                     <label class="control-label">Mô tả sản phẩm</label>
-                                    <textarea class="form-control" name="mota" id="mota"></textarea>
+                                    <textarea class="form-control" name="description" id="description"></textarea>
                                     <script>CKEDITOR.replace('mota');</script>
                                 </div>
-
+                                <button type="submit" name="Submit" class="btn btn-save">Lưu lại</button>
+                                <a class="btn btn-cancel" href="ProductURL">Hủy bỏ</a>
+                                <input type="hidden" name="service" value="insertProduct">
+                            </form>
                         </div>
+                    </div>
+                </div>
+
+        </main>
+
+
+        <!--
+        MODAL CHỨC VỤ 
+        -->
+        <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+             data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group  col-md-12">
+                                <span class="thong-tin-thanh-toan">
+                                    <h5>Thêm mới nhà cung cấp</h5>
+                                </span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập tên chức vụ mới</label>
+                                <input class="form-control" type="text" required>
+                            </div>
+                        </div>
+                        <BR>
                         <button class="btn btn-save" type="button">Lưu lại</button>
-                        <a class="btn btn-cancel" href="table-data-product.html">Hủy bỏ</a>
+                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                        <BR>
                     </div>
-                    </main>
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
+      MODAL
+        -->
 
 
-                    <!--
-                    MODAL CHỨC VỤ 
-                    -->
-                    <div class="modal fade" id="exampleModalCenter" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                         data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
 
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="form-group  col-md-12">
-                                            <span class="thong-tin-thanh-toan">
-                                                <h5>Thêm mới nhà cung cấp</h5>
-                                            </span>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Nhập tên chức vụ mới</label>
-                                            <input class="form-control" type="text" required>
-                                        </div>
-                                    </div>
-                                    <BR>
-                                    <button class="btn btn-save" type="button">Lưu lại</button>
-                                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                                    <BR>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
+        <!--
+        MODAL DANH MỤC
+        -->
+        <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+             data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group  col-md-12">
+                                <span class="thong-tin-thanh-toan">
+                                    <h5>Thêm mới danh mục </h5>
+                                </span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập tên danh mục mới</label>
+                                <input class="form-control" type="text" required>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Danh mục sản phẩm hiện đang có</label>
+                                <ul style="padding-left: 20px;">
+                                    <li>Bàn ăn</li>
+                                    <li>Bàn thông minh</li>
+                                    <li>Tủ</li>
+                                    <li>Ghế gỗ</li>
+                                    <li>Ghế sắt</li>
+                                    <li>Giường người lớn</li>
+                                    <li>Giường trẻ em</li>
+                                    <li>Bàn trang điểm</li>
+                                    <li>Giá đỡ</li>
+                                </ul>
                             </div>
                         </div>
+                        <BR>
+                        <button class="btn btn-save" type="button">Lưu lại</button>
+                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                        <BR>
                     </div>
-                    <!--
-                  MODAL
-                    -->
+                    <div class="modal-footer">
+                    </div>
+                </div>
+            </div>
+        </div>
+        <!--
+      MODAL
+        -->
 
 
 
-                    <!--
-                    MODAL DANH MỤC
-                    -->
-                    <div class="modal fade" id="adddanhmuc" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                         data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
 
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="form-group  col-md-12">
-                                            <span class="thong-tin-thanh-toan">
-                                                <h5>Thêm mới danh mục </h5>
-                                            </span>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Nhập tên danh mục mới</label>
-                                            <input class="form-control" type="text" required>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Danh mục sản phẩm hiện đang có</label>
-                                            <ul style="padding-left: 20px;">
-                                                <li>Bàn ăn</li>
-                                                <li>Bàn thông minh</li>
-                                                <li>Tủ</li>
-                                                <li>Ghế gỗ</li>
-                                                <li>Ghế sắt</li>
-                                                <li>Giường người lớn</li>
-                                                <li>Giường trẻ em</li>
-                                                <li>Bàn trang điểm</li>
-                                                <li>Giá đỡ</li>
-                                            </ul>
-                                        </div>
-                                    </div>
-                                    <BR>
-                                    <button class="btn btn-save" type="button">Lưu lại</button>
-                                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                                    <BR>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
+        <!--
+        MODAL TÌNH TRẠNG
+        -->
+        <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
+             data-backdrop="static" data-keyboard="false">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+
+                    <div class="modal-body">
+                        <div class="row">
+                            <div class="form-group  col-md-12">
+                                <span class="thong-tin-thanh-toan">
+                                    <h5>Thêm mới tình trạng</h5>
+                                </span>
+                            </div>
+                            <div class="form-group col-md-12">
+                                <label class="control-label">Nhập tình trạng mới</label>
+                                <input class="form-control" type="text" required>
                             </div>
                         </div>
+                        <BR>
+                        <button class="btn btn-save" type="button">Lưu lại</button>
+                        <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
+                        <BR>
                     </div>
-                    <!--
-                  MODAL
-                    -->
-
-
-
-
-                    <!--
-                    MODAL TÌNH TRẠNG
-                    -->
-                    <div class="modal fade" id="addtinhtrang" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle"
-                         data-backdrop="static" data-keyboard="false">
-                        <div class="modal-dialog modal-dialog-centered" role="document">
-                            <div class="modal-content">
-
-                                <div class="modal-body">
-                                    <div class="row">
-                                        <div class="form-group  col-md-12">
-                                            <span class="thong-tin-thanh-toan">
-                                                <h5>Thêm mới tình trạng</h5>
-                                            </span>
-                                        </div>
-                                        <div class="form-group col-md-12">
-                                            <label class="control-label">Nhập tình trạng mới</label>
-                                            <input class="form-control" type="text" required>
-                                        </div>
-                                    </div>
-                                    <BR>
-                                    <button class="btn btn-save" type="button">Lưu lại</button>
-                                    <a class="btn btn-cancel" data-dismiss="modal" href="#">Hủy bỏ</a>
-                                    <BR>
-                                </div>
-                                <div class="modal-footer">
-                                </div>
-                            </div>
-                        </div>
+                    <div class="modal-footer">
                     </div>
-                    <!--
-                  MODAL
-                    -->
+                </div>
+            </div>
+        </div>
+        <!--
+      MODAL
+        -->
 
 
 
-                    <script src="js/jquery-3.2.1.min.js"></script>
-                    <script src="js/popper.min.js"></script>
-                    <script src="js/bootstrap.min.js"></script>
-                    <script src="js/main.js"></script>
-                    <script src="js/plugins/pace.min.js"></script>
-                    <script>
+        <script src="js/jquery-3.2.1.min.js"></script>
+        <script src="js/popper.min.js"></script>
+        <script src="js/bootstrap.min.js"></script>
+        <script src="js/main.js"></script>
+        <script src="js/plugins/pace.min.js"></script>
+        <script>
                                         const inpFile = document.getElementById("inpFile");
                                         const loadFile = document.getElementById("loadFile");
                                         const previewContainer = document.getElementById("imagePreview");
@@ -492,7 +500,7 @@
                                             });
                                         });
 
-                    </script>
-                    </body>
+        </script>
+    </body>
 
-                    </html>
+</html>

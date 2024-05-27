@@ -5,6 +5,8 @@
 --%>
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
+<%@ page import="model.Managers" %>
+
 <!DOCTYPE html>
 <html>
     <head>
@@ -47,8 +49,10 @@
             <div class="app-sidebar__user"><img class="app-sidebar__user-avatar" src="/images/hay.jpg" width="50px"
                                                 alt="User Image">
                 <div>
+                    <div>
                     <p class="app-sidebar__user-name"><b>Admin</b></p>
                     <p class="app-sidebar__user-designation">Welcome Admin</p>
+                </div>
                 </div>
             </div>
             <hr>
@@ -70,7 +74,7 @@
                         <span class="app-menu__label">Bảo Hành User</span></a></li>
                 <li><a class="app-menu__item" href="Shipping"><i class='app-menu__icon bx bx-package' ></i>
                         <span class="app-menu__label">Quản Lí Giao Hàng</span></a></li>
-                
+
                 <!--      <li><a class="app-menu__item" href="table-data-banned.html"><i class='app-menu__icon bx bx-run'></i><span
                             class="app-menu__label">Quản lý nội bộ
                           </span></a></li>-->

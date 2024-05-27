@@ -4,7 +4,7 @@
  */
 package Controller;
 
-import DAO.DAOProducts;
+import DAO.DAOManager;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -12,15 +12,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import java.util.List;
-import model.Product;
+import jakarta.servlet.http.HttpSession;
+import model.Managers;
 
 /**
  *
  * @author xuank
  */
-@WebServlet(name = "ProductController", urlPatterns = {"/ProductURL"})
-public class ProductController extends HttpServlet {
+@WebServlet(name = "LoginController", urlPatterns = {"/Login"})
+public class LoginController extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -34,27 +34,20 @@ public class ProductController extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            DAOProducts dao = new DAOProducts();
-            List<Product> products = dao.getAllProducts();
-            request.setAttribute("products", products);
-            request.getRequestDispatcher("table-data-product.jsp").forward(request, response);
+        String email = request.getParameter("email");
+        String password = request.getParameter("password");
+        DAOManager managerDB = new DAOManager();
+        Managers manager = managerDB.getManagerByEmailAndPassword(email, password);
+
+        if (manager != null) {
+            HttpSession session = request.getSession();
+            session.setAttribute("manager", manager);
+            response.sendRedirect("Manager");
+        } else {
+            response.sendRedirect("login.jsp?error=Invalid email or password");
         }
     }
 
-     public static void main(String[] args) {
-        // Create an instance of DAOCustomer
-        DAOProducts dao = new DAOProducts();
-
-        // Retrieve all user accounts from the database
-        List<Product> accounts = dao.getAllProducts();
-
-        // Print the retrieved user accounts
-        System.out.println("Retrieved Products:");
-        for (Product p : accounts) {
-            System.out.println(p);
-        }
-    }
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
     /**
      * Handles the HTTP <code>GET</code> method.

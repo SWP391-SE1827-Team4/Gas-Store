@@ -4,6 +4,7 @@
  */
 package model;
 
+import java.awt.Image;
 import java.util.Date;
 import java.time.LocalDateTime;
 
@@ -20,7 +21,7 @@ public class Product {
     int Product_Quantity;
     double Product_Price;
     String Product_Description;
-    String Image;
+    private String Image;
     private LocalDateTime created_At;
     private LocalDateTime updated_At;
 
@@ -64,6 +65,14 @@ public class Product {
         this.Product_Name = Product_Name;
     }
 
+    public String getImage() {
+        return Image;
+    }
+
+    public void setImage(String Image) {
+        this.Image = Image;
+    }
+
     public int getProduct_Quantity() {
         return Product_Quantity;
     }
@@ -86,14 +95,6 @@ public class Product {
 
     public void setProduct_Description(String Product_Description) {
         this.Product_Description = Product_Description;
-    }
-
-    public String getImage() {
-        return Image;
-    }
-
-    public void setImage(String Image) {
-        this.Image = Image;
     }
 
     public LocalDateTime getCreated_At() {
