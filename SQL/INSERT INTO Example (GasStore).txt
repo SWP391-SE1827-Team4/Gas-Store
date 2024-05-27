@@ -1,0 +1,156 @@
+INSERT INTO Managers (Manager_Email, Manager_Password, Manager_Address, Manager_PhoneNum, Manager_Gender, IsAdmin, IsStaff)
+VALUES 
+('admin1@gasstore.com', HASHBYTES('SHA2_256', 'password1'), '123 Đường ABC, Hà Nội', '0901234567', 'Nam', 1, 0),
+('admin2@gasstore.com', HASHBYTES('SHA2_256', 'password2'), '456 Đường XYZ, Hà Nội', '0912345678', 'Nữ', 1, 0),
+('staff1@gasstore.com', HASHBYTES('SHA2_256', 'password3'), '789 Đường DEF, Hà Nội', '0923456789', 'Nam', 0, 1),
+('staff2@gasstore.com', HASHBYTES('SHA2_256', 'password4'), '321 Đường GHI, Hà Nội', '0934567890', 'Nữ', 0, 1),
+('staff3@gasstore.com', HASHBYTES('SHA2_256', 'password5'), '654 Đường JKL, Hà Nội', '0945678901', 'Nam', 0, 1),
+('admin3@gasstore.com', HASHBYTES('SHA2_256', 'password6'), '987 Đường MNO, Hà Nội', '0956789012', 'Nữ', 1, 0),
+('staff4@gasstore.com', HASHBYTES('SHA2_256', 'password7'), '135 Đường PQR, Hà Nội', '0967890123', 'Nam', 0, 1),
+('admin4@gasstore.com', HASHBYTES('SHA2_256', 'password8'), '246 Đường STU, Hà Nội', '0978901234', 'Nữ', 1, 0),
+('staff5@gasstore.com', HASHBYTES('SHA2_256', 'password9'), '357 Đường VWX, Hà Nội', '0989012345', 'Nam', 0, 1),
+('admin5@gasstore.com', HASHBYTES('SHA2_256', 'password10'), '468 Đường YZA, Hà Nội', '0990123456', 'Nữ', 1, 0);
+
+INSERT INTO Users (User_Name, User_Password, User_Email, User_PhoneNum, User_Address, User_Gender)
+VALUES 
+('Nguyễn Văn A', HASHBYTES('SHA2_256', 'password1'), 'user1@gmail.com', '0901234567', '123 Đường ABC, Hà Nội', 'Nam'),
+('Trần Thị B', HASHBYTES('SHA2_256', 'password2'), 'user2@gmail.com', '0912345678', '456 Đường XYZ, Hà Nội', 'Nữ'),
+('Lê Văn C', HASHBYTES('SHA2_256', 'password3'), 'user3@gmail.com', '0923456789', '789 Đường DEF, Hà Nội', 'Nam'),
+('Phạm Thị D', HASHBYTES('SHA2_256', 'password4'), 'user4@gmail.com', '0934567890', '321 Đường GHI, Hà Nội', 'Nữ'),
+('Vũ Văn E', HASHBYTES('SHA2_256', 'password5'), 'user5@gmail.com', '0945678901', '654 Đường JKL, Hà Nội', 'Nam'),
+('Hoàng Thị F', HASHBYTES('SHA2_256', 'password6'), 'user6@gmail.com', '0956789012', '987 Đường MNO, Hà Nội', 'Nữ'),
+('Đặng Văn G', HASHBYTES('SHA2_256', 'password7'), 'user7@gmail.com', '0967890123', '135 Đường PQR, Hà Nội', 'Nam'),
+('Bùi Thị H', HASHBYTES('SHA2_256', 'password8'), 'user8@gmail.com', '0978901234', '246 Đường STU, Hà Nội', 'Nữ'),
+('Ngô Văn I', HASHBYTES('SHA2_256', 'password9'), 'user9@gmail.com', '0989012345', '357 Đường VWX, Hà Nội', 'Nam'),
+('Đỗ Thị K', HASHBYTES('SHA2_256', 'password10'), 'user10@gmail.com', '0990123456', '468 Đường YZA, Hà Nội', 'Nữ');
+
+INSERT INTO Categories (Category_Name, Description)
+VALUES 
+('Bếp Gas', 'Các loại bếp gas chất lượng cao'),
+('Bình Gas', 'Các loại bình gas an toàn'),
+('Phụ Kiện', 'Các loại phụ kiện cho bếp gas'),
+('Bếp Điện', 'Các loại bếp điện tiện lợi'),
+('Bếp Từ', 'Các loại bếp từ hiện đại'),
+('Bếp Hồng Ngoại', 'Các loại bếp hồng ngoại tiết kiệm năng lượng'),
+('Dụng Cụ Nấu Nướng', 'Các loại dụng cụ nấu nướng cho gia đình'),
+('Thiết Bị An Toàn', 'Các thiết bị an toàn cho bếp gas'),
+('Sửa Chữa', 'Dịch vụ sửa chữa và bảo dưỡng bếp gas'),
+('Khuyến Mãi Đặc Biệt', 'Các sản phẩm khuyến mãi đặc biệt');
+
+INSERT INTO Products (Category_ID, SerialProduct_Number, Product_Name, Product_Quantity, Product_Price, Product_Description)
+VALUES 
+(1, 'BP001', 'Bếp Gas A', 50, 1500000, 'Bếp gas chất lượng cao, an toàn khi sử dụng'),
+(1, 'BP002', 'Bếp Gas B', 30, 2000000, 'Bếp gas hiện đại, tiết kiệm gas'),
+(2, 'BG001', 'Bình Gas 12kg', 100, 300000, 'Bình gas 12kg an toàn'),
+(2, 'BG002', 'Bình Gas 24kg', 50, 550000, 'Bình gas 24kg an toàn'),
+(3, 'PK001', 'Van Gas', 200, 150000, 'Van gas an toàn, chất lượng cao'),
+(3, 'PK002', 'Ống Dẫn Gas', 150, 100000, 'Ống dẫn gas chịu nhiệt, bền bỉ'),
+(4, 'BD001', 'Bếp Điện A', 20, 2500000, 'Bếp điện tiện lợi cho gia đình'),
+(4, 'BD002', 'Bếp Điện B', 15, 3000000, 'Bếp điện hiện đại, tiết kiệm điện năng'),
+(5, 'BT001', 'Bếp Từ A', 25, 4000000, 'Bếp từ hiện đại, an toàn'),
+(5, 'BT002', 'Bếp Từ B', 20, 4500000, 'Bếp từ cao cấp, tiết kiệm điện');
+
+INSERT INTO Orders (Order_Date, User_ID, Order_Status, Order_Total_Money)
+VALUES 
+('2024-05-01', 1, 'Đang xử lý', 1500000),
+('2024-05-02', 2, 'Đang xử lý', 3000000),
+('2024-05-03', 3, 'Hoàn thành', 2500000),
+('2024-05-04', 4, 'Hoàn thành', 550000),
+('2024-05-05', 5, 'Hủy', 2000000),
+('2024-05-06', 6, 'Đang xử lý', 4500000),
+('2024-05-07', 7, 'Hoàn thành', 300000),
+('2024-05-08', 8, 'Hủy', 150000),
+('2024-05-09', 9, 'Hoàn thành', 4000000),
+('2024-05-10', 10, 'Đang xử lý', 550000);
+
+INSERT INTO Order_Details (Order_ID, Product_ID, Order_Quantity, OrderDetail_Status, Total_Amount_Paid)
+VALUES 
+(1, 1, 1, 'Đang xử lý', 1500000),
+(2, 3, 10, 'Đang xử lý', 3000000),
+(3, 8, 1, 'Hoàn thành', 2500000),
+(4, 2, 1, 'Hoàn thành', 550000),
+(5, 7, 5, 'Hủy', 2000000),
+(6, 9, 2, 'Đang xử lý', 4500000),
+(7, 6, 1, 'Hoàn thành', 300000),
+(8, 5, 1, 'Hủy', 150000),
+(9, 4, 1, 'Hoàn thành', 4000000),
+(10, 10, 1, 'Đang xử lý', 550000);
+
+INSERT INTO Discounts (Discount_Name, Discount_Code, Discount_Percent, Discount_Description, Discount_Start, Discount_End)
+VALUES 
+('Khuyến mãi mùa hè', 'SUMMER2024', 10, 'Giảm giá 10% cho tất cả sản phẩm', '2024-06-01', '2024-06-30'),
+('Khuyến mãi mùa đông', 'WINTER2024', 15, 'Giảm giá 15% cho tất cả sản phẩm', '2024-12-01', '2024-12-31'),
+('Khuyến mãi đặc biệt', 'SPECIAL2024', 20, 'Giảm giá 20% cho sản phẩm bếp gas', '2024-07-01', '2024-07-31'),
+('Khuyến mãi tháng 5', 'MAY2024', 5, 'Giảm giá 5% cho sản phẩm bình gas', '2024-05-01', '2024-05-31'),
+('Khuyến mãi tháng 8', 'AUG2024', 25, 'Giảm giá 25% cho phụ kiện bếp', '2024-08-01', '2024-08-31'),
+('Khuyến mãi tháng 9', 'SEP2024', 30, 'Giảm giá 30% cho bếp điện', '2024-09-01', '2024-09-30'),
+('Khuyến mãi tháng 10', 'OCT2024', 35, 'Giảm giá 35% cho bếp từ', '2024-10-01', '2024-10-31'),
+('Khuyến mãi tháng 11', 'NOV2024', 40, 'Giảm giá 40% cho bếp hồng ngoại', '2024-11-01', '2024-11-30'),
+('Khuyến mãi tháng 12', 'DEC2024', 50, 'Giảm giá 50% cho dụng cụ nấu nướng', '2024-12-01', '2024-12-31'),
+('Khuyến mãi tết', 'TET2025', 15, 'Giảm giá 15% cho tất cả sản phẩm', '2025-01-01', '2025-01-31');
+
+INSERT INTO Order_Discounts (Order_ID, Discount_ID)
+VALUES 
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7),
+(8, 8),
+(9, 9),
+(10, 10);
+
+INSERT INTO Warranties (Product_ID, Warranty_Start_Date, Warranty_Description)
+VALUES 
+(1, '2024-05-01', 'Bảo hành 1 năm'),
+(2, '2024-05-02', 'Bảo hành 2 năm'),
+(3, '2024-05-03', 'Bảo hành 6 tháng'),
+(4, '2024-05-04', 'Bảo hành 1 năm'),
+(5, '2024-05-05', 'Bảo hành 3 năm'),
+(6, '2024-05-06', 'Bảo hành 1 năm'),
+(7, '2024-05-07', 'Bảo hành 6 tháng'),
+(8, '2024-05-08', 'Bảo hành 2 năm'),
+(9, '2024-05-09', 'Bảo hành 1 năm'),
+(10, '2024-05-10', 'Bảo hành 1 năm');
+
+INSERT INTO UserWarranty (Order_ID, Product_ID, Image, Description, UserWarranty_Status, UserWarranty_Start_Date, UserWarranty_End_Date, Manager_ID)
+VALUES 
+(1, 1, 'image1.jpg', 'Mô tả bảo hành 1', 'Đang xử lý', '2024-05-01', '2025-05-01', 3),
+(2, 2, 'image2.jpg', 'Mô tả bảo hành 2', 'Hoàn thành', '2024-05-02', '2026-05-02', 4),
+(3, 3, 'image3.jpg', 'Mô tả bảo hành 3', 'Đang xử lý', '2024-05-03', '2024-11-03', 5),
+(4, 4, 'image4.jpg', 'Mô tả bảo hành 4', 'Hoàn thành', '2024-05-04', '2025-05-04', 6),
+(5, 5, 'image5.jpg', 'Mô tả bảo hành 5', 'Đang xử lý', '2024-05-05', '2027-05-05', 7),
+(6, 6, 'image6.jpg', 'Mô tả bảo hành 6', 'Hoàn thành', '2024-05-06', '2025-05-06', 8),
+(7, 7, 'image7.jpg', 'Mô tả bảo hành 7', 'Đang xử lý', '2024-05-07', '2024-11-07', 9),
+(8, 8, 'image8.jpg', 'Mô tả bảo hành 8', 'Hoàn thành', '2024-05-08', '2026-05-08', 10),
+(9, 9, 'image9.jpg', 'Mô tả bảo hành 9', 'Đang xử lý', '2024-05-09', '2025-05-09', 3),
+(10, 10, 'image10.jpg', 'Mô tả bảo hành 10', 'Hoàn thành', '2024-05-10', '2025-05-10', 4);
+
+INSERT INTO Shipping (Manager_ID, OrderDetail_ID, Shipping_Status, Shipping_Cost, Shipping_Date)
+VALUES 
+(3, 1, 'Đang giao', 50000, '2024-05-01'),
+(4, 2, 'Đang giao', 70000, '2024-05-02'),
+(5, 3, 'Hoàn thành', 60000, '2024-05-03'),
+(6, 4, 'Hoàn thành', 80000, '2024-05-04'),
+(7, 5, 'Hủy', 100000, '2024-05-05'),
+(8, 6, 'Đang giao', 90000, '2024-05-06'),
+(9, 7, 'Hoàn thành', 50000, '2024-05-07'),
+(10, 8, 'Hủy', 30000, '2024-05-08'),
+(3, 9, 'Hoàn thành', 70000, '2024-05-09'),
+(4, 10, 'Đang giao', 80000, '2024-05-10');
+
+INSERT INTO Image_Product (Product_ID, Image_URL)
+VALUES 
+(1, 'img1.jpg'),
+(2, 'img2.jpg'),
+(3, 'img3.jpg'),
+(4, 'img4.jpg'),
+(5, 'img5.jpg'),
+(6, 'img6.jpg'),
+(7, 'img7.jpg'),
+(8, 'img8.jpg'),
+(9, 'img9.jpg'),
+(10, 'img10.jpg');
+
