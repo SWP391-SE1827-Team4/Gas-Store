@@ -10,7 +10,7 @@
 <html>
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-        <title>Danh sách đơn hàng | Quản trị Admin</title>
+        <title>Danh sách Giao Hàng | Quản lý Giao Hàng</title>
         <meta name="viewport" content="width=device-width, initial-scale=1">
         <!-- Main CSS-->
         <link rel="stylesheet" type="text/css" href="css/main.css">
