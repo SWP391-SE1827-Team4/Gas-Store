@@ -8,6 +8,7 @@ import dal.BillDAO;
 import dal.OrderDAO;
 import dal.OrderDetailDAO;
 import dal.ProductDAO;
+import dal.UserDAO;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
@@ -32,8 +33,13 @@ public class CartController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         resp.setContentType("text/html;charset=UTF-8");
-        String service = req.getParameter("service");
         HttpSession session = req.getSession();
+
+        User userFake = new User();
+        userFake = new UserDAO().getUserById(1);
+        session.setAttribute("user", userFake);
+
+        String service = req.getParameter("service");
         User user = (User) session.getAttribute("user");
 
         if (user == null) {

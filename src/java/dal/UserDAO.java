@@ -22,7 +22,7 @@ public class UserDAO extends DBContext {
         PreparedStatement stm = null;
         ResultSet rs = null;
         Vector<User> users = new Vector<>();
-        String sql = "select * from [user]";
+        String sql = "select * from [Users]";
         try {
             stm = connection.prepareStatement(sql);
             rs = stm.executeQuery();
@@ -61,7 +61,7 @@ public class UserDAO extends DBContext {
     public User getOne(String username, String password) {
         PreparedStatement stm = null;
         ResultSet rs = null;
-        String sql = "select * from [user]\n"
+        String sql = "select * from [Users]\n"
                 + "where [username] = ?\n"
                 + "and [password] = ?";
         try {
@@ -108,7 +108,7 @@ public class UserDAO extends DBContext {
         PreparedStatement stm = null;
         ResultSet rs = null;
         Vector<User> users = new Vector<>();
-        String sql = "select * from [user] where role_id = 1";
+        String sql = "select * from [Users] where role_id = 1";
         try {
             stm = connection.prepareStatement(sql);
             rs = stm.executeQuery();
@@ -148,7 +148,7 @@ public class UserDAO extends DBContext {
     public User getUserById(int userId) {
         PreparedStatement stm = null;
         ResultSet rs = null;
-        String sql = "select * from [user]\n"
+        String sql = "select * from [Users]\n"
                 + "where [id] = ?";
         try {
             stm = connection.prepareStatement(sql);
@@ -190,7 +190,7 @@ public class UserDAO extends DBContext {
         PreparedStatement stm = null;
         ResultSet rs = null;
         Vector<User> customers = new Vector<>();
-        String sql = "select * from [user]\n"
+        String sql = "select * from [Users]\n"
                 + "where role_id = 1 and [fullname] LIKE ?";
         try {
             stm = connection.prepareStatement(sql);
@@ -232,7 +232,7 @@ public class UserDAO extends DBContext {
     public void insert(User user) {
         PreparedStatement stm = null;
 
-        String sql = "INSERT INTO [dbo].[user]\n"
+        String sql = "INSERT INTO [dbo].[Users]\n"
                 + "           ([username]\n"
                 + "           ,[password]\n"
                 + "           ,[fullname]\n"
@@ -273,7 +273,7 @@ public class UserDAO extends DBContext {
     public void banAnUser(int userId) {
         PreparedStatement stm = null;
 
-        String sql = "UPDATE [dbo].[user] SET [banned] = 1 WHERE id = ?";
+        String sql = "UPDATE [dbo].[Users] SET [banned] = 1 WHERE id = ?";
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, userId);
