@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.Part;
 import java.io.File;
+import java.nio.file.Paths;
 import java.time.LocalDateTime;
 import java.util.UUID;
 import model.Product;
@@ -24,6 +25,8 @@ import model.Product;
  */
 @WebServlet(name = "UpdateProduct", urlPatterns = {"/updateP"})
 public class updateProduct extends HttpServlet {
+
+    private static final String UPLOAD_DIR = "uploads";
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -41,7 +44,7 @@ public class updateProduct extends HttpServlet {
         String submit = request.getParameter("Submit");
         DAOProducts dao = new DAOProducts();
 
-        if ("insertProduct".equals(service)) {
+        if ("insertProducts".equals(service)) {
             if (submit == null) {
                 request.getRequestDispatcher("form-add-san-pham.jsp").forward(request, response);
             } else {
@@ -54,13 +57,12 @@ public class updateProduct extends HttpServlet {
                 LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdAt"));
                 LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
                 String description = request.getParameter("description");
-                String Image = request.getParameter("ImageUpload");
-
-                Product s = new Product(0, category, serial, name, quantity, price, description, Image, createdAt, updatedAt);
-                int success = dao.InsertProduct(s);
+                String image = request.getParameter("ImageUpload");
+                Product p = new Product(0, category, serial, name, quantity, price, description, image, createdAt, updatedAt);
+                int success = dao.insertProduct(p);
 
                 if (success > 0) {
-                    request.getRequestDispatcher("ProductURL").forward(request, response);
+                    response.sendRedirect("ProductURL");
                 } else {
                     response.sendRedirect("form-add-san-pham.jsp");
                 }

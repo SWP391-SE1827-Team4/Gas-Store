@@ -253,24 +253,22 @@ public class DAOProducts extends DBContext {
         return list;
     }
 
-    public int InsertProduct(Product product) {
+    public int insertProduct(Product product) {
         int productId = 0;
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+
         try {
             connection.setAutoCommit(false); // Start a transaction
 
             // Insert into Products table
-            String sql = "INSERT INTO [dbo].[Products]\n"
-                    + " ([Category_ID]\n"
-                    + " ,[SerialProduct_Number]\n"
-                    + " ,[Product_Name]\n"
-                    + " ,[Product_Quantity]\n"
-                    + " ,[Product_Price]\n"
-                    + " ,[Product_Description]\n"
-                    + " ,[Created_At]\n"
-                    + " ,[Updated_At])\n"
-                    + " VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
+            String sql = "INSERT INTO [dbo].[Products] "
+                    + "([Category_ID], [SerialProduct_Number], [Product_Name], "
+                    + "[Product_Quantity], [Product_Price], [Product_Description], "
+                    + "[Created_At], [Updated_At]) "
+                    + "VALUES(?, ?, ?, ?, ?, ?, ?, ?)";
 
-            PreparedStatement stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            stm = connection.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             stm.setInt(1, product.getCategoryID());
             stm.setString(2, product.getSerialProduct_Number());
             stm.setString(3, product.getProduct_Name());
@@ -282,17 +280,13 @@ public class DAOProducts extends DBContext {
             stm.executeUpdate();
 
             // Get the newly created Product_ID
-            ResultSet rs = stm.getGeneratedKeys();
+            rs = stm.getGeneratedKeys();
             if (rs.next()) {
                 productId = rs.getInt(1);
             }
 
             // Insert into Image_Product table
-            sql = "INSERT INTO [dbo].[Image_Product]\n"
-                    + " ([Product_ID]\n"
-                    + " ,[Image_URL])\n"
-                    + " VALUES(?, ?)";
-
+            sql = "INSERT INTO [dbo].[Image_Product] ([Product_ID], [Image_URL]) VALUES(?, ?)";
             stm = connection.prepareStatement(sql);
             stm.setInt(1, productId);
             stm.setString(2, product.getImage());
@@ -303,14 +297,20 @@ public class DAOProducts extends DBContext {
             try {
                 connection.rollback(); // Rollback the transaction on error
             } catch (SQLException e) {
-                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, "Rollback failed: " + e.getMessage(), e);
             }
-            Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, "Insert product failed: " + ex.getMessage(), ex);
         } finally {
             try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (stm != null) {
+                    stm.close();
+                }
                 connection.setAutoCommit(true); // Restore the auto-commit mode
             } catch (SQLException e) {
-                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, e);
+                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, "Closing resources failed: " + e.getMessage(), e);
             }
         }
 
@@ -422,7 +422,7 @@ public class DAOProducts extends DBContext {
         newProduct.setImage("http://example.com/image.jpg");
 
         DAOProducts dao = new DAOProducts();
-        int productId = dao.InsertProduct(newProduct);
+        int productId = dao.insertProduct(newProduct);
         System.out.println("Inserted product with ID: " + productId);
     }
 }
