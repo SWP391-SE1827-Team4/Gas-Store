@@ -1,9 +1,8 @@
 package Dal;
 
 import DBContext.DBContext;
-import Model.Admins;
-import Model.Customers;
-import Model.Staffs;
+import Model.User;
+import Model.Manager;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -33,7 +32,7 @@ public class LoginDao {
         DBContext dbContext = new DBContext();
         try (Connection con = dbContext.getConnection()) {
             if (con != null) {
-                String sql = "UPDATE Customers SET User_Password = HASHBYTES('SHA2_256', ?), Updated_At = GETDATE() WHERE User_Email = ?";
+                String sql = "UPDATE Users SET User_Password = HASHBYTES('SHA2_256', ?), Updated_At = GETDATE() WHERE User_Email = ?";
                 try (PreparedStatement stm = con.prepareStatement(sql)) {
                     stm.setString(1, newPassword);
                     stm.setString(2, userEmail);
@@ -46,27 +45,28 @@ public class LoginDao {
         return false;
     }
 
-    public Customers checkLoginCustomer(String userEmail, String userPassword) throws SQLException, ClassNotFoundException {
+    public User checkLoginUser(String userEmail, String userPassword) throws SQLException, ClassNotFoundException {
         DBContext dbContext = new DBContext();
         try (Connection con = dbContext.getConnection()) {
             if (con != null) {
-                String sql = "SELECT * FROM Customers WHERE User_Email = ? AND User_Password = HASHBYTES('SHA2_256', ?)";
+                String sql = "SELECT * FROM Users WHERE User_Email = ? AND User_Password = HASHBYTES('SHA2_256', ?)";
                 try (PreparedStatement stm = con.prepareStatement(sql)) {
                     stm.setString(1, userEmail);
                     stm.setString(2, userPassword);
                     try (ResultSet rs = stm.executeQuery()) {
                         if (rs.next()) {
-                            return new Customers(
-                                    rs.getInt("User_ID"),
-                                    rs.getString("User_Name"),
-                                    rs.getString("User_Password"),
-                                    rs.getString("User_Email"),
-                                    rs.getString("User_PhoneNum"),
-                                    rs.getString("User_Address"),
-                                    rs.getInt("Role_ID"),
-                                    rs.getDate("Created_At"),
-                                    rs.getDate("Updated_At")
-                            );
+                            User user = new User();
+                            user.setUserId(rs.getInt("User_ID"));
+                            user.setUserName(rs.getString("User_Name"));
+                            user.setUserPassword(rs.getString("User_Password"));
+                            user.setUserEmail(rs.getString("User_Email"));
+                            user.setUserPhoneNum(rs.getString("User_PhoneNum"));
+                            user.setUserAddress(rs.getString("User_Address"));
+                            user.setUserGender(rs.getString("User_Gender"));
+                            user.setUserImage(rs.getString("User_Image"));
+                            user.setCustomer(rs.getBoolean("IsCustomer"));
+                            user.setGuest(rs.getBoolean("IsGuest"));
+                            return user;
                         }
                     }
                 }
@@ -75,55 +75,26 @@ public class LoginDao {
         return null;
     }
 
-    public Admins checkLoginAdmin(String username, String password) throws SQLException, ClassNotFoundException {
+    public Manager checkLoginManager(String managerEmail, String managerPassword) throws SQLException, ClassNotFoundException {
         DBContext dbContext = new DBContext();
         try (Connection con = dbContext.getConnection()) {
             if (con != null) {
-                String sql = "SELECT * FROM Admins WHERE Admin_Email = ? AND Admin_Password = HASHBYTES('SHA2_256', ?)";
+                String sql = "SELECT * FROM Managers WHERE Manager_Email = ? AND Manager_Password = HASHBYTES('SHA2_256', ?)";
                 try (PreparedStatement stm = con.prepareStatement(sql)) {
-                    stm.setString(1, username);
-                    stm.setString(2, password);
+                    stm.setString(1, managerEmail);
+                    stm.setString(2, managerPassword);
                     try (ResultSet rs = stm.executeQuery()) {
                         if (rs.next()) {
-                            return new Admins(
-                                    rs.getInt("Admin_ID"),
-                                    rs.getString("Admin_Email"),
-                                    rs.getString("Admin_Password"),
-                                    rs.getString("Admin_Address"),
-                                    rs.getString("Admin_PhoneNum"),
-                                    rs.getInt("Role_ID"),
-                                    rs.getDate("Created_At"),
-                                    rs.getDate("Updated_At")
-                            );
-                        }
-                    }
-                }
-            }
-        }
-        return null;
-    }
-
-    public Staffs checkLoginStaff(String username, String password) throws SQLException, ClassNotFoundException {
-        DBContext dbContext = new DBContext();
-        try (Connection con = dbContext.getConnection()) {
-            if (con != null) {
-                String sql = "SELECT * FROM Staffs WHERE Staff_Email = ? AND Staff_Password = HASHBYTES('SHA2_256', ?)";
-                try (PreparedStatement stm = con.prepareStatement(sql)) {
-                    stm.setString(1, username);
-                    stm.setString(2, password);
-                    try (ResultSet rs = stm.executeQuery()) {
-                        if (rs.next()) {
-                            return new Staffs(
-                                    rs.getInt("Staff_ID"),
-                                    rs.getString("Staff_Email"),
-                                    rs.getString("Staff_Password"),
-                                    rs.getString("Staff_Address"),
-                                    rs.getString("Staff_PhoneNum"),
-                                    rs.getString("Staff_Gender"),
-                                    rs.getInt("Role_ID"),
-                                    rs.getDate("Created_At"),
-                                    rs.getDate("Updated_At")
-                            );
+                            Manager manager = new Manager();
+                            manager.setManagerId(rs.getInt("Manager_ID"));
+                            manager.setManagerEmail(rs.getString("Manager_Email"));
+                            manager.setManagerPassword(rs.getBytes("Manager_Password"));
+                            manager.setManagerAddress(rs.getString("Manager_Address"));
+                            manager.setManagerPhoneNum(rs.getString("Manager_PhoneNum"));
+                            manager.setManagerGender(rs.getString("Manager_Gender"));
+                            manager.setAdmin(rs.getBoolean("IsAdmin"));
+                            manager.setStaff(rs.getBoolean("IsStaff"));
+                            return manager;
                         }
                     }
                 }

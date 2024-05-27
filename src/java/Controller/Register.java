@@ -11,10 +11,6 @@ import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.sql.SQLException;
 
-/**
- *
- * @author Tuan anh
- */
 @WebServlet(name = "Register", urlPatterns = {"/register"})
 public class Register extends HttpServlet {
 
@@ -52,6 +48,7 @@ public class Register extends HttpServlet {
         String phoneNum = request.getParameter("phone");
         String address = request.getParameter("address");
         String gender = request.getParameter("Gender");
+        String image = "default.jpg"; // Default image path
         int roleId = 1; // Assume 1 for regular customer
         String message = "";
 
@@ -67,9 +64,10 @@ public class Register extends HttpServlet {
             if (!email.contains("@")) {
                 message = "Địa chỉ email không hợp lệ.";
             }
-            RegisterDAO RegisterDao = new RegisterDAO();
+
+            RegisterDAO registerDao = new RegisterDAO();
             if (message.isEmpty()) {
-                boolean isSuccess = RegisterDao.registerCustomer(name, email, password, phoneNum, address);
+                boolean isSuccess = registerDao.registerCustomer(name, email, password, phoneNum, address, gender, image);
                 if (isSuccess) {
                     message = "Tạo tài khoản thành công.";
                 } else {
@@ -78,11 +76,11 @@ public class Register extends HttpServlet {
             }
 
         } catch (SQLException | ClassNotFoundException ex) {
-            System.out.println("An error occurred: " + ex.getMessage());
+            message = "Đã xảy ra lỗi. Vui lòng thử lại.";
+            ex.printStackTrace();
         }
 
         session.setAttribute("mess", message);
-
         response.sendRedirect("login.jsp");
     }
 
@@ -90,5 +88,4 @@ public class Register extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
 }

@@ -14,16 +14,16 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 
-@WebServlet(name="ForgotPass", urlPatterns={"/forgot"})
+@WebServlet(name = "ForgotPass", urlPatterns = {"/forgot"})
 public class ForgotPass extends HttpServlet {
-   
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         try {
             response.setContentType("text/html;charset=UTF-8");
             LoginDao dao = new LoginDao();
             String emailReset = request.getParameter("email");
-            String email = "anhnthe172081@fpt.edu.vn";
+            String email = "phaminh1909@gmail.com";
             String password = "tpny idbp ncdd huuy";
             String subject = "Password Reset";
             Random code = new Random();
@@ -35,7 +35,7 @@ public class ForgotPass extends HttpServlet {
                     + "<h2>" + newPass + "</h2>"
                     + "</html>\n";
             Send.send(emailReset, subject, message, email, password);
-            
+
             boolean isUpdated = dao.updatePassword(emailReset, String.valueOf(newPass));
             HttpSession session = request.getSession();
             if (isUpdated) {
@@ -53,13 +53,13 @@ public class ForgotPass extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 
