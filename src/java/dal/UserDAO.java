@@ -4,9 +4,12 @@
  */
 package dal;
 
+import java.security.MessageDigest;
+import java.security.NoSuchAlgorithmException;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Base64;
 import java.util.Vector;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -35,7 +38,7 @@ public class UserDAO extends DBContext {
                 String phone = rs.getString("phone");
                 String address = rs.getString("address");
                 int role_id = rs.getInt("role_id");
-                
+
                 User u = new User(id, username, password, fullname, email, phone, address, role_id);
                 users.add(u);
             }
@@ -101,8 +104,7 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    
-    
+
     //get all customer (role_id = 1)
     public Vector<User> getAllCustomer() {
         PreparedStatement stm = null;
@@ -122,7 +124,7 @@ public class UserDAO extends DBContext {
                 String address = rs.getString("address");
                 int role_id = rs.getInt("role_id");
                 int banned = rs.getInt("banned");
-                
+
                 User u = new User(id, username, password, fullname, email, phone, address, role_id, banned);
                 users.add(u);
             }
@@ -144,12 +146,12 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    
+
     public User getUserById(int userId) {
         PreparedStatement stm = null;
         ResultSet rs = null;
         String sql = "select * from [Users]\n"
-                + "where [id] = ?";
+                + "where [User_ID] = ?";
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, userId);
@@ -157,18 +159,22 @@ public class UserDAO extends DBContext {
 
             while (rs.next()) {
                 User u = new User();
-                u.setId(rs.getInt("id"));
-                u.setUsername(rs.getString("username"));
-                u.setPassword(rs.getString("password"));
-                u.setFullname(rs.getString("fullname"));
-                u.setAddress(rs.getString("address"));
-                u.setEmail(rs.getString("email"));
-                u.setPhone(rs.getString("phone"));
-                u.setRole_id(rs.getInt("role_id"));
-                System.out.println(u);
+                u.setId(rs.getInt("User_ID"));
+                u.setUsername(rs.getString("User_Name"));
+                u.setPassword(rs.getString("User_Password"));
+                u.setFullname(rs.getString("User_Name"));
+                u.setAddress(rs.getString("User_Address"));
+                u.setEmail(rs.getString("User_Email"));
+                u.setPhone(rs.getString("User_PhoneNum"));
+                u.setImageData(rs.getBytes("User_Image"));
+                u.setRole_id(1);
+//                System.out.println(u);
+                if (u.getImageData() != null) {
+                    u.setImage(Base64.getEncoder().encodeToString(u.getImageData()));
+                }
                 return u;
             }
-            
+
         } catch (SQLException ex) {
             Logger.getLogger(UserDAO.class
                     .getName()).log(Level.SEVERE, null, ex);
@@ -185,7 +191,53 @@ public class UserDAO extends DBContext {
         }
         return null;
     }
-    
+
+    public User checkUser(String userEmail, String userPassword) {
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        String sql = "select * from [Users]\n"
+                + "where [User_Email] = ? AND User_Password = HASHBYTES('SHA2_256', ?)";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, userEmail);
+            stm.setString(2, userPassword);
+            rs = stm.executeQuery();
+
+            while (rs.next()) {
+                User u = new User();
+                u.setId(rs.getInt("User_ID"));
+                u.setUsername(rs.getString("User_Name"));
+                u.setPassword(rs.getString("User_Password"));
+                u.setFullname(rs.getString("User_Name"));
+                u.setAddress(rs.getString("User_Address"));
+                u.setEmail(rs.getString("User_Email"));
+                u.setPhone(rs.getString("User_PhoneNum"));
+                u.setImageData(rs.getBytes("User_Image"));
+                u.setRole_id(1);
+//                System.out.println(u);
+                if (u.getImageData() != null) {
+                    u.setImage(Base64.getEncoder().encodeToString(u.getImageData()));
+                }
+                return u;
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                rs.close();
+                stm.close();
+                connection.close();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+
     public Vector<User> getCustomerByName(String name) {
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -196,7 +248,7 @@ public class UserDAO extends DBContext {
             stm = connection.prepareStatement(sql);
             stm.setString(1, "%" + name + "%");
             rs = stm.executeQuery();
-            
+
             while (rs.next()) {
                 User u = new User();
                 u.setId(rs.getInt("id"));
@@ -269,7 +321,7 @@ public class UserDAO extends DBContext {
             }
         }
     }
-    
+
     public void banAnUser(int userId) {
         PreparedStatement stm = null;
 
@@ -295,4 +347,70 @@ public class UserDAO extends DBContext {
             }
         }
     }
+
+    public void updateUser(User user) {
+        PreparedStatement stm = null;
+        System.out.println(user.toString());
+        String sql = ""
+                + "UPDATE [dbo].[Users]\n"
+                + "   SET [User_Name] = ?\n"
+                + "      ,[User_Email] =  ?\n"
+                + "      ,[User_PhoneNum] =  ?\n"
+                + "      ,[User_Address] = ?\n"
+                + "      ,[User_Image] = ?"
+                + "      ,[Updated_At] = getdate()\n"
+                + " WHERE User_ID = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, user.getFullname());
+            stm.setString(2, user.getEmail());
+            stm.setString(3, user.getPhone());
+            stm.setString(4, user.getAddress());
+            stm.setBytes(5, user.getImageData());
+            stm.setInt(6, user.getId());
+
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
+    public void updateUserPass(User user) {
+        PreparedStatement stm = null;
+        String sql = ""
+                + "UPDATE [dbo].[Users]\n"
+                + "   SET [User_Password] = HASHBYTES('SHA2_256', ?)\n"
+                + "      ,[Updated_At] = getdate()\n"
+                + " WHERE User_ID = ?";
+        try {
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, user.getPassword());
+            stm.setInt(2, user.getId());
+
+            stm.executeUpdate();
+        } catch (SQLException ex) {
+            Logger.getLogger(UserDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                connection.close();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(UserDAO.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
 }

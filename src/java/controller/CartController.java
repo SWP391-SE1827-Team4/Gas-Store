@@ -35,9 +35,9 @@ public class CartController extends HttpServlet {
         resp.setContentType("text/html;charset=UTF-8");
         HttpSession session = req.getSession();
 
-        User userFake = new User();
-        userFake = new UserDAO().getUserById(1);
-        session.setAttribute("user", userFake);
+//        User userFake = new User();
+//        userFake = new UserDAO().getUserById(1);
+//        session.setAttribute("user", userFake);
 
         String service = req.getParameter("service");
         User user = (User) session.getAttribute("user");

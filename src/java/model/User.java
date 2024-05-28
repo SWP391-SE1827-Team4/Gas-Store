@@ -16,7 +16,6 @@ import lombok.ToString;
  *
  * @author Van Minh Tuan
  */
-
 @Builder
 @Data
 @AllArgsConstructor
@@ -26,7 +25,7 @@ import lombok.ToString;
 @ToString
 
 public class User {
-    
+
     private int id;
     private String username;
     private String password;
@@ -36,7 +35,9 @@ public class User {
     private String address;
     private int role_id;
     private int banned;
-
+    private String image;
+    private byte[] imageData;
+    
     public User(String username, String password, String fullname, String email, String phone, String address, int role_id) {
         this.username = username;
         this.password = password;
@@ -46,7 +47,7 @@ public class User {
         this.address = address;
         this.role_id = role_id;
     }
-    
+
     public User(int id, String username, String password, String fullname, String email, String phone, String address, int role_id) {
         this.id = id;
         this.username = username;
@@ -57,4 +58,17 @@ public class User {
         this.address = address;
         this.role_id = role_id;
     }
+
+    public User(int id, String username, String password, String fullname, String email, String phone, String address, int role_id, int banned) {
+        this.id = id;
+        this.username = username;
+        this.password = password;
+        this.fullname = fullname;
+        this.email = email;
+        this.phone = phone;
+        this.address = address;
+        this.role_id = role_id;
+        this.banned = banned;
+    }
+    
 }
