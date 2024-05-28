@@ -17,6 +17,7 @@ import java.sql.Statement;
 import java.sql.Timestamp;
 import java.time.LocalDateTime;
 import java.util.Vector;
+import model.Categories;
 import model.Product;
 
 public class DAOProducts extends DBContext {
@@ -74,6 +75,30 @@ public class DAOProducts extends DBContext {
                 LocalDateTime updatedAt = updatedAtTimestamp != null ? updatedAtTimestamp.toLocalDateTime() : null;
                 product.setUpdated_At(updatedAt);
                 list.add(product);
+            }
+        } catch (Exception ex) {
+            Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return list;
+    }
+
+    public List<Categories> getAllProductsCATEGORIES() {
+        List<Categories> list = new ArrayList<>();
+        try {
+            String sql = "SELECT TOP (1000) [Category_ID]\n"
+                    + "      ,[Category_Name]\n"
+                    + "      ,[Category_Quantity]\n"
+                    + "      ,[Description]\n"
+                    + "  FROM [GasStore].[dbo].[Categories]";
+            PreparedStatement stm = connection.prepareStatement(sql);
+            ResultSet rs = stm.executeQuery();
+            while (rs.next()) {
+                Categories c = new Categories();
+                c.setCategoryID(rs.getInt(1));
+                c.setCategoryName(rs.getString(2));
+                c.setTotalProducts(rs.getInt(3));
+                c.setDescription(rs.getString(4));
+                list.add(c);
             }
         } catch (Exception ex) {
             Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);
@@ -193,11 +218,18 @@ public class DAOProducts extends DBContext {
 
     public Product getProductById(int productId) {
         try {
-            String sql = "select *  from Products where Product_ID = ?";
+            String sql = "SELECT p.Product_ID, p.Category_ID, p.SerialProduct_Number, p.Product_Name, "
+                    + "p.Product_Quantity, p.Product_Price, p.Product_Description, p.Created_At, p.Updated_At, "
+                    + "img.Image_URL "
+                    + "FROM Products p "
+                    + "LEFT JOIN Image_Product img ON p.Product_ID = img.Product_ID "
+                    + "WHERE p.Product_ID = ?";
+
             PreparedStatement stm = connection.prepareStatement(sql);
             stm.setInt(1, productId);
             ResultSet rs = stm.executeQuery();
-            while (rs.next()) {
+
+            if (rs.next()) {
                 Product product = new Product();
                 product.setProductID(rs.getInt(1));
                 product.setCategoryID(rs.getInt(2));
@@ -206,6 +238,7 @@ public class DAOProducts extends DBContext {
                 product.setProduct_Quantity(rs.getInt(5));
                 product.setProduct_Price(rs.getDouble(6));
                 product.setProduct_Description(rs.getString(7));
+
                 Timestamp createdAtTimestamp = rs.getTimestamp(8);
                 LocalDateTime createdAt = createdAtTimestamp != null ? createdAtTimestamp.toLocalDateTime() : null;
                 product.setCreated_At(createdAt);
@@ -213,10 +246,13 @@ public class DAOProducts extends DBContext {
                 Timestamp updatedAtTimestamp = rs.getTimestamp(9);
                 LocalDateTime updatedAt = updatedAtTimestamp != null ? updatedAtTimestamp.toLocalDateTime() : null;
                 product.setUpdated_At(updatedAt);
+
+                product.setImage(rs.getString(10));
+
                 return product;
             }
         } catch (Exception ex) {
-            Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null;
     }
@@ -350,34 +386,54 @@ public class DAOProducts extends DBContext {
         }
     }
 
-    public void updateProduct(Product p) {
+    public void updateProduct(Product product) {
+        PreparedStatement stm = null;
         try {
-            String sql = "UPDATE [dbo].[Product]\n"
-                    + "   SET [Category_ID] = ?\n"
-                    + "      ,[SerialProduct_Number] = ?\n"
-                    + "      ,[Product_Name] = ?\n"
-                    + "      ,[Product_Quantity] = ?\n"
-                    + "      ,[Product_Price] = ?\n"
-                    + "      ,[Product_Description] = ?\n"
-                    + "      ,[Created_At] = ?\n"
-                    + "      ,[Updated_At] = ?\n"
-                    + " WHERE [Product_ID] = ?";
-            PreparedStatement stm = connection.prepareStatement(sql);
-            stm.setInt(1, p.getCategoryID());
-            stm.setString(2, p.getSerialProduct_Number());
-            stm.setString(3, p.getProduct_Name());
-            stm.setInt(4, p.getProduct_Quantity());
-            stm.setDouble(5, p.getProduct_Price());
-            stm.setString(6, p.getProduct_Description());
-            stm.setObject(7, p.getCreated_At());
-            stm.setObject(8, p.getUpdated_At());
-            stm.setInt(9, p.getProductID());
+            connection.setAutoCommit(false); // Start a transaction
+
+            // Update Products table
+            String sql = "UPDATE [dbo].[Products] "
+                    + "SET [Category_ID] = ?, [SerialProduct_Number] = ?, [Product_Name] = ?, "
+                    + "[Product_Quantity] = ?, [Product_Price] = ?, [Product_Description] = ?, "
+                    + "[Updated_At] = ? "
+                    + "WHERE [Product_ID] = ?";
+
+            stm = connection.prepareStatement(sql);
+            stm.setInt(1, product.getCategoryID());
+            stm.setString(2, product.getSerialProduct_Number());
+            stm.setString(3, product.getProduct_Name());
+            stm.setInt(4, product.getProduct_Quantity());
+            stm.setDouble(5, product.getProduct_Price());
+            stm.setString(6, product.getProduct_Description());
+            stm.setTimestamp(7, Timestamp.valueOf(product.getUpdated_At()));
+            stm.setInt(8, product.getProductID());
             stm.executeUpdate();
 
-        } catch (SQLException ex) {
-            Logger.getLogger(DAOCategories.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            // Update Image_Product table
+            sql = "UPDATE [dbo].[Image_Product] SET [Image_URL] = ? WHERE [Product_ID] = ?";
+            stm = connection.prepareStatement(sql);
+            stm.setString(1, product.getImage());
+            stm.setInt(2, product.getProductID());
+            stm.executeUpdate();
 
+            connection.commit(); // Commit the transaction
+        } catch (SQLException ex) {
+            try {
+                connection.rollback(); // Rollback the transaction on error
+            } catch (SQLException e) {
+                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, "Rollback failed: " + e.getMessage(), e);
+            }
+            Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, "Update product failed: " + ex.getMessage(), ex);
+        } finally {
+            try {
+                if (stm != null) {
+                    stm.close();
+                }
+                connection.setAutoCommit(true); // Restore the auto-commit mode
+            } catch (SQLException e) {
+                Logger.getLogger(DAOProducts.class.getName()).log(Level.SEVERE, "Closing resources failed: " + e.getMessage(), e);
+            }
+        }
     }
 
 //    public List<Product> getAllProductsLast() {

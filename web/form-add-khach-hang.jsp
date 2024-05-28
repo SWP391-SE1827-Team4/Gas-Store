@@ -222,7 +222,7 @@
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="control-label">Số điện thoại</label>
-                                <input class="form-control" type="text" name="phone" required>
+                                <input class="form-control" type="tel" name="phone" required>
                             </div>
                             <div class="form-group col-md-3">
                                 <label class="control-label">Giới tính</label>

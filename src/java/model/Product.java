@@ -28,6 +28,18 @@ public class Product {
     public Product() {
     }
 
+    public Product(int ProductID, int CategoryID, String SerialProduct_Number, String Product_Name, int Product_Quantity, double Product_Price, String Product_Description, String Image, LocalDateTime updated_At) {
+        this.ProductID = ProductID;
+        this.CategoryID = CategoryID;
+        this.SerialProduct_Number = SerialProduct_Number;
+        this.Product_Name = Product_Name;
+        this.Product_Quantity = Product_Quantity;
+        this.Product_Price = Product_Price;
+        this.Product_Description = Product_Description;
+        this.Image = Image;
+        this.updated_At = updated_At;
+    }
+
     @Override
     public String toString() {
         return "Product{" + "ProductID=" + ProductID + ", CategoryID=" + CategoryID + ", SerialProduct_Number=" + SerialProduct_Number + ", Product_Name=" + Product_Name + ", Product_Quantity=" + Product_Quantity + ", Product_Price=" + Product_Price + ", Product_Description=" + Product_Description + ", Image=" + Image + ", created_At=" + created_At + ", updated_At=" + updated_At + '}';

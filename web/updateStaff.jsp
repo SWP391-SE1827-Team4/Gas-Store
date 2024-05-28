@@ -79,8 +79,12 @@
                     <input type="tel" class="form-control" id="StaffPhoneNum" name="StaffPhoneNum" value="${s.getManager_PhoneNum()}">
                 </div>
                 <div class="form-group">
-                    <label for="gender">Staff Gender</label>
-                    <input type="text" class="form-control" id="gender" name="gender" value="${s.getManager_Gender()}">
+                    <label class="control-label">Giới tính</label>
+                    <select class="form-control" name="gender" required>
+                        <option value="Nam"${s.getManager_Gender() ? 'selected' : ''}>Nam</option>
+                        <option value="Nữ"${s.getManager_Gender() ? 'selected' : ''}>Nữ</option>
+                    </select>
+                    <!--                    <input type="text" class="form-control" id="gender" name="gender" value="">-->
                 </div>
                 <div class="form-group">
                     <label for="isAdmin">IsAdmin</label>

@@ -9,17 +9,13 @@ package model;
  * @author xuank
  */
 public class Categories {
+
     int CategoryID;
     String CategoryName;
     int TotalProducts;
+    String Description;
 
     public Categories() {
-    }
-
-    public Categories(int CategoryID, String CategoryName, int TotalProducts) {
-        this.CategoryID = CategoryID;
-        this.CategoryName = CategoryName;
-        this.TotalProducts = TotalProducts;
     }
 
     public int getCategoryID() {
@@ -45,5 +41,18 @@ public class Categories {
     public void setTotalProducts(int TotalProducts) {
         this.TotalProducts = TotalProducts;
     }
-    
+
+    public String getDescription() {
+        return Description;
+    }
+
+    public void setDescription(String Description) {
+        this.Description = Description;
+    }
+
+    @Override
+    public String toString() {
+        return "Categories{" + "CategoryID=" + CategoryID + ", CategoryName=" + CategoryName + ", TotalProducts=" + TotalProducts + ", Description=" + Description + '}';
+    }
+
 }

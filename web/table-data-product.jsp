@@ -173,7 +173,7 @@
                                             <td>${p.getSerialProduct_Number()}</td>
                                             <td>${p.getCreated_At()}</td>
                                             <td>
-                                                <a href="updateP?service=updateProduct&pid=${p.getProductID()}" class="btn btn-primary btn-sm">
+                                                <a href="updateP?service=updateProducts&pid=${p.getProductID()}" class="btn btn-primary btn-sm">
                                                     <i class="fas fa-edit"></i> Update
                                                 </a>
                                                 <a href="updateP?service=deleteProduct&pid=${p.getProductID()}" class="btn btn-danger btn-sm" 

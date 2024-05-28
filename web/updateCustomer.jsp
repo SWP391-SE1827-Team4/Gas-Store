@@ -83,10 +83,13 @@
                     <input type="text" class="form-control" id="UserAddress" name="UserAddress" value="${c.getUser_Address()}">
                 </div>
                 <div class="form-group">
-                    <label for="UserGender">UserGender</label>
-                    <input type="text" class="form-control" id="UserGender" name="UserGender" value="${c.getUser_Gender()}">
+                    <label class="control-label">UserGender</label>
+                    <select class="form-control" name="UserGender" required>
+                        <option value="Nam"${c.getUser_Gender() ? 'selected' : ''}>Nam</option>
+                        <option value="Nữ"${!c.getUser_Gender() ? 'selected' : ''}>Nữ</option>
+                    </select>
+                    <!--                    <input type="text" class="form-control" id="gender" name="gender" value="">-->
                 </div>
-
                 <div class="form-group">
                     <label for="UpdatedAt">Updated At</label>
                     <input type="datetime-local" class="form-control" id="UpdatedAt" name="UpdatedAt" value="${c.getUpdated_At()}">

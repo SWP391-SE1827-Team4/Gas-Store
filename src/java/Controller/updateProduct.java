@@ -16,7 +16,9 @@ import jakarta.servlet.http.Part;
 import java.io.File;
 import java.nio.file.Paths;
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.UUID;
+import model.Categories;
 import model.Product;
 
 /**
@@ -69,11 +71,13 @@ public class updateProduct extends HttpServlet {
             }
         }
 
-        if ("updateProduct".equals(service)) {
+        if ("updateProducts".equals(service)) {
             if (submit == null) {
                 // Show form for updating staff
                 String pid = request.getParameter("pid");
                 Product product = dao.getProductById(Integer.parseInt(pid));
+                List<Categories> c = dao.getAllProductsCATEGORIES();
+                request.setAttribute("category", c);
                 request.setAttribute("product", product);
                 request.getRequestDispatcher("updateProducts.jsp").forward(request, response);
             } else {
@@ -84,20 +88,10 @@ public class updateProduct extends HttpServlet {
                 String name = request.getParameter("name");
                 int quantity = Integer.parseInt(request.getParameter("quantity"));
                 double price = Double.parseDouble(request.getParameter("price"));
-                LocalDateTime createdAt = LocalDateTime.parse(request.getParameter("createdAt"));
                 LocalDateTime updatedAt = LocalDateTime.parse(request.getParameter("UpdatedAt"));
                 String description = request.getParameter("description");
-                Part filePart = request.getPart("ImageUpload");
-                String fileName = UUID.randomUUID().toString() + "_" + filePart.getSubmittedFileName();
-                String fileUrl = "/uploads/" + fileName; // Assuming uploads directory exists
-                String uploadPath = request.getServletContext().getRealPath("") + File.separator + "uploads";
-                File uploadDir = new File(uploadPath);
-                if (!uploadDir.exists()) {
-                    uploadDir.mkdir();
-                }
-                filePart.write(uploadPath + File.separator + fileName);
-
-                Product p = new Product(ID, category, serial, name, quantity, price, description, fileName, createdAt, updatedAt);
+                String image = request.getParameter("ImageUpload");
+                Product p = new Product(ID, category, serial, name, quantity, price, description, image, updatedAt);
                 dao.updateProduct(p);
                 response.sendRedirect("ProductURL");
             }
