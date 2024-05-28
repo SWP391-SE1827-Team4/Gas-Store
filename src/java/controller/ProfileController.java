@@ -44,7 +44,7 @@ public class ProfileController extends HttpServlet {
             throws ServletException, IOException {
 
         HttpSession session = request.getSession();
-        User userFake = new UserDAO().getUserById(2);
+        User userOld = (User) session.getAttribute("user");
 
         if (request.getPart("imageUser") != null) {
             // Xử lý tải lên file
@@ -63,18 +63,18 @@ public class ProfileController extends HttpServlet {
             // Mã hóa dữ liệu byte thành chuỗi Base64
 //            String base64Image = Base64.getEncoder().encodeToString(imageData);
             
-            userFake.setImageData(imageData);
+            userOld.setImageData(imageData);
 //            userFake.setImage(base64Image);
 //            System.out.println(base64Image);
         }
 
-        userFake.setFullname(request.getParameter("fullname"));
-        userFake.setPhone(request.getParameter("phone"));
-        userFake.setAddress(request.getParameter("address"));
+        userOld.setFullname(request.getParameter("fullname"));
+        userOld.setPhone(request.getParameter("phone"));
+        userOld.setAddress(request.getParameter("address"));
 
-        new UserDAO().updateUser(userFake);
-        userFake = new UserDAO().getUserById(1);
-        session.setAttribute("user", userFake);
+        new UserDAO().updateUser(userOld);
+        userOld = new UserDAO().getUserById(1);
+        session.setAttribute("user", userOld);
 //        request.setAttribute("base64Image", base64Image);
         request.setAttribute("mess", "Save data successful");
         request.getRequestDispatcher("profile.jsp").forward(request, response);
