@@ -23,7 +23,7 @@ public class ForgotPass extends HttpServlet {
             response.setContentType("text/html;charset=UTF-8");
             LoginDao dao = new LoginDao();
             String emailReset = request.getParameter("email");
-            String email = "phaminh1909@gmail.com";
+            String email = "anhnthe172081@fpt.edu.vn";
             String password = "tpny idbp ncdd huuy";
             String subject = "Password Reset";
             Random code = new Random();

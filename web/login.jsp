@@ -25,7 +25,7 @@
         <!--===============================================================================================-->
     </head>
     <body>
-
+        <script src="https://www.google.com/recaptcha/api.js" async defer></script>
         <div class="limiter">
             <div class="container-login100">
                 <div class="wrap-login100">
@@ -66,7 +66,7 @@
                                 <i class="fa fa-lock" aria-hidden="true"></i>
                             </span>
                         </div>
-
+                        <div class="g-recaptcha" data-sitekey="6LfNvekpAAAAAIIT5ZHz5h0lcAqL6KYEFxZD_u8N"></div>
                         <div class="container-login100-form-btn">
 
                             <input class="login100-form-btn" type="submit" value="login" name="btAction" />
@@ -91,10 +91,6 @@
                 </div>
             </div>
         </div>
-
-
-
-
         <!--===============================================================================================-->	
         <script src="vendor/jquery/jquery-3.2.1.min.js"></script>
         <!--===============================================================================================-->
