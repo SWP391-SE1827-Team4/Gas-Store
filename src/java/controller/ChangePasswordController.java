@@ -14,6 +14,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import model.User;
+import utils.PasswordValidator;
 import utils.SendMail;
 
 /**
@@ -37,7 +38,11 @@ public class ChangePasswordController extends HttpServlet {
 
         String pass = request.getParameter("currentPassword");
         String newPassword = request.getParameter("newPassword");
-
+        if (!PasswordValidator.isValidPassword(pass) || !PasswordValidator.isValidPassword(newPassword)) {
+            request.setAttribute("mess", "Password must have at least 8 characters, including upper and lower case letters and numbers");
+            request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
+            return;
+        }
         User user = new UserDAO().checkUser(userOld.getEmail(), pass);
         if (user == null) {
             request.setAttribute("mess", "Old Password not correct");
@@ -51,11 +56,11 @@ public class ChangePasswordController extends HttpServlet {
 
         user = new UserDAO().getUserById(user.getId());
         session.setAttribute("user", user);
-        
+
         request.setAttribute("mess", "Change Pass successful");
-        
+
         SendMail.sendMailFunction(user.getEmail(), "Change Pass successful", "Your password has been changed");
-        
+
         request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
     }
 
