@@ -19,6 +19,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.InputStream;
 import java.util.Base64;
 import model.User;
+import utils.FileUtils;
 
 /**
  *
@@ -32,7 +33,7 @@ public class ProfileController extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         HttpSession session = request.getSession();
-        User userFake = new UserDAO().getUserById(2);
+        User userFake = new UserDAO().getUserById(1);
 
         session.setAttribute("user", userFake);
 
@@ -45,27 +46,24 @@ public class ProfileController extends HttpServlet {
 
         HttpSession session = request.getSession();
         User userOld = (User) session.getAttribute("user");
+        userOld = new UserDAO().getUserById(userOld.getId());
+        if (request.getParameter("imageUser") != null) {
+//            // Xử lý tải lên file
+//            Part filePart = request.getPart("imageUser");
+//            InputStream fileContent = filePart.getInputStream();
+//            if (FileUtils.isImageFile(fileContent)) {
+//                // Đọc nội dung file vào mảng byte
+//                ByteArrayOutputStream output = new ByteArrayOutputStream();
+//                byte[] buffer = new byte[4096];
+//                int bytesRead;
+//                while ((bytesRead = fileContent.read(buffer)) != -1) {
+//                    output.write(buffer, 0, bytesRead);
+//                }
+//                byte[] imageData = output.toByteArray();
+//
+//            }
+            userOld.setImage(request.getParameter("imageUser"));
 
-        if (request.getPart("imageUser") != null) {
-            // Xử lý tải lên file
-            Part filePart = request.getPart("imageUser");
-            InputStream fileContent = filePart.getInputStream();
-
-            // Đọc nội dung file vào mảng byte
-            ByteArrayOutputStream output = new ByteArrayOutputStream();
-            byte[] buffer = new byte[4096];
-            int bytesRead;
-            while ((bytesRead = fileContent.read(buffer)) != -1) {
-                output.write(buffer, 0, bytesRead);
-            }
-            byte[] imageData = output.toByteArray();
-
-            // Mã hóa dữ liệu byte thành chuỗi Base64
-//            String base64Image = Base64.getEncoder().encodeToString(imageData);
-            
-            userOld.setImageData(imageData);
-//            userFake.setImage(base64Image);
-//            System.out.println(base64Image);
         }
 
         userOld.setFullname(request.getParameter("fullname"));

@@ -147,6 +147,10 @@ public class UserDAO extends DBContext {
         return null;
     }
 
+    public static void main(String[] args) {
+        System.out.println(new UserDAO().getUserById(2).getImage());
+    }
+
     public User getUserById(int userId) {
         PreparedStatement stm = null;
         ResultSet rs = null;
@@ -166,12 +170,12 @@ public class UserDAO extends DBContext {
                 u.setAddress(rs.getString("User_Address"));
                 u.setEmail(rs.getString("User_Email"));
                 u.setPhone(rs.getString("User_PhoneNum"));
-                u.setImageData(rs.getBytes("User_Image"));
+                u.setImage(rs.getString("User_Image"));
                 u.setRole_id(1);
 //                System.out.println(u);
-                if (u.getImageData() != null) {
-                    u.setImage(Base64.getEncoder().encodeToString(u.getImageData()));
-                }
+//                if (u.getImageData() != null) {
+//                    u.setImage(Base64.getEncoder().encodeToString(u.getImageData()));
+//                }
                 return u;
             }
 
@@ -366,7 +370,8 @@ public class UserDAO extends DBContext {
             stm.setString(2, user.getEmail());
             stm.setString(3, user.getPhone());
             stm.setString(4, user.getAddress());
-            stm.setBytes(5, user.getImageData());
+//            stm.setBytes(5, user.getImageData());
+            stm.setString(5, user.getImage());
             stm.setInt(6, user.getId());
 
             stm.executeUpdate();

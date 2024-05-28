@@ -40,20 +40,23 @@
                         <div class="col-md-9">
                             <div class="tab-content">
                                 <div class="tab-pane fade active show" id="account-general">
+                                    <!--${sessionScope.user.image}-->
                                     <div class="card-body media align-items-center">
-                                        <img id="preview" src="data:image/jpeg;base64,${sessionScope.user.image}" alt
+                                        <img id="preview" src="${sessionScope.user.image}" alt
                                              class="d-block ui-w-80">
                                         <div class="media-body ml-4">
                                             <label class="btn btn-outline-primary">
                                                 Upload new photo
-                                                <input id="fileInputImage" type="file" accept="image/*" name="imageUser" class="account-settings-fileinput" ">
+                                                <input id="fileInputImage" type="file" accept="image/*" name="s"  class="account-settings-fileinput" ">
                                             </label> &nbsp;
+                                             <input id="fileInputImageHident" hidden type="text" name="imageUser" value="${sessionScope.user.image}" ">
                                             <!--<button type="button" class="btn btn-default md-btn-flat">Reset</button>-->
                                             <div class="text-light small mt-1">Allowed JPG, GIF or PNG. Max size of 800K</div>
                                         </div>
                                         <script>
                                             const fileInput = document.getElementById('fileInputImage');
                                             const previewImg = document.getElementById('preview');
+                                            const fileInputImageHident = document.getElementById('fileInputImageHident');
 
                                             fileInput.addEventListener('change', function () {
                                                 const file = this.files[0];
@@ -69,6 +72,7 @@
                                                     const reader = new FileReader();
                                                     reader.addEventListener('load', function () {
                                                         previewImg.src = reader.result;
+                                                        fileInputImageHident.value = reader.result;
                                                     });
                                                     reader.readAsDataURL(file);
                                                 }
