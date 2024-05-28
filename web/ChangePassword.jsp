@@ -37,15 +37,23 @@
                                         <h3>${mess}</h3>
                                         <div class="form-group">
                                             <label class="form-label">Current password</label>
-                                            <input type="password" name="currentPassword" required class="form-control">
+                                            <input type="password" name="currentPassword" required class="form-control" 
+                                                   pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$" 
+                                                   title="Password must have at least 8 characters, including upper and lower case letters and numbers" />
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">New password</label>
-                                            <input type="password" name="newPassword" id="newPassword" required class="form-control">
+                                            <input type="password" name="newPassword" id="newPassword" 
+                                                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$" 
+                                                   title="Password must have at least 8 characters, including upper and lower case letters and numbers"
+                                                   required class="form-control">
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Repeat new password</label>
-                                            <input type="password" required name="repeatPassword" id="repeatPassword" class="form-control">
+                                            <input type="password" required name="repeatPassword"
+                                                    pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}$" 
+                                                   title="Password must have at least 8 characters, including upper and lower case letters and numbers"
+                                                   id="repeatPassword" class="form-control">
                                         </div>
                                     </div>
                                 </div>
