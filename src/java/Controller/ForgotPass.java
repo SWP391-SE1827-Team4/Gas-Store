@@ -1,6 +1,6 @@
 package Controller;
 
-import Model.Send;
+import utils.Send;
 import Dal.LoginDao;
 import java.io.IOException;
 import java.sql.SQLException;

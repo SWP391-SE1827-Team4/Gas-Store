@@ -1,4 +1,4 @@
-package Model;
+package utils;
 
 import javax.mail.Message;
 import javax.mail.PasswordAuthentication;
