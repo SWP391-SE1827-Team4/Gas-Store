@@ -20,8 +20,8 @@
         <!--===============================================================================================-->
         <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
         <!--===============================================================================================-->
-        <link rel="stylesheet" type="text/css" href="css/util.css">
-        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/utilLogin.css">
+        <link rel="stylesheet" type="text/css" href="css/mainLogin.css">
         <!--===============================================================================================-->
     </head>
     <body>
@@ -77,10 +77,11 @@
                                 Forgot 
                             </span>
                             <a class="" href="fogotpassword.jsp">
-                                Username / Password ?
+                                Password ?
                             </a>
                         </div>
-
+                        <a href="https://accounts.google.com/o/oauth2/auth?scope=email&redirect_uri=http://localhost:8080/AccessGoogle/login-google&response_type=code
+                           &client_id=352140522561-vpmetjr6bjce1vod9b0cppihhbcgdesh.apps.googleusercontent.com&approval_prompt=force">Login With Google</a>
                         <div class="text-center p-t-136">
                             <a class="txt2" href="register.jsp">
                                 If you don't have a Account, Create One !!!
@@ -106,7 +107,7 @@
             })
         </script>
         <!--===============================================================================================-->
-        <script src="js/main.js"></script>
+        <script src="js/mainLogin.js"></script>
 
     </body>
 </html>

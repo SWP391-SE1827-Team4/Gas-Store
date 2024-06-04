@@ -10,8 +10,8 @@
         <link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
         <link rel="stylesheet" type="text/css" href="vendor/css-hamburgers/hamburgers.min.css">
         <link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-        <link rel="stylesheet" type="text/css" href="css/util.css">
-        <link rel="stylesheet" type="text/css" href="css/main.css">
+        <link rel="stylesheet" type="text/css" href="css/utilLogin.css">
+        <link rel="stylesheet" type="text/css" href="css/mainLogin.css">
     </head>
     <body>
         <div class="limiter">
@@ -103,6 +103,6 @@
                 scale: 1.1
             });
         </script>
-        <script src="js/main.js"></script>
+        <script src="js/mainLogin.js"></script>
     </body>
 </html>
