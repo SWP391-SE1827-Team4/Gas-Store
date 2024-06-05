@@ -36,7 +36,8 @@ public class ProfileController extends HttpServlet {
         User userFake = new UserDAO().getUserById(1);
 
         session.setAttribute("user", userFake);
-
+        request.setAttribute("menu", "general");
+        
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 
@@ -75,6 +76,7 @@ public class ProfileController extends HttpServlet {
         session.setAttribute("user", userOld);
 //        request.setAttribute("base64Image", base64Image);
         request.setAttribute("mess", "Save data successful");
+        request.setAttribute("menu", "general");
         request.getRequestDispatcher("profile.jsp").forward(request, response);
     }
 

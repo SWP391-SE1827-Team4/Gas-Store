@@ -27,6 +27,7 @@ public class ChangePasswordController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        request.setAttribute("menu", "pass");
         request.getRequestDispatcher("ChangePassword.jsp").forward(request, response);
     }
 
@@ -35,6 +36,7 @@ public class ChangePasswordController extends HttpServlet {
             throws ServletException, IOException {
         HttpSession session = request.getSession();
         User userOld = (User) session.getAttribute("user");
+        request.setAttribute("menu", "pass");
 
         String pass = request.getParameter("currentPassword");
         String newPassword = request.getParameter("newPassword");

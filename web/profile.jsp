@@ -21,22 +21,7 @@
             <form action="Profile" method="post" enctype="multipart/form-data">
                 <div class="card overflow-hidden">
                     <div class="row no-gutters row-bordered row-border-light">
-                        <div class="col-md-3 pt-0">
-                            <div class="list-group list-group-flush account-settings-links">
-                                <a class="list-group-item list-group-item-action active" 
-                                   href="#account-general">General</a>
-                                <a class="list-group-item list-group-item-action"  
-                                   href="changePassword">Change password</a>
-                                <!--                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                                                            href="#account-info">Info</a>-->
-                                <!--                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                                                            href="#account-social-links">Social links</a>
-                                                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                                                            href="#account-connections">Connections</a>
-                                                        <a class="list-group-item list-group-item-action" data-toggle="list"
-                                                            href="#account-notifications">Notifications</a>-->
-                            </div>
-                        </div>
+                        <%@include file="_subMenu.jsp" %>
                         <div class="col-md-9">
                             <div class="tab-content">
                                 <div class="tab-pane fade active show" id="account-general">
