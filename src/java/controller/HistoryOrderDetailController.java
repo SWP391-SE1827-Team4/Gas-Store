@@ -13,31 +13,30 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
 import model.Order;
 import model.OrderDetail;
-import model.User;
 
 /**
  *
  * @author DELL
  */
-@WebServlet(name = "HistoryOrderController", urlPatterns = {"/HistoryOrders"})
-public class HistoryOrderController extends HttpServlet {
+@WebServlet(name = "HistoryOrderDetailController", urlPatterns = {"/HistoryOrderDetail"})
+public class HistoryOrderDetailController extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-        User user = (User) session.getAttribute("user");
 
-        ArrayList<Order> orders = new OrderDAO().getOrders(user.getId());
-//        System.out.println(orders.size());
-        request.setAttribute("orders", orders);
+        int orderId = Integer.parseInt(request.getParameter("orderId"));
+       
+        Order order = new OrderDAO().getOrdersById(orderId);
+         
+        request.setAttribute("order", order);
         request.setAttribute("menu", "HistoryOrders");
+        
+        request.getRequestDispatcher("historyOrderDetail.jsp").forward(request, response);
 
-        request.getRequestDispatcher("historyOrders.jsp").forward(request, response);
     }
 
     /**
@@ -52,9 +51,6 @@ public class HistoryOrderController extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-        request.setAttribute("menu", "HistoryOrders");
-
-        request.getRequestDispatcher("historyOrders.jsp").forward(request, response);
     }
 
     /**

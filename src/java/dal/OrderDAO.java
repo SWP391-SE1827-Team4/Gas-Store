@@ -8,6 +8,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.util.ArrayList;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import model.Order;
@@ -66,19 +67,72 @@ public class OrderDAO extends DBContext {
         ResultSet rs = null;
         Order order = null;
         User user;
-        String sql = "select * from [order] where id = ?";
+         String sql = ""
+                + "SELECT [Order_ID]\n"
+                + "      ,[User_ID]\n"
+                + "      ,[Product_ID]\n"
+                + "      ,[Order_Status]\n"
+                + "  FROM [Orders]\n"
+                + "  WHERE Order_ID = " + orderId;
         try {
             stm = connection.prepareStatement(sql);
-            stm.setInt(1, orderId);
             rs = stm.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id"), user_id = rs.getInt("user_id");
-                user = (new UserDAO()).getUserById(user_id);
-                java.sql.Date created_date = rs.getDate("created_date");
+                order = new Order();
                 
-                order = new Order(id, created_date, user);
+                order.setId(rs.getInt("Order_ID"));
+                order.setUser(new UserDAO().getUserById(rs.getInt("User_ID")));
+                order.setOrderDetails(new OrderDetailDAO().getOrderDetailsByOrderId(rs.getInt("Order_ID")));
+                order.setStatus(rs.getString("Order_Status"));
             }
             return order;
+
+        } catch (SQLException ex) {
+            Logger.getLogger(OrderDAO.class
+                    .getName()).log(Level.SEVERE, null, ex);
+        } finally {
+            try {
+                stm.close();
+                rs.close();
+                connection.close();
+
+            } catch (SQLException ex) {
+                Logger.getLogger(OrderDAO.class
+                        .getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+        return null;
+    }
+    
+    public ArrayList<Order> getOrders(int userId) {
+        ArrayList<Order> orders = new ArrayList<>();
+
+        PreparedStatement stm = null;
+        ResultSet rs = null;
+        Order order = null;
+        User user;
+        String sql = ""
+                + "SELECT [Order_ID]\n"
+                + "      ,[User_ID]\n"
+                + "      ,[Product_ID]\n"
+                + "      ,[Order_Status]\n"
+                + "  FROM [Orders]\n"
+                + "  WHERE User_ID = " + userId;
+        try {
+            stm = connection.prepareStatement(sql);
+            rs = stm.executeQuery();
+            while (rs.next()) {
+                order = new Order();
+                
+                order.setId(rs.getInt("Order_ID"));
+                order.setUser(new UserDAO().getUserById(rs.getInt("User_ID")));
+                order.setOrderDetails(new OrderDetailDAO().getOrderDetailsByOrderId(rs.getInt("Order_ID")));
+                order.setStatus(rs.getString("Order_Status"));
+                    
+                if(order.getOrderDetails().size() != 0)
+                orders.add(order);
+            }
+            return orders;
 
         } catch (SQLException ex) {
             Logger.getLogger(OrderDAO.class

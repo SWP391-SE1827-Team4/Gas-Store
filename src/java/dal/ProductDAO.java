@@ -147,10 +147,10 @@ public class ProductDAO extends DBContext {
             if (!rs.next()) {
                 stm = connection.prepareStatement(sql);
                 stm.setInt(1, id);
-                
+
                 n = stm.executeUpdate();
             }
-            
+
         } catch (SQLException ex) {
             n = -1;
             Logger.getLogger(ProductDAO.class
@@ -171,18 +171,26 @@ public class ProductDAO extends DBContext {
         PreparedStatement stm = null;
         ResultSet rs = null;
         Product product = null;
-        String sql = "select * from [product] where id = ?";
+        String sql = ""
+                + "SELECT  [Product_ID]\n"
+                + "      ,[Category_ID]\n"
+                + "      ,[Product_Name]\n"
+                + "      ,[Product_Quantity]\n"
+                + "      ,[Product_Price]\n"
+                + "      ,[Product_Description]\n"
+                + "  FROM [Products]"
+                + " where Product_ID = ?";
         try {
             stm = connection.prepareStatement(sql);
             stm.setInt(1, productId);
             rs = stm.executeQuery();
             while (rs.next()) {
-                int id = rs.getInt("id"), quantity = rs.getInt("quantity"), brand_id = rs.getInt("brand_id");
-                String name = rs.getString("name"), description = rs.getString("description"), image_url = rs.getString("image_url");
-                double price = rs.getDouble("price");
-                Date release_date = rs.getDate("release_date");
-
-                product = new Product(id, quantity, brand_id, name, description, image_url, price, release_date);
+                product = new Product();
+                
+                product.setId(rs.getInt("Product_ID"));
+                product.setName(rs.getString("Product_Name"));
+                product.setDescription(rs.getString("Product_Description"));
+                product.setPrice(rs.getDouble("Product_Price"));
             }
             return product;
 

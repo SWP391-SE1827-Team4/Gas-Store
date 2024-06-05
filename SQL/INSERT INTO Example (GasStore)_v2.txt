@@ -1,0 +1,163 @@
+USE GasStore;
+GO
+
+-- Insert into Managers
+INSERT INTO Managers (Manager_Name, Manager_Email, Manager_Password, Manager_Address, Manager_PhoneNum, Manager_Gender, IsAdmin, IsStaff) VALUES
+(N'Nguyễn Văn A', N'nguyenvana@example.com', 'password123', N'123 Đường ABC, Quận 1, TP.HCM', N'0123456789', N'Nam', 1, 0),
+(N'Tran Thị B', N'tranthib@example.com', 'password456', N'456 Đường DEF, Quận 2, TP.HCM', N'0987654321', N'Nữ', 0, 1),
+(N'Lê Văn C', N'levanc@example.com', 'password789', N'789 Đường GHI, Quận 3, TP.HCM', N'0163847592', N'Nam', 1, 0),
+(N'Phạm Thị D', N'phamthid@example.com', 'password012', N'101 Đường JKL, Quận 4, TP.HCM', N'0192837465', N'Nữ', 0, 1),
+(N'Hoàng Văn E', N'hoangvane@example.com', 'password345', N'202 Đường MNO, Quận 5, TP.HCM', N'0234567890', N'Nam', 1, 0),
+(N'Đỗ Thị F', N'dothif@example.com', 'password678', N'303 Đường PQR, Quận 6, TP.HCM', N'0345678901', N'Nữ', 0, 1),
+(N'Vũ Văn G', N'vuvang@example.com', 'password901', N'404 Đường STU, Quận 7, TP.HCM', N'0456789012', N'Nam', 1, 0);
+
+-- Insert into Users
+INSERT INTO Users (User_Name, User_Password, User_Email, User_PhoneNum, User_Address, User_Gender, User_Image, User_Type) VALUES
+(N'Trần Văn H', 'password321', N'tranvanh@example.com', N'0567890123', N'505 Đường VWX, Quận 8, TP.HCM', N'Nam', N'link_image_h', N'Guest'),
+(N'Phạm Thị I', 'password654', N'phamthiI@example.com', N'0678901234', N'606 Đường YZA, Quận 9, TP.HCM', N'Nữ', N'link_image_i', N'Guest'),
+(N'Nguyễn Văn J', 'password987', N'nguyenvanj@example.com', N'0789012345', N'707 Đường BCD, Quận 10, TP.HCM', N'Nam', N'link_image_j', N'Guest'),
+(N'Lê Thị K', 'password210', N'lethik@example.com', N'0890123456', N'808 Đường EFG, Quận 11, TP.HCM', N'Nữ', N'link_image_k', N'Guest'),
+(N'Tran Văn L', 'password543', N'tranvanl@example.com', N'0901234567', N'909 Đường HIJ, Quận 12, TP.HCM', N'Nam', N'link_image_l', N'Guest'),
+(N'Phạm Thị M', 'password876', N'phamthim@example.com', N'0112345678', N'1010 Đường KLM, Quận Tân Bình, TP.HCM', N'Nữ', N'link_image_m', N'Guest'),
+(N'Nguyễn Văn N', 'password109', N'nguyenvann@example.com', N'0223456789', N'1111 Đường NOP, Quận Bình Thạnh, TP.HCM', N'Nam', N'link_image_n', N'Guest');
+
+-- Insert into Categories
+INSERT INTO Categories (Category_Name, Description) VALUES
+(N'Điện thoại', N'Sản phẩm điện thoại di động các loại'),
+(N'Máy tính bảng', N'Sản phẩm máy tính bảng các loại'),
+(N'Laptop', N'Sản phẩm laptop các loại'),
+(N'Tai nghe', N'Sản phẩm tai nghe các loại'),
+(N'Phụ kiện điện thoại', N'Sản phẩm phụ kiện cho điện thoại'),
+(N'Phụ kiện máy tính', N'Sản phẩm phụ kiện cho máy tính'),
+(N'Thiết bị mạng', N'Sản phẩm thiết bị mạng các loại');
+
+-- Insert into Products
+INSERT INTO Products (Category_ID, Product_Name, Product_Quantity, Product_Price, Product_Description) VALUES
+(1, N'iPhone 13', 100, 25000000, N'Điện thoại iPhone 13 của Apple'),
+(1, N'Samsung Galaxy S21', 150, 20000000, N'Điện thoại Samsung Galaxy S21'),
+(2, N'iPad Pro', 80, 30000000, N'Máy tính bảng iPad Pro của Apple'),
+(2, N'Samsung Galaxy Tab S7', 90, 15000000, N'Máy tính bảng Samsung Galaxy Tab S7'),
+(3, N'MacBook Pro', 50, 45000000, N'Laptop MacBook Pro của Apple'),
+(3, N'Dell XPS 13', 60, 35000000, N'Laptop Dell XPS 13'),
+(4, N'Tai nghe AirPods Pro', 200, 5000000, N'Tai nghe không dây AirPods Pro của Apple');
+
+-- Insert into Product_Details
+INSERT INTO Product_Details (Product_ID, Serial_Number, Warranty_Start_Date, Warranty_End_Date, Warranty_Description) VALUES
+(1, N'SN123456', '2023-01-01', '2024-01-01', N'Bảo hành 1 năm'),
+(2, N'SN234567', '2023-02-01', '2024-02-01', N'Bảo hành 1 năm'),
+(3, N'SN345678', '2023-03-01', '2025-03-01', N'Bảo hành 2 năm'),
+(4, N'SN456789', '2023-04-01', '2025-04-01', N'Bảo hành 2 năm'),
+(5, N'SN567890', '2023-05-01', '2024-05-01', N'Bảo hành 1 năm'),
+(6, N'SN678901', '2023-06-01', '2024-06-01', N'Bảo hành 1 năm'),
+(7, N'SN789012', '2023-07-01', '2024-07-01', N'Bảo hành 1 năm');
+
+-- Insert into Orders
+INSERT INTO Orders (User_ID, Product_ID, Order_Status) VALUES
+(1, 1, N'Đã giao'),
+(2, 2, N'Đang xử lý'),
+(3, 3, N'Đã hủy'),
+(4, 4, N'Đã giao'),
+(5, 5, N'Đang xử lý'),
+(6, 6, N'Đã hủy'),
+(7, 7, N'Đã giao');
+
+-- Insert into Order_Details
+INSERT INTO Order_Details (Order_ID, Product_ID, Order_Quantity, OrderDetail_Status, Total_Amount_Paid, Payment_Completion_Date, Payment_Method) VALUES
+(1, 1, 2, N'Đã thanh toán', 50000000, '2023-01-10', N'Thẻ tín dụng'),
+(2, 2, 1, N'Chưa thanh toán', 20000000, NULL, N'Tiền mặt'),
+(3, 3, 1, N'Đã hủy', 0, NULL, N'Chuyển khoản'),
+(4, 4, 3, N'Đã thanh toán', 45000000, '2023-02-20', N'Thẻ tín dụng'),
+(5, 5, 1, N'Chưa thanh toán', 35000000, NULL, N'Tiền mặt'),
+(6, 6, 1, N'Đã hủy', 0, NULL, N'Chuyển khoản'),
+(7, 7, 2, N'Đã thanh toán', 10000000, '2023-03-15', N'Thẻ tín dụng');
+
+-- Insert into Discounts
+INSERT INTO Discounts (Discount_Name, Discount_Code, Discount_Percent, Discount_Description, Discount_Start, Discount_End) VALUES
+(N'Giảm giá 10%', N'GIA10', 10, N'Giảm giá 10% cho tất cả sản phẩm', '2023-01-01', '2023-12-31'),
+(N'Giảm giá 20%', N'GIA20', 20, N'Giảm giá 20% cho sản phẩm điện thoại', '2023-01-01', '2023-12-31'),
+(N'Giảm giá 15%', N'GIA15', 15, N'Giảm giá 15% cho sản phẩm laptop', '2023-01-01', '2023-12-31'),
+(N'Giảm giá 25%', N'GIA25', 25, N'Giảm giá 25% cho sản phẩm máy tính bảng', '2023-01-01', '2023-12-31'),
+(N'Giảm giá 5%', N'GIA5', 5, N'Giảm giá 5% cho tất cả sản phẩm', '2023-01-01', '2023-12-31'),
+(N'Giảm giá 30%', N'GIA30', 30, N'Giảm giá 30% cho sản phẩm tai nghe', '2023-01-01', '2023-12-31'),
+(N'Giảm giá 50%', N'GIA50', 50, N'Giảm giá 50% cho sản phẩm phụ kiện', '2023-01-01', '2023-12-31');
+
+-- Insert into Order_Discounts
+INSERT INTO Order_Discounts (Order_ID, Discount_ID) VALUES
+(1, 1),
+(2, 2),
+(3, 3),
+(4, 4),
+(5, 5),
+(6, 6),
+(7, 7);
+
+-- Insert into UserWarranty
+INSERT INTO UserWarranty (OrderDetail_ID, Product_Detail_ID, Image, Description, Maintenance_Status, Maintenance_StartDate, Maintenance_EndDate, Maintenance_Fee, Manager_ID) VALUES
+(1, 1, N'link_image_uw1', N'Bảo hành lần 1', N'Hoàn thành', '2023-01-15', '2023-01-30', 0, 1),
+(2, 2, N'link_image_uw2', N'Bảo hành lần 2', N'Đang xử lý', '2023-02-20', NULL, 200000, 2),
+(3, 3, N'link_image_uw3', N'Bảo hành lần 3', N'Hoàn thành', '2023-03-10', '2023-03-25', 0, 3),
+(4, 4, N'link_image_uw4', N'Bảo hành lần 4', N'Đang xử lý', '2023-04-15', NULL, 300000, 4),
+(5, 5, N'link_image_uw5', N'Bảo hành lần 5', N'Hoàn thành', '2023-05-20', '2023-06-10', 0, 5),
+(6, 6, N'link_image_uw6', N'Bảo hành lần 6', N'Đang xử lý', '2023-06-15', NULL, 500000, 6),
+(7, 7, N'link_image_uw7', N'Bảo hành lần 7', N'Hoàn thành', '2023-07-20', '2023-08-05', 0, 7);
+
+-- Insert into Shipping
+INSERT INTO Shipping (Manager_ID, OrderDetail_ID, Shipping_Status, Shipping_Cost, Shipping_Date) VALUES
+(1, 1, N'Đã giao', 500000, '2023-01-12'),
+(2, 2, N'Đang vận chuyển', 200000, '2023-02-18'),
+(3, 3, N'Đã hủy', 0, NULL),
+(4, 4, N'Đã giao', 300000, '2023-03-22'),
+(5, 5, N'Đang vận chuyển', 400000, '2023-04-18'),
+(6, 6, N'Đã hủy', 0, NULL),
+(7, 7, N'Đã giao', 250000, '2023-05-22');
+
+-- Insert into Image_Product
+INSERT INTO Image_Product (Product_ID, Image_URL) VALUES
+(1, N'link_image_p1'),
+(2, N'link_image_p2'),
+(3, N'link_image_p3'),
+(4, N'link_image_p4'),
+(5, N'link_image_p5'),
+(6, N'link_image_p6'),
+(7, N'link_image_p7');
+
+-- Insert into Ads_Notifications
+INSERT INTO Ads_Notifications (Ads_Title, Ads_Content, Target_User_Type, User_ID, Sent_Date, Sent_Via) VALUES
+(N'Khuyến mãi tháng 1', N'Giảm giá 10% cho tất cả sản phẩm trong tháng 1', N'Guest', 1, '2023-01-01', N'Email'),
+(N'Khuyến mãi tháng 2', N'Giảm giá 20% cho sản phẩm điện thoại trong tháng 2', N'Customer_InUse', 2, '2023-02-01', N'SMS'),
+(N'Khuyến mãi tháng 3', N'Giảm giá 15% cho sản phẩm laptop trong tháng 3', N'Customer_Used', 3, '2023-03-01', N'Email'),
+(N'Khuyến mãi tháng 4', N'Giảm giá 25% cho sản phẩm máy tính bảng trong tháng 4', N'Guest', 4, '2023-04-01', N'SMS'),
+(N'Khuyến mãi tháng 5', N'Giảm giá 5% cho tất cả sản phẩm trong tháng 5', N'Customer_InUse', 5, '2023-05-01', N'Email'),
+(N'Khuyến mãi tháng 6', N'Giảm giá 30% cho sản phẩm tai nghe trong tháng 6', N'Customer_Used', 6, '2023-06-01', N'SMS'),
+(N'Khuyến mãi tháng 7', N'Giảm giá 50% cho sản phẩm phụ kiện trong tháng 7', N'Guest', 7, '2023-07-01', N'Email');
+
+-- Insert into User_Ads_Notifications
+INSERT INTO User_Ads_Notifications (Ads_ID, Sent_Date, Sent_Via) VALUES
+(1, '2023-01-01', N'Email'),
+(2, '2023-02-01', N'SMS'),
+(3, '2023-03-01', N'Email'),
+(4, '2023-04-01', N'SMS'),
+(5, '2023-05-01', N'Email'),
+(6, '2023-06-01', N'SMS'),
+(7, '2023-07-01', N'Email');
+
+-- Insert into StoreInfo
+INSERT INTO StoreInfo (Store_Name, Store_Address, Store_Phone, Store_Email, Store_Website, Store_Fanpage) VALUES
+(N'Cửa hàng ABC', N'123 Đường XYZ, Quận 1, TP.HCM', N'0123456789', N'contact@cuahangabc.com', N'www.cuahangabc.com', N'facebook.com/cuahangabc'),
+(N'Cửa hàng DEF', N'456 Đường LMN, Quận 2, TP.HCM', N'0987654321', N'contact@cuahangdef.com', N'www.cuahangdef.com', N'facebook.com/cuahangdef'),
+(N'Cửa hàng GHI', N'789 Đường OPQ, Quận 3, TP.HCM', N'0163847592', N'contact@cuahangghi.com', N'www.cuahangghi.com', N'facebook.com/cuahangghi'),
+(N'Cửa hàng JKL', N'101 Đường RST, Quận 4, TP.HCM', N'0192837465', N'contact@cuahangjkl.com', N'www.cuahangjkl.com', N'facebook.com/cuahangjkl'),
+(N'Cửa hàng MNO', N'202 Đường UVW, Quận 5, TP.HCM', N'0234567890', N'contact@cuahangmno.com', N'www.cuahangmno.com', N'facebook.com/cuahangmno'),
+(N'Cửa hàng PQR', N'303 Đường XYZ, Quận 6, TP.HCM', N'0345678901', N'contact@cuahangpqr.com', N'www.cuahangpqr.com', N'facebook.com/cuahangpqr'),
+(N'Cửa hàng STU', N'404 Đường LMN, Quận 7, TP.HCM', N'0456789012', N'contact@cuahangstu.com', N'www.cuahangstu.com', N'facebook.com/cuahangstu');
+
+-- Insert into Web_Images
+INSERT INTO Web_Images (Image_Name, Image_Type, Image_Description, Image_URL) VALUES
+(N'Banner 1', N'Banner', N'Banner quảng cáo 1', N'link_banner1'),
+(N'Banner 2', N'Banner', N'Banner quảng cáo 2', N'link_banner2'),
+(N'Ads 1', N'Ads', N'Quảng cáo sản phẩm 1', N'link_ads1'),
+(N'Ads 2', N'Ads', N'Quảng cáo sản phẩm 2', N'link_ads2'),
+(N'Image 1', N'Image', N'Hình ảnh sản phẩm 1', N'link_image1'),
+(N'Image 2', N'Image', N'Hình ảnh sản phẩm 2', N'link_image2'),
+(N'Image 3', N'Image', N'Hình ảnh sản phẩm 3', N'link_image3');
+

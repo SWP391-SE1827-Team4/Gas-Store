@@ -362,7 +362,6 @@ public class UserDAO extends DBContext {
                 + "      ,[User_PhoneNum] =  ?\n"
                 + "      ,[User_Address] = ?\n"
                 + "      ,[User_Image] = ?"
-                + "      ,[Updated_At] = getdate()\n"
                 + " WHERE User_ID = ?";
         try {
             stm = connection.prepareStatement(sql);
@@ -395,7 +394,6 @@ public class UserDAO extends DBContext {
         String sql = ""
                 + "UPDATE [dbo].[Users]\n"
                 + "   SET [User_Password] = HASHBYTES('SHA2_256', ?)\n"
-                + "      ,[Updated_At] = getdate()\n"
                 + " WHERE User_ID = ?";
         try {
             stm = connection.prepareStatement(sql);

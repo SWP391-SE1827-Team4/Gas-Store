@@ -11,6 +11,8 @@ import java.sql.Date;
  * @author Van Minh Tuan
  */
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -32,10 +34,28 @@ public class Order {
     private Date created_date;
     private User user;
 
+    private List<OrderDetail> orderDetails = new ArrayList<>();
+    private String status;
+    
     //contructor 
     public Order(Date created_date, User user) {
         this.created_date = created_date;
         this.user = user;
     }
-    
+
+    public Order(int id, Date created_date, User user) {
+        this.id = id;
+        this.created_date = created_date;
+        this.user = user;
+    }
+
+    public int getTotalPrice() {
+        int total = 0;
+
+        for (OrderDetail orderDetail : orderDetails) {
+            total += orderDetail.getPrice();
+        }
+        return total;
+    }
+
 }
