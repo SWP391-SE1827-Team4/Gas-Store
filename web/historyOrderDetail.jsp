@@ -16,53 +16,55 @@
             <h4 class="font-weight-bold py-3 mb-4">
                 Account settings
             </h4>   
-            <form action="Profile" method="post" enctype="multipart/form-data">
-                <div class="card overflow-hidden">
-                    <div class="row no-gutters row-bordered row-border-light">
-                        <%@include file="_subMenu.jsp" %>
-                        <div class="col-md-9">
-                            <div class="tab-content">
-                                <h2>Order Detail</h2>
-                                <div class="tab-pane fade active show" id="account-general">
-                                    <!--${sessionScope.user.image}-->
+            <div class="card overflow-hidden">
+                <div class="row no-gutters row-bordered row-border-light">
+                    <%@include file="_subMenu.jsp" %>
+                    <div class="col-md-9">
+                        <div class="tab-content">
+                            <h2>Order Detail</h2>
+                            <div class="tab-pane fade active show" id="account-general">
+                                <!--${sessionScope.user.image}-->
 
-                                    <hr class="border-light m-0">
-                                    <div class="card-body">
-                                        <div class="row"> 
-                                            <div class="col-md-12">
-                                                <div class="mb-3"  >
-                                                    <c:forEach var="itemSub" items="${order.getOrderDetails()}">
-                                                        <div class="row g-0 p-2">
-                                                            <div class="col-md-2"> 
-                                                                <img
-                                                                    class="img-fluid rounded-start imageSize" alt="Img not found"
-                                                                    src="${itemSub.getProduct().getImage_url()}"
-                                                                    >
-                                                            </div>
-                                                            <div class="col-md-10">
-                                                                <div class="card-body">
-                                                                    <h5 class="card-title">
-                                                                        <a><a href="#">${itemSub.getProduct().getName()}</a>
-                                                                    </h5>
-                                                                    <p class="card-text">${itemSub.getProduct().getDescription()}</p>
+                                <hr class="border-light m-0">
+                                <div class="card-body">
+                                    <div class="row"> 
+                                        <div class="col-md-12">
+                                            <div class="mb-3"  >
+                                                <c:forEach var="itemSub" items="${order.getOrderDetails()}">
+                                                    <div class="row g-0 p-2">
+                                                        <div class="col-md-2"> 
+                                                            <img
+                                                                class="img-fluid rounded-start imageSize" alt="Img not found"
+                                                                src="${itemSub.getProduct().getImage_url()}"
+                                                                >
+                                                        </div>
+                                                        <div class="col-md-10">
+                                                            <div class="card-body">
+                                                                <h5 class="card-title">
+                                                                    <a><a href="#">${itemSub.getProduct().getName()}</a>
+                                                                </h5>
+                                                                <p class="card-text">${itemSub.getProduct().getDescription()}</p>
 
-                                                                    <p class="card-text">Price: <fmt:formatNumber value="${itemSub.getProduct().getPrice()}" type="currency" currencySymbol="&#8363;" /></p>
+                                                                <p class="card-text">Price: <fmt:formatNumber value="${itemSub.getProduct().getPrice()}" type="currency" currencySymbol="&#8363;" /></p>
 
-                                                                    <p class="card-text">x${itemSub.getProduct_quantity()}</p>
-                                                                </div>
+                                                                <p class="card-text">Quantity: x${itemSub.getProduct_quantity()}</p>
+
+                                                                <p class="card-text">Payment: ${itemSub.getPaymentMethod()}</p>
+
+                                                                <p class="card-text">Total amount <fmt:formatNumber value="${itemSub.getPrice()}" type="currency" currencySymbol="&#8363;" /></p>
                                                             </div>
                                                         </div>
-                                                    </c:forEach>
+                                                    </div>
+                                                </c:forEach>
 
-                                                    <div class="row p-lg-1"> 
-                                                        <div class="col-md-8 offset-md-3"> 
-                                                            <div class="d-flex justify-content-between align-items-center">
-                                                                <div></div>
-                                                                <div class="text-right">
-                                                                    <div class="text-dark font-weight-bold price-label">&#9829; Status: ${order.getStatus()} </div>
-                                                                    <div class="text-danger font-weight-bold price-label">&#9829; Payment: <fmt:formatNumber value="${order.getTotalPrice()}" type="currency" currencySymbol="&#8363;" /> </div>
-                                                                </div> 
-                                                            </div>
+                                                <div class="row p-lg-1"> 
+                                                    <div class="col-md-8 offset-md-3"> 
+                                                        <div class="d-flex justify-content-between align-items-center">
+                                                            <div></div>
+                                                            <div class="text-right">
+                                                                <div class="text-dark font-weight-bold price-label">&#9829; Status: ${order.getStatus()} </div>
+                                                                <div class="text-danger font-weight-bold price-label">&#9829; Payment: <fmt:formatNumber value="${order.getTotalPrice()}" type="currency" currencySymbol="&#8363;" /> </div>
+                                                            </div> 
                                                         </div>
                                                     </div>
                                                 </div>
@@ -70,15 +72,12 @@
                                         </div>
                                     </div>
                                 </div>
-
                             </div>
+
                         </div>
                     </div>
                 </div>
-                <div class="text-right mt-3">
-                    <button type="submit" class="btn btn-primary">Save changes</button>&nbsp;
-                </div>
-            </form>
+            </div>
 
         </div>
         <script data-cfasync="false" src="/cdn-cgi/scripts/5c5dd728/cloudflare-static/email-decode.min.js"></script>
